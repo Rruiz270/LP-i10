@@ -4,7 +4,7 @@
   "nome": "Álvaro de Carvalho",
   "uf": "SP",
   "mat": "345",
-  "rank": 36,
+  "rank": 37,
   "ntot": 51,
   "mega": "R$ 1,6M",
   "pct": "+53,7%",
@@ -44,11 +44,11 @@
   "ibge": 3501509,
   "nome": "Alvinlândia",
   "uf": "SP",
-  "mat": "402",
-  "rank": 41,
+  "mat": "406",
+  "rank": 35,
   "ntot": 51,
-  "mega": "R$ 1,3M",
-  "pct": "+38,5%",
+  "mega": "R$ 1,7M",
+  "pct": "+52,2%",
   "rec": "R$ 3,6M",
   "bncc": "R$ 145K",
   "vaar": true,
@@ -57,7 +57,7 @@
   "alavancas": [
    {
     "l": "Tempo Integral",
-    "v": "R$ 552K"
+    "v": "R$ 790K"
    },
    {
     "l": "Complementação VAAR",
@@ -69,15 +69,15 @@
    },
    {
     "l": "Reclass. Localidade",
-    "v": "R$ 107K"
+    "v": "R$ 113K"
    },
    {
     "l": "AEE Dupla Matrícula",
-    "v": "R$ 125K"
+    "v": "R$ 101K"
    },
    {
     "l": "VAAF Expansão",
-    "v": "R$ 501K"
+    "v": "R$ 739K"
    }
   ]
  },
@@ -127,7 +127,7 @@
   "nome": "Bastos",
   "uf": "SP",
   "mat": "2.198",
-  "rank": 7,
+  "rank": 8,
   "ntot": 51,
   "mega": "R$ 7,7M",
   "pct": "+42,7%",
@@ -208,11 +208,11 @@
   "ibge": 3507209,
   "nome": "Borá",
   "uf": "SP",
-  "mat": "123",
-  "rank": 43,
+  "mat": "103",
+  "rank": 42,
   "ntot": 51,
   "mega": "R$ 1,2M",
-  "pct": "+161,6%",
+  "pct": "+159,0%",
   "rec": "R$ 768K",
   "bncc": "R$ 31K",
   "vaar": false,
@@ -221,11 +221,11 @@
   "alavancas": [
    {
     "l": "Tempo Integral",
-    "v": "R$ 260K"
+    "v": "R$ 247K"
    },
    {
     "l": "Complementação VAAR",
-    "v": "R$ 87K"
+    "v": "R$ 73K"
    },
    {
     "l": "EC 135 / BNCC Computação",
@@ -233,15 +233,15 @@
    },
    {
     "l": "Reclass. Localidade",
-    "v": "R$ 30K"
+    "v": "R$ 27K"
    },
    {
     "l": "AEE Dupla Matrícula",
-    "v": "R$ 17K"
+    "v": "R$ 37K"
    },
    {
     "l": "VAAF Expansão",
-    "v": "R$ 847K"
+    "v": "R$ 837K"
    }
   ]
  },
@@ -250,7 +250,7 @@
   "nome": "Campos Novos Paulista",
   "uf": "SP",
   "mat": "612",
-  "rank": 23,
+  "rank": 24,
   "ntot": 51,
   "mega": "R$ 2,6M",
   "pct": "+54,4%",
@@ -290,11 +290,11 @@
   "ibge": 3510005,
   "nome": "Cândido Mota",
   "uf": "SP",
-  "mat": "2.646",
-  "rank": 8,
+  "mat": "2.477",
+  "rank": 6,
   "ntot": 51,
-  "mega": "R$ 7,4M",
-  "pct": "+34,8%",
+  "mega": "R$ 8,6M",
+  "pct": "+40,6%",
   "rec": "R$ 21,3M",
   "bncc": "R$ 851K",
   "vaar": false,
@@ -307,7 +307,7 @@
    },
    {
     "l": "Complementação VAAR",
-    "v": "R$ 1,9M"
+    "v": "R$ 1,8M"
    },
    {
     "l": "EC 135 / BNCC Computação",
@@ -315,15 +315,15 @@
    },
    {
     "l": "Reclass. Localidade",
-    "v": "R$ 679K"
+    "v": "R$ 702K"
    },
    {
     "l": "AEE Dupla Matrícula",
-    "v": "R$ 643K"
+    "v": "R$ 1,6M"
    },
    {
     "l": "VAAF Expansão",
-    "v": "R$ 224K"
+    "v": "R$ 578K"
    }
   ]
  },
@@ -414,7 +414,7 @@
   "nome": "Echaporã",
   "uf": "SP",
   "mat": "730",
-  "rank": 24,
+  "rank": 25,
   "ntot": 51,
   "mega": "R$ 2,6M",
   "pct": "+43,6%",
@@ -454,11 +454,11 @@
   "ibge": 3515194,
   "nome": "Espírito Santo do Turvo",
   "uf": "SP",
-  "mat": "595",
-  "rank": 40,
+  "mat": "576",
+  "rank": 44,
   "ntot": 51,
-  "mega": "R$ 1,4M",
-  "pct": "+23,8%",
+  "mega": "R$ 1,1M",
+  "pct": "+18,7%",
   "rec": "R$ 6,2M",
   "bncc": "R$ 248K",
   "vaar": true,
@@ -467,7 +467,7 @@
   "alavancas": [
    {
     "l": "Tempo Integral",
-    "v": "R$ 573K"
+    "v": "R$ 62K"
    },
    {
     "l": "Complementação VAAR",
@@ -479,15 +479,15 @@
    },
    {
     "l": "Reclass. Localidade",
-    "v": "R$ 168K"
+    "v": "R$ 197K"
    },
    {
     "l": "AEE Dupla Matrícula",
-    "v": "R$ 125K"
+    "v": "R$ 82K"
    },
    {
     "l": "VAAF Expansão",
-    "v": "R$ 501K"
+    "v": "R$ 732K"
    }
   ]
  },
@@ -577,11 +577,11 @@
   "ibge": 3516606,
   "nome": "Gália",
   "uf": "SP",
-  "mat": "609",
+  "mat": "573",
   "rank": 26,
   "ntot": 51,
-  "mega": "R$ 2,4M",
-  "pct": "+53,1%",
+  "mega": "R$ 2,5M",
+  "pct": "+56,1%",
   "rec": "R$ 4,5M",
   "bncc": "R$ 181K",
   "vaar": false,
@@ -594,7 +594,7 @@
    },
    {
     "l": "Complementação VAAR",
-    "v": "R$ 433K"
+    "v": "R$ 407K"
    },
    {
     "l": "EC 135 / BNCC Computação",
@@ -602,15 +602,15 @@
    },
    {
     "l": "Reclass. Localidade",
-    "v": "R$ 151K"
+    "v": "R$ 155K"
    },
    {
     "l": "AEE Dupla Matrícula",
-    "v": "R$ 58K"
+    "v": "R$ 101K"
    },
    {
     "l": "VAAF Expansão",
-    "v": "R$ 593K"
+    "v": "R$ 657K"
    }
   ]
  },
@@ -659,11 +659,11 @@
   "ibge": 3519006,
   "nome": "Herculândia",
   "uf": "SP",
-  "mat": "905",
-  "rank": 27,
+  "mat": "893",
+  "rank": 23,
   "ntot": 51,
-  "mega": "R$ 2,3M",
-  "pct": "+30,9%",
+  "mega": "R$ 2,8M",
+  "pct": "+36,6%",
   "rec": "R$ 7,8M",
   "bncc": "R$ 314K",
   "vaar": true,
@@ -672,7 +672,7 @@
   "alavancas": [
    {
     "l": "Tempo Integral",
-    "v": "R$ 1,4M"
+    "v": "R$ 1,5M"
    },
    {
     "l": "Complementação VAAR",
@@ -684,15 +684,15 @@
    },
    {
     "l": "Reclass. Localidade",
-    "v": "R$ 236K"
+    "v": "R$ 256K"
    },
    {
     "l": "AEE Dupla Matrícula",
-    "v": "R$ 150K"
+    "v": "R$ 82K"
    },
    {
     "l": "VAAF Expansão",
-    "v": "R$ 528K"
+    "v": "R$ 905K"
    }
   ]
  },
@@ -701,7 +701,7 @@
   "nome": "Iacri",
   "uf": "SP",
   "mat": "340",
-  "rank": 37,
+  "rank": 39,
   "ntot": 51,
   "mega": "R$ 1,6M",
   "pct": "+54,0%",
@@ -742,7 +742,7 @@
   "nome": "Ibirarema",
   "uf": "SP",
   "mat": "687",
-  "rank": 25,
+  "rank": 27,
   "ntot": 51,
   "mega": "R$ 2,5M",
   "pct": "+44,9%",
@@ -783,7 +783,7 @@
   "nome": "Ipaussu",
   "uf": "SP",
   "mat": "2.110",
-  "rank": 6,
+  "rank": 7,
   "ntot": 51,
   "mega": "R$ 8,0M",
   "pct": "+48,0%",
@@ -823,11 +823,11 @@
   "ibge": 3525607,
   "nome": "João Ramalho",
   "uf": "SP",
-  "mat": "549",
-  "rank": 29,
+  "mat": "516",
+  "rank": 30,
   "ntot": 51,
   "mega": "R$ 2,2M",
-  "pct": "+53,9%",
+  "pct": "+53,6%",
   "rec": "R$ 4,1M",
   "bncc": "R$ 165K",
   "vaar": false,
@@ -836,11 +836,11 @@
   "alavancas": [
    {
     "l": "Tempo Integral",
-    "v": "R$ 1,1M"
+    "v": "R$ 1,0M"
    },
    {
     "l": "Complementação VAAR",
-    "v": "R$ 390K"
+    "v": "R$ 366K"
    },
    {
     "l": "EC 135 / BNCC Computação",
@@ -848,15 +848,15 @@
    },
    {
     "l": "Reclass. Localidade",
-    "v": "R$ 136K"
+    "v": "R$ 142K"
    },
    {
     "l": "AEE Dupla Matrícula",
-    "v": "R$ 134K"
+    "v": "R$ 110K"
    },
    {
     "l": "VAAF Expansão",
-    "v": "R$ 510K"
+    "v": "R$ 559K"
    }
   ]
  },
@@ -906,7 +906,7 @@
   "nome": "Lupércio",
   "uf": "SP",
   "mat": "466",
-  "rank": 33,
+  "rank": 34,
   "ntot": 51,
   "mega": "R$ 1,9M",
   "pct": "+50,2%",
@@ -1070,7 +1070,7 @@
   "nome": "Ocauçu",
   "uf": "SP",
   "mat": "524",
-  "rank": 39,
+  "rank": 40,
   "ntot": 51,
   "mega": "R$ 1,5M",
   "pct": "+33,6%",
@@ -1152,7 +1152,7 @@
   "nome": "Oriente",
   "uf": "SP",
   "mat": "550",
-  "rank": 44,
+  "rank": 45,
   "ntot": 51,
   "mega": "R$ 1,1M",
   "pct": "+19,7%",
@@ -1439,7 +1439,7 @@
   "nome": "Platina",
   "uf": "SP",
   "mat": "382",
-  "rank": 45,
+  "rank": 43,
   "ntot": 51,
   "mega": "R$ 1,1M",
   "pct": "+33,2%",
@@ -1603,7 +1603,7 @@
   "nome": "Quintana",
   "uf": "SP",
   "mat": "830",
-  "rank": 35,
+  "rank": 36,
   "ntot": 51,
   "mega": "R$ 1,7M",
   "pct": "+20,4%",
@@ -1644,7 +1644,7 @@
   "nome": "Ribeirão do Sul",
   "uf": "SP",
   "mat": "474",
-  "rank": 30,
+  "rank": 29,
   "ntot": 51,
   "mega": "R$ 2,2M",
   "pct": "+60,1%",
@@ -1685,7 +1685,7 @@
   "nome": "Rinópolis",
   "uf": "SP",
   "mat": "462",
-  "rank": 34,
+  "rank": 33,
   "ntot": 51,
   "mega": "R$ 1,9M",
   "pct": "+48,3%",
@@ -1890,7 +1890,7 @@
   "nome": "Timburi",
   "uf": "SP",
   "mat": "264",
-  "rank": 42,
+  "rank": 41,
   "ntot": 51,
   "mega": "R$ 1,3M",
   "pct": "+59,2%",
