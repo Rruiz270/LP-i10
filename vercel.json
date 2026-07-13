@@ -19,6 +19,14 @@
       "destination": "https://better-control.vercel.app/better-control/:path*"
     },
     {
+      "source": "/licita360",
+      "destination": "https://i10-licitacoes-360.vercel.app/licita360"
+    },
+    {
+      "source": "/licita360/:path*",
+      "destination": "https://i10-licitacoes-360.vercel.app/licita360/:path*"
+    },
+    {
       "source": "/better-financeiro/",
       "destination": "https://financeiro-better.vercel.app/"
     },
