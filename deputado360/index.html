@@ -1,0 +1,1565 @@
+<title>Mapa Operacional — Deputado 360 · Instituto i10</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --navy: #0A2463;
+  --navy-deep: #061840;
+  --cyan: #00B4D8;
+  --cyan-light: #E8F8FB;
+  --mint: #00E5A0;
+  --mint-light: #E6FBF3;
+  --grad-main: linear-gradient(135deg, #0A2463, #00B4D8);
+  --grad-accent: linear-gradient(90deg, #00B4D8, #00E5A0);
+  --grad-dark: linear-gradient(135deg, #061840, #0A2463);
+  --white: #FFFFFF;
+  --bg: #F7F8FA;
+  --border: #E2E6ED;
+  --text: #1A2233;
+  --text-secondary: #5A6577;
+  --text-muted: #8B95A5;
+  --red: #E74C3C;
+  --red-bg: #FEF0EE;
+  --green: #0DAB61;
+  --green-bg: #EDFAF2;
+  --amber: #E6A817;
+  --amber-bg: #FEF9E7;
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+/* ── i10 HEADER ── */
+.i10-header {
+  background: var(--grad-dark);
+  padding: 0;
+  position: relative;
+}
+.i10-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.i10-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.i10-logo svg { height: 32px; width: auto; }
+.i10-logo-text {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+.i10-logo-text span { color: var(--cyan); }
+.i10-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: var(--mint);
+  color: var(--navy);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+
+.header-body {
+  padding: 2.5rem 2rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mint);
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+.header-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.header-sub {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 72ch;
+  line-height: 1.6;
+}
+.header-tags {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.header-tag {
+  font-size: 0.62rem;
+  font-weight: 500;
+  background: rgba(0,180,216,0.12);
+  border: 1px solid rgba(0,180,216,0.25);
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+  color: var(--cyan);
+  font-family: "SF Mono", "Cascadia Code", Menlo, monospace;
+  letter-spacing: 0.02em;
+}
+.header-gradient-bar {
+  height: 3px;
+  background: var(--grad-accent);
+}
+
+/* ── NAV ── */
+.nav-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  padding: 0 2rem;
+  overflow-x: auto;
+}
+.nav-tab {
+  padding: 0.85rem 1.1rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  background: none;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+.nav-tab:hover { color: var(--navy); }
+.nav-tab.active {
+  color: var(--navy);
+  border-bottom-color: var(--cyan);
+}
+
+/* ── CONTENT ── */
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 3rem;
+}
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── SECTION INTRO ── */
+.section-intro {
+  margin-bottom: 1.8rem;
+  max-width: 70ch;
+}
+.section-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 0.2rem;
+}
+.section-title-bar {
+  width: 40px;
+  height: 3px;
+  background: var(--grad-accent);
+  border-radius: 2px;
+  margin: 0.6rem 0;
+}
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── ORG CHART ── */
+.org-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 1.2rem;
+  min-height: 72vh;
+}
+@media (max-width: 920px) {
+  .org-layout { grid-template-columns: 1fr; }
+}
+
+.org-tree {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 80vh;
+  position: sticky;
+  top: 56px;
+}
+.tree-group-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin: 1.1rem 0 0.35rem 0.5rem;
+}
+.tree-group-label:first-child { margin-top: 0.3rem; }
+
+.tree-node {
+  padding: 0.5rem 0.65rem;
+  font-size: 0.77rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-bottom: 1px;
+  transition: background 0.12s;
+  border-left: 3px solid transparent;
+  line-height: 1.35;
+  color: var(--text);
+}
+.tree-node:hover { background: var(--cyan-light); }
+.tree-node.active {
+  background: var(--cyan-light);
+  border-left-color: var(--cyan);
+  font-weight: 700;
+  color: var(--navy);
+}
+.tree-node.indent-1 { margin-left: 1rem; }
+.tree-node.indent-2 { margin-left: 2rem; font-size: 0.73rem; }
+.tree-node .node-badge {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 1px;
+  font-weight: 400;
+}
+
+/* ── DETAIL PANEL ── */
+.detail-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem 2rem;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+.detail-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+  gap: 0.8rem;
+}
+.detail-empty svg { opacity: 0.3; }
+.detail-unit-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin-bottom: 0.2rem;
+}
+.detail-parent-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 1.3rem;
+}
+
+.detail-block {
+  margin-bottom: 1.6rem;
+}
+.detail-block-head {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+.detail-block p {
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.doc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+@media (max-width: 700px) { .doc-grid { grid-template-columns: 1fr; } }
+
+.doc-card {
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.doc-card.in {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+}
+.doc-card.out {
+  background: var(--amber-bg);
+  border-left: 3px solid var(--amber);
+}
+.doc-label {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+.doc-card.in .doc-label { color: var(--green); }
+.doc-card.out .doc-label { color: var(--amber); }
+
+.chip-list { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-size: 0.66rem;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+}
+.chip-sys {
+  background: var(--navy);
+  color: #fff;
+}
+.chip-dec {
+  background: var(--cyan-light);
+  color: var(--navy);
+  border: 1px solid rgba(0,180,216,0.3);
+}
+.chip-pain {
+  background: var(--red-bg);
+  color: var(--red);
+  border: 1px solid rgba(231,76,60,0.25);
+}
+
+.ix-list { list-style: none; }
+.ix-list li {
+  font-size: 0.77rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--bg);
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-start;
+  line-height: 1.45;
+}
+.ix-list li:last-child { border-bottom: none; }
+.ix-actor {
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+  background: var(--mint-light);
+  color: var(--navy);
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+/* ── FLOW VIEW ── */
+.flow-wrap { overflow-x: auto; }
+.flow-table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.75rem;
+}
+.flow-table thead th {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.7rem 0.8rem;
+  text-align: left;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: sticky;
+  top: 48px;
+  z-index: 10;
+}
+.flow-table thead th:first-child {
+  border-radius: var(--radius) 0 0 0;
+  width: 130px;
+}
+.flow-table thead th:last-child {
+  border-radius: 0 var(--radius) 0 0;
+}
+.flow-table td {
+  padding: 0.7rem 0.8rem;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+  background: var(--white);
+}
+.flow-table td:first-child {
+  font-weight: 700;
+  color: var(--navy);
+  border-right: 2px solid var(--border);
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  background: var(--white);
+}
+.flow-table tr:nth-child(even) td { background: var(--bg); }
+.flow-table tr:nth-child(even) td:first-child { background: var(--bg); }
+
+.step-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--grad-accent);
+  color: var(--navy);
+  font-size: 0.63rem;
+  font-weight: 800;
+  margin-right: 0.35rem;
+  flex-shrink: 0;
+}
+.step-name { font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+.flow-meta {
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.flow-meta strong { color: var(--text-secondary); font-weight: 600; }
+
+/* ── ACTORS VIEW ── */
+.actors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1rem;
+}
+.actor-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.4rem;
+  transition: box-shadow 0.15s;
+}
+.actor-card:hover { box-shadow: 0 2px 12px rgba(10,36,99,0.06); }
+.actor-card-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 0.1rem;
+}
+.actor-card-role {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+.actor-card ul { list-style: none; font-size: 0.77rem; }
+.actor-card li {
+  padding: 0.28rem 0;
+  border-bottom: 1px solid var(--bg);
+  padding-left: 0.85rem;
+  position: relative;
+  line-height: 1.5;
+}
+.actor-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--grad-accent);
+}
+
+/* ── GARGALOS VIEW ── */
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1rem;
+}
+.pain-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  border-top: 3px solid var(--red);
+}
+.pain-card-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 0.2rem;
+}
+.pain-card-where {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+.pain-card p {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  margin-bottom: 0.4rem;
+  color: var(--text-secondary);
+}
+.pain-opp {
+  background: var(--mint-light);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.75rem;
+  color: var(--navy);
+  margin-top: 0.5rem;
+  border-left: 3px solid var(--mint);
+  line-height: 1.5;
+}
+.pain-opp-label {
+  display: block;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 2px;
+}
+
+/* ── CARDS GRID (legislativa) ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1rem;
+}
+.leg-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.4rem;
+  transition: box-shadow 0.15s;
+}
+.leg-card:hover { box-shadow: 0 2px 12px rgba(10,36,99,0.06); }
+.leg-card-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 0.1rem;
+}
+.leg-card-type {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+.leg-card p {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+.leg-card .chip-list { margin-top: 0.6rem; }
+
+/* ── INTEGRAÇÕES TABLE ── */
+.int-table-wrap { overflow-x: auto; }
+.int-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.76rem;
+}
+.int-table thead th {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.65rem 0.7rem;
+  text-align: left;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: sticky;
+  top: 48px;
+  z-index: 10;
+}
+.int-table thead th:first-child { border-radius: var(--radius) 0 0 0; }
+.int-table thead th:last-child { border-radius: 0 var(--radius) 0 0; }
+.int-table td {
+  padding: 0.65rem 0.7rem;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  line-height: 1.5;
+}
+.int-table tr:nth-child(even) td { background: var(--bg); }
+.int-table td:first-child { font-weight: 700; color: var(--navy); }
+
+.via-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.18rem 0.45rem;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.via-api { background: var(--green-bg); color: var(--green); }
+.via-csv { background: var(--cyan-light); color: #0A2463; }
+.via-scrape { background: var(--amber-bg); color: #9A6C00; }
+.via-blocked { background: var(--red-bg); color: var(--red); }
+
+.int-url {
+  font-size: 0.65rem;
+  font-family: "SF Mono", "Cascadia Code", Menlo, monospace;
+  color: var(--cyan);
+  word-break: break-all;
+}
+.int-note {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.int-legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+.int-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+/* ── FOOTER ── */
+.i10-footer {
+  background: var(--navy);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.7rem;
+  margin-top: 2rem;
+}
+.i10-footer a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+</style>
+
+<!-- ═══ HEADER ═══ -->
+<header class="i10-header">
+  <div class="i10-topbar">
+    <div class="i10-logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="rgba(0,180,216,0.12)"/>
+        <path d="M10 28 L10 22 Q10 18 14 18 L14 28" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M17 28 L17 16 Q17 12 21 12 L21 28" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M24 28 L24 20 Q24 16 28 16 L28 28" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <circle cx="10" cy="22" r="2.2" fill="#00B4D8"/>
+        <circle cx="17" cy="16" r="2.2" fill="#00B4D8"/>
+        <circle cx="28" cy="16" r="2.2" fill="#00E5A0"/>
+      </svg>
+      <span class="i10-logo-text"><span>i</span>10</span>
+    </div>
+    <span class="i10-badge">Deputado 360</span>
+  </div>
+  <div class="header-body">
+    <div class="header-eyebrow">Mapa Operacional</div>
+    <h1 class="header-title">Universo Operacional do Deputado Estadual</h1>
+    <p class="header-sub">Gestao completa do mandato parlamentar — emendas, articulacao municipal, atividade legislativa e CRM politico em uma plataforma.</p>
+    <div class="header-tags">
+      <span class="header-tag">Res. 878/2012</span>
+      <span class="header-tag">EC 52/2022</span>
+      <span class="header-tag">EC 50/2021</span>
+      <span class="header-tag">Res. TCE-SP 17/2025</span>
+      <span class="header-tag">94 deputados</span>
+      <span class="header-tag">645 municipios</span>
+    </div>
+  </div>
+  <div class="header-gradient-bar"></div>
+</header>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-tab active" data-view="org">Organograma do Gabinete</button>
+    <button class="nav-tab" data-view="flow">Fluxo de Emendas</button>
+    <button class="nav-tab" data-view="legislativa">Atividade Legislativa</button>
+    <button class="nav-tab" data-view="actors">Atores e Interacoes</button>
+    <button class="nav-tab" data-view="pain">Gargalos</button>
+    <button class="nav-tab" data-view="integracoes">Integracoes</button>
+  </div>
+</nav>
+
+<!-- ═══ CONTENT ═══ -->
+<main class="content">
+
+<!-- ── VIEW: ORGANOGRAMA ── -->
+<div class="view active" id="view-org">
+  <div class="org-layout">
+    <aside class="org-tree" id="orgTree"></aside>
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-empty">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="8" width="40" height="32" rx="4" stroke="#0A2463" stroke-width="2"/><path d="M12 20h24M12 28h16" stroke="#00B4D8" stroke-width="2" stroke-linecap="round"/></svg>
+        Selecione uma unidade no organograma para ver competencias, documentos, decisoes, sistemas e interacoes.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIEW: FLUXO DE EMENDAS ── -->
+<div class="view" id="view-flow">
+  <div class="section-intro">
+    <div class="section-eyebrow">Ciclo Completo</div>
+    <h2 class="section-title">Fluxo Ponta a Ponta das Emendas Parlamentares Estaduais</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">Da identificacao da necessidade municipal ate o acompanhamento da execucao — quem faz o que em cada etapa: gabinete do deputado, SGRI/Executivo e municipio.</p>
+  </div>
+  <div class="flow-wrap">
+    <table class="flow-table">
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Deputado / Gabinete</th>
+          <th>SGRI / Executivo</th>
+          <th>Municipio</th>
+          <th>Documentos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="step-pill">1</span><span class="step-name">Diagnostico</span></td>
+          <td>Assessor de Articulacao Municipal mapeia necessidades dos municipios da base eleitoral. Cruza dados de IDEB, saude, infraestrutura.</td>
+          <td>—</td>
+          <td>Prefeitos e secretarios apresentam demandas ao gabinete. Vereadores aliados canalizam pleitos locais.</td>
+          <td><div class="flow-meta"><strong>Dados:</strong> IDEB, IBGE, TCE-SP, Censo Escolar<br><strong>Sistema:</strong> CRM do gabinete, planilhas</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">2</span><span class="step-name">Caderno de Sugestoes</span></td>
+          <td>Assessor de Emendas prioriza demandas por municipio. Monta caderno de sugestoes com valores, objetos e beneficiarios (CNPJ).</td>
+          <td>—</td>
+          <td>Fornece documentacao: CNPJ, conta bancaria, descricao do objeto, planilha orcamentaria.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Caderno de sugestoes, planilha de priorizacao<br><strong>Base:</strong> EC 52/2022 (0,45% RCL)</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">3</span><span class="step-name">Indicacao</span></td>
+          <td>Deputado indica emendas via SP Sem Papel (Servico Demandas): orgao processador, valores, beneficiarios (CNPJ), objetos. Prazo: 30 dias apos LOA.</td>
+          <td>SGRI recebe indicacoes para processamento. Secretarias setoriais recebem conforme area.</td>
+          <td>Aguarda publicacao. Pode articular com gabinete para ajustes antes do prazo.</td>
+          <td><div class="flow-meta"><strong>Sistema:</strong> SP Sem Papel (Servico Demandas)<br><strong>Prazo:</strong> 30 dias apos sancao da LOA</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">4</span><span class="step-name">Publicacao</span></td>
+          <td>Gabinete confere lista publicada. Verifica se todas as indicacoes foram processadas corretamente.</td>
+          <td>SGRI publica lista oficial de indicacoes. Apos publicacao: congelamento — nao altera beneficiario, objeto ou valor, exceto impedimento tecnico (remanejamento em 15 dias).</td>
+          <td>Confirma recebimento da indicacao. Inicia preparacao para execucao.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Lista de indicacoes publicada (DOE-SP)<br><strong>Regra:</strong> Congelamento pos-publicacao</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">5</span><span class="step-name">Formalizacao</span></td>
+          <td>Assessor de Emendas acompanha formalizacao. Articula com SGRI e secretarias para destravar pendencias.</td>
+          <td>Secretaria setorial / SGRI formaliza convenio OU emenda PIX (transferencia especial, sem convenio, direto a conta do municipio — EC 50/2021, art. 175-A, 70% capital).</td>
+          <td>Assina termo de convenio (quando aplicavel). Para emenda PIX: recebe transferencia direta.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Termo de convenio ou nota de emenda PIX<br><strong>Base:</strong> EC 50/2021, art. 175-A<br><strong>Minimos:</strong> R$100 mil (munis), R$50 mil (OSCs)</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">6</span><span class="step-name">Execucao</span></td>
+          <td>Gabinete monitora execucao. Assessor de Articulacao Municipal visita obras. Assessor de Comunicacao cobre entregas.</td>
+          <td>Regional da SGRI acompanha execucao. Secretaria setorial fiscaliza objeto.</td>
+          <td>Executa o objeto: obras, aquisicoes, servicos. Emite NFs, realiza licitacao municipal.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> NFs, boletins de medicao, fotos, relatorios<br><strong>Sistema:</strong> Portal de Convenios, Portal de Emendas</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">7</span><span class="step-name">Prestacao de Contas</span></td>
+          <td>Gabinete cobra prestacao de contas do municipio. Interesse politico: emenda executada = capital politico.</td>
+          <td>TCE-SP Resolucao 17/2025 (vigencia jan/2026): transparencia em tempo real, proibicao de contas intermediarias, rastreabilidade completa.</td>
+          <td>Monta prestacao de contas: NFs, extratos, relatorio de execucao, fotos, termos de aceitacao.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Prestacao de contas completa<br><strong>Base:</strong> Res. TCE-SP 17/2025<br><strong>Sistema:</strong> Audesp</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">8</span><span class="step-name">Acompanhamento</span></td>
+          <td>Gabinete monitora pipeline completo: indicacao, empenho, liquidacao, pagamento. Restos a pagar podem caducar!</td>
+          <td>Sec. Fazenda controla empenhos. SGRI monitora execucao. TCE-SP fiscaliza.</td>
+          <td>Acompanha recebimento efetivo. Reporta conclusao ao gabinete.</td>
+          <td><div class="flow-meta"><strong>Monitorar:</strong> Empenho, liquidacao, pagamento<br><strong>Risco:</strong> Restos a pagar caducam em 5 anos</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── VIEW: ATIVIDADE LEGISLATIVA ── -->
+<div class="view" id="view-legislativa">
+  <div class="section-intro">
+    <div class="section-eyebrow">Producao Parlamentar</div>
+    <h2 class="section-title">Atividade Legislativa do Deputado Estadual</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">Todas as formas de atuacao legislativa na ALESP — proposicoes, comissoes, plenario, presenca e articulacao. Cada tipo com seu sistema de rastreamento e dados publicos.</p>
+  </div>
+  <div class="cards-grid">
+    <div class="leg-card">
+      <h3 class="leg-card-name">Projeto de Lei (PL)</h3>
+      <div class="leg-card-type">Proposicao</div>
+      <p>Proposta de nova lei estadual. Tramita por comissoes (merito, constituicao/justica, financas) antes de ir a plenario. Deputado pode ser autor ou coautor.</p>
+      <p>Dados publicos: texto integral, autores, tramitacao, pareceres, votacao.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Portal ALESP</span>
+        <span class="chip chip-sys">SAL</span>
+        <span class="chip chip-dec">Dados Abertos ALESP (XML)</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Projeto de Lei Complementar (PLC)</h3>
+      <div class="leg-card-type">Proposicao</div>
+      <p>Exige maioria absoluta (48 votos). Regula materias previstas na Constituicao Estadual. Tramitacao semelhante ao PL, porem com quorum qualificado.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Portal ALESP</span>
+        <span class="chip chip-dec">Quorum: maioria absoluta</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Proposta de Emenda a Constituicao (PEC)</h3>
+      <div class="leg-card-type">Proposicao</div>
+      <p>Altera a Constituicao Estadual. Exige 3/5 dos deputados (57 votos) em 2 turnos. Minimo 1/3 dos membros para apresentacao.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Portal ALESP</span>
+        <span class="chip chip-dec">Quorum: 3/5 em 2 turnos</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Requerimento</h3>
+      <div class="leg-card-type">Proposicao</div>
+      <p>Solicita providencias, convocacoes, homenagens, votos de louvor/pesar. Tipos: moção, voto de congratulacao, solicitacao de informacao ao Executivo. Ferramenta mais usada pelo gabinete.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">SAL</span>
+        <span class="chip chip-dec">Dados Abertos ALESP (XML)</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Requerimento de Informacao</h3>
+      <div class="leg-card-type">Proposicao — Fiscalizacao</div>
+      <p>Instrumento de fiscalizacao: deputado solicita informacoes ao Executivo. Governador tem 30 dias para responder. Descumprimento configura crime de responsabilidade.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">SAL</span>
+        <span class="chip chip-dec">Prazo: 30 dias</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Indicacao</h3>
+      <div class="leg-card-type">Proposicao</div>
+      <p>Sugere ao Executivo medida de interesse publico. Nao tem forca de lei, mas registra o pleito formalmente. Muito usada para canalizar demandas municipais.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">SAL</span>
+        <span class="chip chip-dec">Sem forca vinculante</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Mocao</h3>
+      <div class="leg-card-type">Proposicao</div>
+      <p>Manifestacao da Assembleia sobre determinado assunto. Tipos: apoio, repudio, solidariedade, congratulacoes. Deliberada em plenario.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">SAL</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Decreto Legislativo</h3>
+      <div class="leg-card-type">Proposicao</div>
+      <p>Materia de competencia exclusiva da ALESP (sem sancao do Governador). Ex: sustacao de atos do Executivo, aprovacao de contas do Governador, autorizacao para processos.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Portal ALESP</span>
+        <span class="chip chip-dec">Sem sancao do Executivo</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Resolucao</h3>
+      <div class="leg-card-type">Proposicao</div>
+      <p>Norma interna da ALESP. Regula funcionamento, cargos comissionados (Res. 878/2012), procedimentos. Nao precisa de sancao do Governador.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Portal ALESP</span>
+        <span class="chip chip-dec">Norma interna</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Comissoes Permanentes e Temporarias</h3>
+      <div class="leg-card-type">Atuacao em Comissoes</div>
+      <p>Deputado participa como membro ou presidente. Comissoes permanentes: Constituicao e Justica, Financas, Educacao, Saude, Seguranca, etc. Temporarias: CPIs, comissoes especiais.</p>
+      <p>Votacoes em comissoes: dataset XML com 67 MB de dados historicos.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Dados Abertos ALESP</span>
+        <span class="chip chip-dec">67 MB dataset XML</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Votacoes em Plenario</h3>
+      <div class="leg-card-type">Plenario</div>
+      <p>Votacoes nominais registradas desde 2006 (painel eletronico). EC 12/2001 aboliu voto secreto. Tipos: simbolico (maioria visivel) vs. nominal (registrado individualmente).</p>
+      <p>Dados publicos: voto de cada deputado por proposicao, data, resultado.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Dados Abertos ALESP</span>
+        <span class="chip chip-dec">Painel desde 2006</span>
+        <span class="chip chip-dec">EC 12/2001</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Presenca e Discursos</h3>
+      <div class="leg-card-type">Atividade Plenaria</div>
+      <p>Frequencia em sessoes ordinarias e extraordinarias. Discursos no Grande e Pequeno Expediente. Apartes. Dados de presenca publicos no portal ALESP.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Portal ALESP</span>
+        <span class="chip chip-dec">Frequencia publica</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">CPIs</h3>
+      <div class="leg-card-type">Comissao Parlamentar de Inquerito</div>
+      <p>Poder investigativo com forca de autoridade judicial. Requer 1/3 dos deputados para instalacao. Prazo de 120 dias, prorrogavel. Deputado pode ser membro ou relator.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Portal ALESP</span>
+        <span class="chip chip-dec">Prazo: 120 dias</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Frentes Parlamentares</h3>
+      <div class="leg-card-type">Articulacao Tematica</div>
+      <p>Grupos suprapartidarios organizados por tema (educacao, saude, agro, tecnologia). Deputado pode integrar varias frentes. Realizam audiencias publicas e seminarios.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Portal ALESP</span>
+      </div>
+    </div>
+    <div class="leg-card">
+      <h3 class="leg-card-name">Despesas de Gabinete</h3>
+      <div class="leg-card-type">Transparencia</div>
+      <p>Verba indenizatoria e despesas operacionais. Publicados diariamente em XML nos Dados Abertos ALESP. Inclui: viagens, combustivel, postagem, telefonia, alimentacao.</p>
+      <div class="chip-list">
+        <span class="chip chip-sys">Dados Abertos ALESP</span>
+        <span class="chip chip-dec">XML diario</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIEW: ATORES ── -->
+<div class="view" id="view-actors">
+  <div class="section-intro">
+    <div class="section-eyebrow">Ecossistema</div>
+    <h2 class="section-title">Atores e Interacoes do Mandato</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">De prefeitos da base eleitoral a orgaos de controle — todos que interagem com o gabinete do deputado estadual no exercicio do mandato.</p>
+  </div>
+  <div class="actors-grid">
+    <div class="actor-card">
+      <h3 class="actor-card-name">Prefeitos da Base Eleitoral</h3>
+      <div class="actor-card-role">Poder Executivo Municipal</div>
+      <ul>
+        <li>Principal canal de demandas para emendas parlamentares</li>
+        <li>Articulacao para indicacao de emendas por municipio</li>
+        <li>Cobranca de execucao e prestacao de contas</li>
+        <li>Relacao politica de longo prazo — capital eleitoral</li>
+        <li>Agenda de visitas e inauguracoes de obras</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Secretarios Municipais</h3>
+      <div class="actor-card-role">Educacao, Saude, Obras, Assistencia Social</div>
+      <ul>
+        <li>Detalhamento tecnico das demandas dos prefeitos</li>
+        <li>Elaboracao de planos de trabalho para emendas</li>
+        <li>Fornecimento de CNPJ, projetos, planilhas orcamentarias</li>
+        <li>Interlocucao tecnica para formalizacao de convenios</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Vereadores Aliados</h3>
+      <div class="actor-card-role">Poder Legislativo Municipal</div>
+      <ul>
+        <li>Canalizacao de demandas locais para o gabinete</li>
+        <li>Articulacao politica na base — capilaridade</li>
+        <li>Apoio em campanhas e eventos regionais</li>
+        <li>Feedback sobre impacto das emendas no municipio</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Liderancas Comunitarias e OSCs</h3>
+      <div class="actor-card-role">Entidades de Classe, Sindicatos, Associacoes</div>
+      <ul>
+        <li>Demandas setoriais: saude, educacao, cultura, esporte</li>
+        <li>Podem ser beneficiarias de emendas (CNPJ, minimo R$50 mil)</li>
+        <li>Mobilizacao social e pressao politica</li>
+        <li>Eventos, homenagens, audiencias publicas</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Secretarios de Estado</h3>
+      <div class="actor-card-role">Executivo Estadual — Secretarias Setoriais</div>
+      <ul>
+        <li>Interlocucao para destravamento de emendas</li>
+        <li>Articulacao para programas estaduais nos municipios da base</li>
+        <li>Convocacao via requerimento de informacao</li>
+        <li>Audiencias publicas em comissoes</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Governador / Casa Civil</h3>
+      <div class="actor-card-role">Chefia do Executivo Estadual</div>
+      <ul>
+        <li>Sancao ou veto de projetos de lei aprovados</li>
+        <li>Autorizacao governamental para convenios (Dec. 66.173)</li>
+        <li>Articulacao politica de base governista vs. oposicao</li>
+        <li>Pauta de prioridades do Executivo que impacta emendas</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">SGRI / Subsecretaria de Convenios</h3>
+      <div class="actor-card-role">Processamento de Emendas Parlamentares</div>
+      <ul>
+        <li>Processa indicacoes de emendas recebidas via SP Sem Papel</li>
+        <li>Publica lista oficial de indicacoes</li>
+        <li>Formaliza convenios e emendas PIX</li>
+        <li>Acompanha execucao via Divisoes Regionais</li>
+        <li>Ponto critico: interface entre gabinete e municipio</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">TCE-SP</h3>
+      <div class="actor-card-role">Tribunal de Contas do Estado</div>
+      <ul>
+        <li>Fiscaliza execucao de emendas parlamentares</li>
+        <li>Res. 17/2025: transparencia em tempo real (vigencia jan/2026)</li>
+        <li>66 emendas em 59 cidades auditadas (R$52 mi)</li>
+        <li>Proibicao de contas intermediarias para emendas</li>
+        <li>Risco reputacional para o deputado em caso de irregularidade</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Outros Deputados (Bancada / Partido)</h3>
+      <div class="actor-card-role">Poder Legislativo Estadual</div>
+      <ul>
+        <li>Articulacao para votacoes em plenario e comissoes</li>
+        <li>Coalizoes para aprovacao de projetos</li>
+        <li>Frentes parlamentares suprapartidarias</li>
+        <li>Negociacao de cargos e espacos em comissoes</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Lideranca do Partido na ALESP</h3>
+      <div class="actor-card-role">Coordenacao Partidaria</div>
+      <ul>
+        <li>Orientacao de bancada nas votacoes</li>
+        <li>Distribuicao de relatorias e presidencias de comissoes</li>
+        <li>Canal com Mesa Diretora e lideranca do governo</li>
+        <li>Disciplina partidaria e negociacoes internas</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Imprensa Regional</h3>
+      <div class="actor-card-role">Midias Locais e Estaduais</div>
+      <ul>
+        <li>Cobertura de entregas de obras e inauguracoes</li>
+        <li>Divulgacao de atividade legislativa do deputado</li>
+        <li>Denuncias e fiscalizacao sobre emendas</li>
+        <li>Espaco para posicionamento politico</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Camaras Municipais</h3>
+      <div class="actor-card-role">Poder Legislativo Municipal</div>
+      <ul>
+        <li>Autorizacao legislativa para contrapartida de convenios</li>
+        <li>Fiscalizacao da execucao de emendas pelo Executivo municipal</li>
+        <li>Canal de articulacao politica local</li>
+        <li>Homenagens e mocoes em conjunto</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIEW: GARGALOS ── -->
+<div class="view" id="view-pain">
+  <div class="section-intro">
+    <div class="section-eyebrow">Diagnostico</div>
+    <h2 class="section-title">Gargalos e Oportunidades</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">Dores documentadas na operacao do gabinete parlamentar — cada gargalo aponta a oportunidade para o produto Deputado 360.</p>
+  </div>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <h3 class="pain-card-name">Emendas sem visao consolidada</h3>
+      <div class="pain-card-where">Assessor de Emendas · Pipeline Completo</div>
+      <p>Gabinete nao sabe o status em tempo real de cada emenda: indicada? empenhada? liquidada? paga? Acompanhamento em planilha, sem alertas. Restos a pagar caducam sem aviso.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Deputado 360</span>Dashboard de emendas com pipeline visual: indicacao, empenho, liquidacao, pagamento. Alertas automaticos de caducidade e pendencias. Mapa por municipio.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Demandas municipais em planilhas</h3>
+      <div class="pain-card-where">Assessor de Articulacao Municipal · CRM</div>
+      <p>Demandas de prefeitos, vereadores e liderancas chegam por WhatsApp, e-mail e telefone. Sem CRM integrado, sem historico, sem priorizacao sistematica.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Deputado 360</span>CRM politico integrado: cada municipio com historico de demandas, emendas, interacoes, eleitorado. Pipeline de articulacao com alertas.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Assessores sem ferramentas</h3>
+      <div class="pain-card-where">Todo o Gabinete · Produtividade</div>
+      <p>Cada assessor opera com WhatsApp, e-mail pessoal e planilha propria. Sem sistema unificado. Conhecimento fica na cabeca das pessoas — saiu o assessor, saiu a informacao.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Deputado 360</span>Plataforma unificada do gabinete: agenda, tarefas, documentos, contatos, historico. Base de conhecimento institucional do mandato.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Producao legislativa invisivel</h3>
+      <div class="pain-card-where">Assessor Parlamentar · Transparencia</div>
+      <p>Deputado nao tem dashboard da propria producao: quantos PLs apresentou, em que comissoes atua, como votou. Dados existem nos Dados Abertos ALESP mas ninguem consolida.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Deputado 360</span>Painel de producao legislativa: PLs, requerimentos, votacoes, presenca, comissoes — tudo consolidado com comparativo de bancada.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Base eleitoral desatendida</h3>
+      <div class="pain-card-where">Estrategia · Gabinete · Escritorio Regional</div>
+      <p>Sem mapeamento de votos por municipio cruzado com demandas atendidas e emendas direcionadas. Decisao de alocacao de emendas por feeling, nao por dado.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Deputado 360</span>Mapa eleitoral inteligente: votos TSE por municipio x emendas indicadas x demandas atendidas. Priorizacao baseada em dados.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Comunicacao fragmentada</h3>
+      <div class="pain-card-where">Assessor de Comunicacao · Redes e Imprensa</div>
+      <p>Redes sociais, site, newsletter e relacao com imprensa desconectados. Sem metricas unificadas. Relatorio de mandato montado manualmente no fim do ano.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Deputado 360</span>Hub de comunicacao: calendario editorial, metricas de redes, gerador de relatorio de mandato automatico com dados reais de producao e emendas.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Prestacao de contas manual</h3>
+      <div class="pain-card-where">TCE-SP Res. 17/2025 · Compliance</div>
+      <p>TCE-SP Resolucao 17/2025 exige transparencia em tempo real a partir de jan/2026. Gabinete nao tem ferramentas para acompanhar se municipios estao cumprindo. Risco reputacional.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Deputado 360</span>Monitor de compliance: alerta quando municipio nao presta contas no prazo. Status de cada emenda por municipio com semaforo de risco TCE-SP.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Dados para decisao</h3>
+      <div class="pain-card-where">Deputado · Chefe de Gabinete · Estrategia</div>
+      <p>Deputado decide por feeling, nao por dado. Nao sabe IDEB dos municipios da base, nao cruza dados de saude com emendas, nao tem visao fiscal dos municipios que atende.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Deputado 360</span>Inteligencia municipal: ficha completa de cada municipio da base (IDEB, saude, fiscal, infraestrutura, populacao, votos). Subsidio para emendas e articulacao.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIEW: INTEGRACOES ── -->
+<div class="view" id="view-integracoes">
+  <div class="section-intro">
+    <div class="section-eyebrow">Viabilidade Tecnica</div>
+    <h2 class="section-title">Integracoes com Sistemas e Fontes de Dados</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">Mapeamento de cada sistema relevante para o mandato do deputado estadual: o que conseguimos plugar via API, baixar como dados abertos, extrair por scraping, ou o que e fechado.</p>
+  </div>
+
+  <div class="int-legend">
+    <div class="int-legend-item"><span class="via-badge via-api">API</span> API REST publica</div>
+    <div class="int-legend-item"><span class="via-badge via-csv">CSV/XML</span> Download de dados abertos</div>
+    <div class="int-legend-item"><span class="via-badge via-scrape">SCRAPING</span> Extracao via scraping da interface</div>
+    <div class="int-legend-item"><span class="via-badge via-blocked">FECHADO</span> Acesso restrito / credencial interna</div>
+  </div>
+
+  <div class="int-table-wrap">
+    <table class="int-table">
+      <thead>
+        <tr>
+          <th>Sistema</th>
+          <th>Dono</th>
+          <th>Via</th>
+          <th>O que conseguimos capturar</th>
+          <th>Endpoint / Fonte</th>
+          <th>Observacoes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ALESP Dados Abertos (26 datasets XML)</td>
+          <td>ALESP</td>
+          <td><span class="via-badge via-csv">CSV/XML</span></td>
+          <td>Proposicoes, votacoes, deputados, comissoes, despesas de gabinete, orgaos — 26 datasets com milhoes de registros</td>
+          <td><span class="int-url">al.sp.gov.br/dados-abertos</span></td>
+          <td>Download XML direto sem autenticacao. Planejam migracao para CKAN. Datasets atualizados periodicamente. Maior fonte para atividade legislativa.</td>
+        </tr>
+        <tr>
+          <td>ALESP Votacoes Nominais (2006-2026)</td>
+          <td>ALESP</td>
+          <td><span class="via-badge via-scrape">SCRAPING</span></td>
+          <td>Voto individual de cada deputado por proposicao desde 2006 (painel eletronico). Resultado, tipo de votacao, data.</td>
+          <td><span class="int-url">al.sp.gov.br/alesp/votacoes</span></td>
+          <td>Interface web com filtros. Scraping viavel dos requests. Complementa Dados Abertos com granularidade de voto nominal. EC 12/2001 aboliu voto secreto.</td>
+        </tr>
+        <tr>
+          <td>ALESP Pesquisa de Proposicoes (9 tipos)</td>
+          <td>ALESP</td>
+          <td><span class="via-badge via-scrape">SCRAPING</span></td>
+          <td>Busca por autor, tipo, tema, periodo. 9 tipos: PL, PLC, PEC, Decreto Legislativo, Resolucao, Mocao, Requerimento, Req. Informacao, Indicacao.</td>
+          <td><span class="int-url">al.sp.gov.br/alesp/pesquisa-proposicoes</span></td>
+          <td>Interface com filtros avancados. Scraping para monitoramento em tempo real de novas proposicoes. Complementa os XML que tem atraso.</td>
+        </tr>
+        <tr>
+          <td>ALESP Despesas de Gabinete (XML diario)</td>
+          <td>ALESP</td>
+          <td><span class="via-badge via-csv">CSV/XML</span></td>
+          <td>Verba indenizatoria, despesas operacionais por gabinete: valor, tipo, fornecedor, data. Publicacao diaria.</td>
+          <td><span class="int-url">al.sp.gov.br/dados-abertos/despesas</span></td>
+          <td>XML diario sem autenticacao. Ideal para comparativo de gastos entre gabinetes e transparencia.</td>
+        </tr>
+        <tr>
+          <td>SP Sem Papel / Servico Demandas (emendas)</td>
+          <td>Prodesp / SGRI</td>
+          <td><span class="via-badge via-blocked">FECHADO</span></td>
+          <td>Sistema de indicacao de emendas pelo deputado. Tramitacao interna do processo de emenda: orgao processador, valores, CNPJ.</td>
+          <td><span class="int-url">spsempapel.sp.gov.br</span></td>
+          <td>Acesso exclusivo com credencial do deputado. Sem API publica. Integracao dependeria de termo de cooperacao com ALESP/Prodesp.</td>
+        </tr>
+        <tr>
+          <td>Portal de Emendas Impositivas ALESP</td>
+          <td>ALESP</td>
+          <td><span class="via-badge via-scrape">SCRAPING</span></td>
+          <td>Lista de emendas por deputado, municipio, valor, status. Painel publico de acompanhamento.</td>
+          <td><span class="int-url">al.sp.gov.br/emendas</span></td>
+          <td>Interface web publica. Scraping viavel. Fonte principal para pipeline de emendas do deputado.</td>
+        </tr>
+        <tr>
+          <td>TCE-SP API Transparencia Municipal</td>
+          <td>TCE-SP</td>
+          <td><span class="via-badge via-api">API</span></td>
+          <td>Despesas e receitas municipais detalhadas, lista de municipios. Cruzamento com emendas recebidas.</td>
+          <td><span class="int-url">transparencia.tce.sp.gov.br/api/json/despesas/{municipio}/{ano}/{mes}</span></td>
+          <td>API REST publica, sem autenticacao. JSON/XML. 645 municipios SP. Ja usamos no Radar Fiscal 360.</td>
+        </tr>
+        <tr>
+          <td>TCE-SP Resolucao 17/2025 dados</td>
+          <td>TCE-SP</td>
+          <td><span class="via-badge via-api">API</span></td>
+          <td>Dados de transparencia em tempo real de emendas: rastreabilidade, contas, execucao. Vigencia jan/2026.</td>
+          <td><span class="int-url">transparencia.tce.sp.gov.br</span></td>
+          <td>Nova API em vigor desde jan/2026. Formato de dados a confirmar. Fonte critica para compliance de emendas.</td>
+        </tr>
+        <tr>
+          <td>Dados Abertos SGRI Convenios</td>
+          <td>SGRI / dadosabertos.sp.gov.br</td>
+          <td><span class="via-badge via-csv">CSV/XML</span></td>
+          <td>Convenios celebrados: municipio, objeto, valor, situacao, emendas parlamentares vinculadas.</td>
+          <td><span class="int-url">dadosabertos.sp.gov.br/dataset/convenios-sgri</span></td>
+          <td>Download direto. CKAN. Cruzamento de emendas com convenios formalizados. Ja usamos no Regional 360.</td>
+        </tr>
+        <tr>
+          <td>Fazenda SP Transferencias Especiais (emendas PIX)</td>
+          <td>Sec. Fazenda SP</td>
+          <td><span class="via-badge via-scrape">SCRAPING</span></td>
+          <td>Transferencias especiais (emendas PIX) por municipio: valor, data, fonte. Direto a conta do municipio, sem convenio.</td>
+          <td><span class="int-url">fazenda.sp.gov.br/TransferenciaVoluntaria</span></td>
+          <td>Formulario ASP.NET. Scraping viavel (POST com ViewState). Complementa dados de emendas convenio.</td>
+        </tr>
+        <tr>
+          <td>TSE Dados Eleitorais</td>
+          <td>TSE</td>
+          <td><span class="via-badge via-csv">CSV/XML</span><br><span class="via-badge via-api">API</span></td>
+          <td>Votos por municipio, secao, zona: resultado do deputado em cada cidade da base. Historico eleitoral.</td>
+          <td><span class="int-url">dadosabertos.tse.jus.br</span></td>
+          <td>CSV e API publica. Essencial para mapeamento de base eleitoral x emendas x demandas atendidas.</td>
+        </tr>
+        <tr>
+          <td>IBGE APIs</td>
+          <td>IBGE</td>
+          <td><span class="via-badge via-api">API</span></td>
+          <td>Populacao, PIB, area, IDEB, Censo — contextualizacao dos municipios da base eleitoral.</td>
+          <td><span class="int-url">servicodados.ibge.gov.br/api/v1/localidades</span></td>
+          <td>API REST publica, sem autenticacao, excelente documentacao. Ja usamos em varios produtos.</td>
+        </tr>
+        <tr>
+          <td>PNCP Licitacoes</td>
+          <td>Governo Federal</td>
+          <td><span class="via-badge via-api">API</span></td>
+          <td>Licitacoes e contratos municipais: cruzamento com objetos de emendas para verificar execucao.</td>
+          <td><span class="int-url">pncp.gov.br/api/consulta</span></td>
+          <td>API REST publica com OpenAPI. Ja usamos no Licita 360. Vinculavel a emendas por objeto/municipio.</td>
+        </tr>
+        <tr>
+          <td>i10 Gov 360 Database (Neon)</td>
+          <td>Instituto i10</td>
+          <td><span class="via-badge via-api">API</span></td>
+          <td>Tabelas: bancada_federal, bancada_estadual, emendas_execucao, emendas_indicacao, votos_bancada, caderno_emendas. Atualmente SC, expansivel para SP.</td>
+          <td><span class="int-url">Neon PostgreSQL (API interna)</span></td>
+          <td>Base propria. Modelo de dados pronto para emendas estaduais. Integracao direta. Expandir cobertura de SC para SP.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:1.5rem; padding:1.2rem; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); max-width:800px;">
+    <div style="font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--cyan); font-weight:700; margin-bottom:0.5rem;">Resumo de viabilidade</div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.8rem; text-align:center;">
+      <div>
+        <div style="font-size:1.8rem; font-weight:800; color:var(--green);">5</div>
+        <div style="font-size:0.7rem; color:var(--text-secondary);">APIs publicas</div>
+        <div style="font-size:0.62rem; color:var(--text-muted);">TCE-SP (2), IBGE, PNCP, i10 Gov 360</div>
+      </div>
+      <div>
+        <div style="font-size:1.8rem; font-weight:800; color:var(--navy);">4</div>
+        <div style="font-size:0.7rem; color:var(--text-secondary);">Downloads CSV/XML</div>
+        <div style="font-size:0.62rem; color:var(--text-muted);">ALESP (2), SGRI, TSE</div>
+      </div>
+      <div>
+        <div style="font-size:1.8rem; font-weight:800; color:#9A6C00;">4</div>
+        <div style="font-size:0.7rem; color:var(--text-secondary);">Scraping viavel</div>
+        <div style="font-size:0.62rem; color:var(--text-muted);">Votacoes, Proposicoes, Emendas, Fazenda</div>
+      </div>
+      <div>
+        <div style="font-size:1.8rem; font-weight:800; color:var(--red);">1</div>
+        <div style="font-size:0.7rem; color:var(--text-secondary);">Fechado</div>
+        <div style="font-size:0.62rem; color:var(--text-muted);">SP Sem Papel (Servico Demandas)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="i10-footer">
+  Instituto i10 · Inovacao · Inteligencia · Impacto — <a href="mailto:i10@i10.org.br">i10@i10.org.br</a> · institutoi10.com.br
+</footer>
+
+<script>
+const units = [
+  {id:"deputado",name:"Deputado Estadual",parent:"ALESP",section:"Titular",indent:0,type:"Mandato Eletivo",
+    competencias:[
+      "Legislar: apresentar PLs, PLCs, PECs, Decretos Legislativos, Resolucoes, Requerimentos, Mocoes, Indicacoes (9 tipos de proposicao)",
+      "Fiscalizar o Poder Executivo: requerimentos de informacao (30 dias para resposta), CPIs, convocacao de secretarios",
+      "Representar a base eleitoral: canalizar demandas de prefeitos, vereadores, liderancas comunitarias e OSCs",
+      "Indicar emendas impositivas: 0,45% da RCL (EC 52/2022), em 2 fases, via SP Sem Papel (Servico Demandas)",
+      "Participar de comissoes permanentes e temporarias: votacoes, relatorias, presidencias",
+      "Votar em plenario: votacoes nominais (EC 12/2001 aboliu voto secreto), quorum simples, absoluto ou qualificado",
+      "Integrar frentes parlamentares suprapartidarias por tema"
+    ],
+    docsIn:["Demandas de prefeitos e vereadores","Pleitos de liderancas e OSCs","Proposicoes de outros deputados para analise","Pareceres de comissoes","Informacoes do Executivo"],
+    docsOut:["Projetos de Lei, PLCs, PECs","Requerimentos e Indicacoes","Emendas parlamentares (via SP Sem Papel)","Votos em plenario e comissoes","Discursos e pronunciamentos"],
+    decisions:["Priorização de emendas por municipio","Posicionamento em votacoes","Autoria e coautoria de proposicoes","Alocacao da equipe do gabinete","Estrategia de articulacao politica"],
+    systems:["Portal ALESP","SAL (Sistema de Apoio Legislativo)","SP Sem Papel (Servico Demandas)","Painel de Votacoes","Portal de Emendas Impositivas"],
+    interactions:[{actor:"94 Deputados",desc:"Negociacao, coalizoes, bancada"},{actor:"Governador",desc:"Articulacao politica, sancao/veto"},{actor:"Prefeitos",desc:"Base eleitoral — demandas e emendas"},{actor:"TCE-SP",desc:"Fiscalizacao de emendas (Res. 17/2025)"},{actor:"SGRI",desc:"Processamento de emendas"},{actor:"Eleitores",desc:"Representacao e prestacao de contas"}],
+    painPoints:["Decisao por feeling, nao por dado","Sem dashboard consolidado do mandato"]},
+
+  {id:"chefe-gabinete",name:"Chefe de Gabinete",parent:"Deputado Estadual",section:"Equipe do Gabinete",indent:0,type:"Cargo Comissionado",
+    competencias:[
+      "Gerenciar equipe: ate 30 tipos de cargos comissionados (Res. 878/2012 ALESP)",
+      "Coordenar agenda do deputado: plenario, comissoes, audiencias, visitas",
+      "Priorizar demandas: triagem e encaminhamento de todos os pleitos recebidos",
+      "Interface com liderancas partidarias e Mesa Diretora",
+      "Gestao orcamentaria do gabinete (verba indenizatoria)",
+      "Supervisionar todos os assessores e o escritorio regional"
+    ],
+    docsIn:["Todas as demandas recebidas pelo gabinete","Agenda institucional (ALESP, comissoes, plenario)","Relatorios dos assessores","Orientacao de bancada"],
+    docsOut:["Agenda consolidada do deputado","Relatorios de gestao do gabinete","Priorizacao de demandas","Despachos internos"],
+    decisions:["Priorizacao da agenda","Alocacao de equipe por demanda","Triagem de pleitos — o que sobe ao deputado","Gestao orcamentaria do gabinete"],
+    systems:["Portal ALESP","SP Sem Papel","Controle de ponto/folha"],
+    interactions:[{actor:"Deputado",desc:"Gestao direta"},{actor:"Lideranca do Partido",desc:"Orientacao de bancada"},{actor:"Mesa Diretora",desc:"Questoes administrativas"},{actor:"Outros Gabinetes",desc:"Articulacao e negociacao"},{actor:"Todos os assessores",desc:"Supervisao e coordenacao"}],
+    painPoints:["Sem sistema unificado — cada assessor usa ferramenta propria","Priorizacao subjetiva — sem dados para apoiar decisao"]},
+
+  {id:"assessor-parlamentar",name:"Assessor Parlamentar",parent:"Chefe de Gabinete",section:"Equipe do Gabinete",indent:1,type:"Assessoria Legislativa",
+    competencias:[
+      "Acompanhar proposicoes no SAL (Sistema de Apoio Legislativo)",
+      "Preparar pareceres e notas tecnicas sobre PLs em tramitacao",
+      "Monitorar comissoes: pautas, votacoes, audiencias publicas",
+      "Elaborar requerimentos, indicacoes e mocoes",
+      "Pesquisar legislacao comparada e jurisprudencia",
+      "Redigir minutas de projetos de lei"
+    ],
+    docsIn:["Proposicoes em tramitacao (SAL)","Pautas de comissoes","Legislacao vigente","Demandas de municipios para indicacoes"],
+    docsOut:["Pareceres e notas tecnicas","Minutas de PLs e requerimentos","Analise de proposicoes de outros deputados","Relatorios de atividade legislativa"],
+    decisions:["Recomendar voto em proposicoes","Sugerir pautas para projetos de lei","Priorizar proposicoes para acompanhamento"],
+    systems:["SAL","Portal ALESP","Dados Abertos ALESP (XML)"],
+    interactions:[{actor:"Assessores de outros gabinetes",desc:"Articulacao para apoio a proposicoes"},{actor:"Consultoria Legislativa ALESP",desc:"Apoio tecnico"},{actor:"Comissoes",desc:"Acompanhamento presencial"}],
+    painPoints:["Monitoramento manual de proposicoes no SAL","Sem dashboard da producao legislativa do deputado"]},
+
+  {id:"assessor-articulacao",name:"Assessor de Articulacao Municipal",parent:"Chefe de Gabinete",section:"Equipe do Gabinete",indent:1,type:"Articulacao Politica",
+    competencias:[
+      "Gerenciar relacao com prefeitos da base eleitoral",
+      "Canalizar demandas municipais: receber, registrar, encaminhar",
+      "Encaminhar pleitos ao Executivo (via SGRI, secretarias estaduais)",
+      "Agendar visitas do deputado aos municipios",
+      "Acompanhar execucao de emendas nos municipios — vistorias",
+      "Manter mapa atualizado da base: prefeitos, vereadores, liderancas"
+    ],
+    docsIn:["Oficios de prefeitos","Demandas via WhatsApp e e-mail","Dados de execucao de emendas","Dados eleitorais (TSE)"],
+    docsOut:["Caderno de demandas municipais","Relatorios de visita","Mapa de articulacao da base","Encaminhamentos a SGRI e secretarias"],
+    decisions:["Priorizacao de municipios para visita","Recomendacao de alocacao de emendas","Classificacao de urgencia das demandas"],
+    systems:["WhatsApp","Planilhas","E-mail"],
+    interactions:[{actor:"Prefeitos",desc:"Relacao direta — principal canal"},{actor:"Secretarios Municipais",desc:"Detalhamento tecnico de demandas"},{actor:"Vereadores",desc:"Capilaridade local"},{actor:"SGRI / Regionais",desc:"Encaminhamento de pleitos"},{actor:"Secretarios de Estado",desc:"Articulacao para programas"}],
+    painPoints:["Demandas em WhatsApp sem CRM","Sem mapa de votos x emendas x demandas","Conhecimento na cabeca do assessor — nao institucionalizado"]},
+
+  {id:"assessor-emendas",name:"Assessor de Emendas",parent:"Chefe de Gabinete",section:"Equipe do Gabinete",indent:1,type:"Gestao de Emendas",
+    competencias:[
+      "Indicar emendas via SP Sem Papel (Servico Demandas) em 2 fases",
+      "Montar caderno de sugestoes: priorizar por municipio, valor, objeto",
+      "Monitorar execucao: indicacao, empenho, liquidacao, pagamento",
+      "Acompanhar emendas PIX (EC 50/2021, art. 175-A, 70% capital)",
+      "Articular com SGRI e Sec. Fazenda para destravamento",
+      "Gerenciar remanejamentos (15 dias apos impedimento tecnico)",
+      "Controlar prazos: 30 dias apos LOA para indicacao"
+    ],
+    docsIn:["Caderno de demandas municipais","LOA aprovada","Lista de indicacoes publicada","Status de empenho/liquidacao/pagamento"],
+    docsOut:["Indicacoes via SP Sem Papel","Caderno de sugestoes de emendas","Relatorio de execucao de emendas","Solicitacoes de remanejamento"],
+    decisions:["Distribuicao de valores por municipio","Priorizacao de objetos","Decisao de remanejamento","Alerta de caducidade de restos a pagar"],
+    systems:["SP Sem Papel (Servico Demandas)","Portal de Emendas ALESP","Portal de Convenios SP"],
+    interactions:[{actor:"SGRI",desc:"Processamento e formalizacao"},{actor:"Sec. Fazenda",desc:"Empenho e pagamento"},{actor:"Prefeitos",desc:"Demandas e CNPJ"},{actor:"Secretarias Setoriais",desc:"Orgao processador da emenda"},{actor:"TCE-SP",desc:"Fiscalizacao (Res. 17/2025)"}],
+    painPoints:["Planilha para controlar pipeline de emendas","Sem alertas de caducidade","Sem visao consolidada indicacao-empenho-pagamento","Remanejamentos manuais contra o prazo"]},
+
+  {id:"assessor-comunicacao",name:"Assessor de Comunicacao",parent:"Chefe de Gabinete",section:"Equipe do Gabinete",indent:1,type:"Comunicacao e Imprensa",
+    competencias:[
+      "Gerenciar redes sociais do mandato: Instagram, Facebook, Twitter/X, YouTube",
+      "Manter site do deputado atualizado",
+      "Produzir newsletter periodica para a base",
+      "Elaborar relatorio de mandato (anual)",
+      "Relacao com imprensa regional: releases, entrevistas, cobertura",
+      "Cobertura de entregas de obras, inauguracoes, eventos"
+    ],
+    docsIn:["Agenda do deputado","Dados de producao legislativa","Fotos e videos de eventos","Metricas de redes sociais"],
+    docsOut:["Posts para redes sociais","Newsletters","Releases de imprensa","Relatorio de mandato","Material audiovisual"],
+    decisions:["Pauta editorial semanal","Priorizacao de pautas para imprensa","Tom e posicionamento nas redes"],
+    systems:["Redes sociais (plataformas nativas)","E-mail marketing","Site/CMS"],
+    interactions:[{actor:"Imprensa Regional",desc:"Cobertura e divulgacao"},{actor:"Assessor de Articulacao",desc:"Pautas de entregas nos municipios"},{actor:"Assessor Parlamentar",desc:"Conquistas legislativas para comunicar"}],
+    painPoints:["Redes, site e newsletter desconectados","Relatorio de mandato manual","Sem metricas unificadas"]},
+
+  {id:"assessor-juridico",name:"Assessor Juridico",parent:"Chefe de Gabinete",section:"Equipe do Gabinete",indent:1,type:"Assessoria Juridica",
+    competencias:[
+      "Analise de legalidade e constitucionalidade de PLs (estadual e federal)",
+      "Pareceres sobre proposicoes de outros deputados",
+      "Suporte juridico a CPIs: poderes, limites, procedimentos",
+      "Acompanhamento de acoes judiciais que impactam o mandato",
+      "Revisao de contratos e termos do gabinete",
+      "Consultoria sobre regimento interno da ALESP"
+    ],
+    docsIn:["Proposicoes para analise","Legislacao e jurisprudencia","Demandas judiciais","Regimento interno ALESP"],
+    docsOut:["Pareceres juridicos","Notas tecnicas de legalidade","Minutas de emendas a projetos","Defesas e manifestacoes"],
+    decisions:["Recomendar ajustes em PLs por inconstitucionalidade","Alertar riscos juridicos","Orientar posicionamento em CPIs"],
+    systems:["Bases de legislacao","Jurisprudencia (TJSP, STF)","SAL"],
+    interactions:[{actor:"Assessor Parlamentar",desc:"Analise conjunta de proposicoes"},{actor:"PGE",desc:"Questoes de constitucionalidade"},{actor:"Consultoria Legislativa ALESP",desc:"Apoio tecnico regimental"}],
+    painPoints:["Analise manual de constitucionalidade","Sem base de precedentes organizada"]},
+
+  {id:"secretario-parlamentar",name:"Secretario Parlamentar",parent:"Chefe de Gabinete",section:"Equipe do Gabinete",indent:1,type:"Administracao",
+    competencias:[
+      "Gerenciar agenda do deputado: plenario, comissoes, reunioes, visitas",
+      "Protocolo: correspondencia oficial, oficios, convites",
+      "Gestao administrativa do gabinete: materiais, infraestrutura, RH",
+      "Controle de correspondencia: entrada e saida",
+      "Organizacao de arquivos e documentos do gabinete"
+    ],
+    docsIn:["Correspondencia (oficios, convites, cartas)","Agenda institucional ALESP","Demandas administrativas"],
+    docsOut:["Agenda consolidada","Oficios de resposta","Controles administrativos","Atas de reunioes"],
+    decisions:["Priorizacao de agenda (sujeita a Chefe de Gabinete)","Logistica de viagens e visitas"],
+    systems:["Agenda digital","SP Sem Papel","Controles internos"],
+    interactions:[{actor:"Mesa Diretora ALESP",desc:"Questoes administrativas"},{actor:"Outros gabinetes",desc:"Agendamento"},{actor:"Visitantes",desc:"Recepcao e protocolo"}],
+    painPoints:["Agenda em multiplas plataformas","Correspondencia sem rastreamento digital"]},
+
+  {id:"escritorio-regional",name:"Escritorio Regional / Distrital",parent:"Chefe de Gabinete",section:"Presenca na Base",indent:0,type:"Escritorio de Campo",
+    competencias:[
+      "Atendimento a base eleitoral: recepcao de demandas presenciais",
+      "Eventos regionais: audiencias publicas, reunioes comunitarias",
+      "Interface com vereadores e liderancas locais",
+      "Recepcao de documentos para emendas (CNPJ, projetos)",
+      "Representacao do gabinete no municipio/regiao",
+      "Monitoramento local de obras e projetos financiados por emendas"
+    ],
+    docsIn:["Demandas presenciais de cidadaos","Documentos de prefeitos e vereadores","Convites para eventos locais"],
+    docsOut:["Relatorios de atendimento","Encaminhamentos ao gabinete central","Fichas de demanda","Fotos de obras e eventos"],
+    decisions:["Triagem de demandas locais","Priorizacao de atendimentos","Agenda de eventos regionais"],
+    systems:["WhatsApp","Planilhas","Telefone"],
+    interactions:[{actor:"Cidadaos",desc:"Atendimento direto"},{actor:"Vereadores",desc:"Articulacao local"},{actor:"Liderancas comunitarias",desc:"Demandas setoriais"},{actor:"Prefeitura local",desc:"Interface institucional"},{actor:"Gabinete central",desc:"Encaminhamento de demandas"}],
+    painPoints:["Sem sistema de registro de atendimentos","Demandas nao chegam ao gabinete central de forma estruturada","Sem feedback ao cidadao sobre andamento"]}
+];
+
+function renderTree(){
+  const t=document.getElementById('orgTree');
+  let h='',cs='';
+  units.forEach(u=>{
+    if(u.section!==cs){cs=u.section;h+=`<div class="tree-group-label">${cs}</div>`;}
+    h+=`<div class="tree-node${u.indent?` indent-${u.indent}`:''}" data-id="${u.id}">${u.name}<span class="node-badge">${u.type}</span></div>`;
+  });
+  t.innerHTML=h;
+  t.querySelectorAll('.tree-node').forEach(n=>{
+    n.addEventListener('click',()=>{
+      t.querySelectorAll('.tree-node').forEach(x=>x.classList.remove('active'));
+      n.classList.add('active');
+      showDetail(n.dataset.id);
+    });
+  });
+}
+
+function showDetail(id){
+  const u=units.find(x=>x.id===id);if(!u)return;
+  const p=document.getElementById('detailPanel');
+  let h=`<h2 class="detail-unit-name">${u.name}</h2><div class="detail-parent-label">${u.parent} · ${u.type}</div>`;
+  if(u.competencias.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Competencias e Atribuicoes</div>${u.competencias.map(c=>`<p>${c}</p>`).join('')}</div>`;
+  }
+  if(u.docsIn.length||u.docsOut.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Documentos</div><div class="doc-grid">${u.docsIn.map(d=>`<div class="doc-card in"><div class="doc-label">Recebe</div>${d}</div>`).join('')}${u.docsOut.map(d=>`<div class="doc-card out"><div class="doc-label">Produz</div>${d}</div>`).join('')}</div></div>`;
+  }
+  if(u.decisions.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Decisoes</div><div class="chip-list">${u.decisions.map(d=>`<span class="chip chip-dec">${d}</span>`).join('')}</div></div>`;
+  }
+  if(u.systems.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Sistemas</div><div class="chip-list">${u.systems.map(s=>`<span class="chip chip-sys">${s}</span>`).join('')}</div></div>`;
+  }
+  if(u.interactions.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Interacoes Externas</div><ul class="ix-list">${u.interactions.map(i=>`<li><span class="ix-actor">${i.actor}</span>${i.desc}</li>`).join('')}</ul></div>`;
+  }
+  if(u.painPoints&&u.painPoints.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Gargalos Identificados</div><div class="chip-list">${u.painPoints.map(x=>`<span class="chip chip-pain">${x}</span>`).join('')}</div></div>`;
+  }
+  p.innerHTML=h;p.scrollTop=0;
+}
+
+document.querySelectorAll('.nav-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('view-'+tab.dataset.view).classList.add('active');
+  });
+});
+
+renderTree();
+document.querySelector('.tree-node[data-id="deputado"]').click();
+</script>

@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/regional", "destination": "/regional/index.html" },
+    { "source": "/deputado360", "destination": "/deputado360/index.html" },
     { "source": "/internal", "destination": "https://reserva-tecnica-i10.vercel.app/internal" },
     { "source": "/internal/:path*", "destination": "https://reserva-tecnica-i10.vercel.app/internal/:path*" },
     { "source": "/proposals", "destination": "https://i10-proposals.vercel.app/" },
