@@ -624,6 +624,81 @@ body {
 }
 
 /* ── FOOTER ── */
+/* ── INTEGRAÇÕES TABLE ── */
+.int-table-wrap { overflow-x: auto; }
+.int-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.76rem;
+}
+.int-table thead th {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.65rem 0.7rem;
+  text-align: left;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: sticky;
+  top: 48px;
+  z-index: 10;
+}
+.int-table thead th:first-child { border-radius: var(--radius) 0 0 0; }
+.int-table thead th:last-child { border-radius: 0 var(--radius) 0 0; }
+.int-table td {
+  padding: 0.65rem 0.7rem;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  line-height: 1.5;
+}
+.int-table tr:nth-child(even) td { background: var(--bg); }
+.int-table td:first-child { font-weight: 700; color: var(--navy); }
+
+.via-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.18rem 0.45rem;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.via-api { background: var(--green-bg); color: var(--green); }
+.via-csv { background: var(--cyan-light); color: #0A2463; }
+.via-scrape { background: var(--amber-bg); color: #9A6C00; }
+.via-blocked { background: var(--red-bg); color: var(--red); }
+
+.int-url {
+  font-size: 0.65rem;
+  font-family: "SF Mono", "Cascadia Code", Menlo, monospace;
+  color: var(--cyan);
+  word-break: break-all;
+}
+.int-note {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.int-legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+.int-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+/* ── FOOTER ── */
 .i10-footer {
   background: var(--navy);
   padding: 1.5rem 2rem;
@@ -679,6 +754,7 @@ body {
     <button class="nav-tab" data-view="actors">Atores Externos</button>
     <button class="nav-tab" data-view="pain">Gargalos</button>
     <button class="nav-tab" data-view="legal">Base Legal</button>
+    <button class="nav-tab" data-view="integracoes">Integrações</button>
   </div>
 </nav>
 
@@ -1049,6 +1125,186 @@ body {
         <h3>Decreto 52.479 — Sistema Integrado de Convênios e CRMC</h3>
         <p>Institui o Sistema Integrado de Convênios e cria o CRMC (Certificado de Regularidade do Município). Mantém o Cadastro dos Municípios. Sistema gerenciado pela SGRI.</p>
         <div class="legal-src">al.sp.gov.br · 14/12/2007</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIEW: INTEGRAÇÕES ── -->
+<div class="view" id="view-integracoes">
+  <div class="section-intro">
+    <div class="section-eyebrow">Viabilidade Técnica</div>
+    <h2 class="section-title">Integrações com Sistemas da Esteira</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">Mapeamento de cada sistema mencionado no fluxo de convênios: o que conseguimos plugar via API, baixar como dados abertos, extrair por scraping, ou o que é fechado e exige convênio/credencial interna.</p>
+  </div>
+
+  <div class="int-legend">
+    <div class="int-legend-item"><span class="via-badge via-api">API</span> API REST pública</div>
+    <div class="int-legend-item"><span class="via-badge via-csv">CSV/XLSX</span> Download de dados abertos</div>
+    <div class="int-legend-item"><span class="via-badge via-scrape">SCRAPING</span> Extração via scraping da interface</div>
+    <div class="int-legend-item"><span class="via-badge via-blocked">FECHADO</span> Acesso restrito / credencial interna</div>
+  </div>
+
+  <div class="int-table-wrap">
+    <table class="int-table">
+      <thead>
+        <tr>
+          <th>Sistema</th>
+          <th>Dono</th>
+          <th>Via</th>
+          <th>O que conseguimos capturar</th>
+          <th>Endpoint / Fonte</th>
+          <th>Observações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dados Abertos SGRI — Convênios com Municípios</td>
+          <td>SGRI / dadosabertos.sp.gov.br</td>
+          <td><span class="via-badge via-csv">CSV/XLSX</span></td>
+          <td>Tabela completa de convênios celebrados pela SGRI com municípios: número, município, objeto, valor, situação, emendas parlamentares</td>
+          <td><span class="int-url">dadosabertos.sp.gov.br/dataset/4c5d26af.../convenios-sgri-com-municipios.csv</span></td>
+          <td>Download direto sem autenticação. Plataforma CKAN — também acessível via API CKAN. Atualização periódica pelo órgão.</td>
+        </tr>
+        <tr>
+          <td>Portal de Convênios SP</td>
+          <td>SGRI (convenios.sp.gov.br)</td>
+          <td><span class="via-badge via-scrape">SCRAPING</span></td>
+          <td>Status de CRMC, cadastro de municípios, relatório de entidades certificadas (CRCE), links para cadastro de prefeituras e entidades</td>
+          <td><span class="int-url">convenios.sp.gov.br</span><br><span class="int-url">cadastrodemunicipios.sp.gov.br</span><br><span class="int-url">cadastrodeentidades.sp.gov.br</span></td>
+          <td>Interface web antiga, sem API documentada. Scraping da página de consulta pública. O CRCE de entidades é público. Cadastro de municípios exige login estadual para edição.</td>
+        </tr>
+        <tr>
+          <td>Transferências Voluntárias — Sec. Fazenda</td>
+          <td>Secretaria da Fazenda SP</td>
+          <td><span class="via-badge via-scrape">SCRAPING</span></td>
+          <td>Convênios com liberações financeiras desde ago/2007: município, secretaria, valor, situação, data de liberação</td>
+          <td><span class="int-url">fazenda.sp.gov.br/TransferenciaVoluntaria/Sistema/Novo/PesquisaComposta.aspx</span></td>
+          <td>Formulário ASP.NET com filtros (município, secretaria, período). Dados registrados no SIAFEM. Sem API REST, mas scraping viável (requests POST com ViewState).</td>
+        </tr>
+        <tr>
+          <td>TCE-SP — API Transparência Municipal</td>
+          <td>TCE-SP</td>
+          <td><span class="via-badge via-api">API</span></td>
+          <td>Despesas municipais detalhadas (credor, empenho, data, valor), receitas municipais, lista de todos os municípios jurisdicionados</td>
+          <td><span class="int-url">transparencia.tce.sp.gov.br/api/json/despesas/{municipio}/{ano}/{mes}</span><br><span class="int-url">transparencia.tce.sp.gov.br/api/json/receitas/{municipio}/{ano}/{mes}</span><br><span class="int-url">transparencia.tce.sp.gov.br/api/json/municipios</span></td>
+          <td>API REST pública, sem autenticação. Formatos JSON e XML. Cobertura: todos os 645 municípios SP. Ideal para cruzar execução municipal com convênios.</td>
+        </tr>
+        <tr>
+          <td>TCE-SP — Conjunto de Dados Abertos</td>
+          <td>TCE-SP</td>
+          <td><span class="via-badge via-csv">CSV/XLSX</span></td>
+          <td>Datasets completos de despesas, receitas, contratos, licitações, folha de pagamento de todos os municípios</td>
+          <td><span class="int-url">transparencia.tce.sp.gov.br/conjunto-de-dados</span></td>
+          <td>Downloads em CSV/XLSX sem autenticação. Dados do Audesp. Complementa a API com séries históricas completas.</td>
+        </tr>
+        <tr>
+          <td>TCE-SP — Painel de Obras</td>
+          <td>TCE-SP</td>
+          <td><span class="via-badge via-scrape">SCRAPING</span></td>
+          <td>Obras paralisadas e atrasadas: município, status, contratada, valor, fonte de recurso (convênio estadual), percentual executado</td>
+          <td><span class="int-url">paineldeobras.tce.sp.gov.br</span></td>
+          <td>Dashboard interativo (dados do Audesp). Sem API pública documentada. Scraping dos requests XHR do painel ou download da planilha quando disponível. Dados atualizados semestralmente.</td>
+        </tr>
+        <tr>
+          <td>Audesp — Fase V (Terceiro Setor)</td>
+          <td>TCE-SP</td>
+          <td><span class="via-badge via-blocked">FECHADO</span></td>
+          <td>Prestações de contas de repasses ao terceiro setor: convênios, termos de parceria, colaboração, fomento — dados financeiros e operacionais</td>
+          <td><span class="int-url">tce.sp.gov.br/audesp/documentacao</span></td>
+          <td>Envio via API JSON autenticada (certificado digital do órgão jurisdicionado). Documentação técnica pública, mas acesso restrito a órgãos cadastrados. Para leitura, usar os dados abertos do TCE-SP.</td>
+        </tr>
+        <tr>
+          <td>SINAPI — Preços de Referência</td>
+          <td>Caixa / IBGE</td>
+          <td><span class="via-badge via-csv">CSV/XLSX</span></td>
+          <td>Tabela mensal de insumos e composições de custos por UF: código, descrição, unidade, preço desonerado e não desonerado</td>
+          <td><span class="int-url">caixa.gov.br/poder-publico/modernizacao-gestao/sinapi</span></td>
+          <td>Download mensal em ZIP (~20 MB) com planilhas XLSX por UF. Sem API oficial, mas sites terceiros (sinapi.app, buscadorsinapi.com.br) oferecem consulta indexada. Defasagem de 1-2 meses.</td>
+        </tr>
+        <tr>
+          <td>Tabela CDHU</td>
+          <td>CDHU / Governo SP</td>
+          <td><span class="via-badge via-csv">CSV/XLSX</span></td>
+          <td>Referencial de preços de construção habitacional SP: serviços, materiais, mão de obra</td>
+          <td><span class="int-url">cdhu.sp.gov.br</span></td>
+          <td>Download de planilha no site da CDHU. Atualização trimestral/semestral. Complementar ao SINAPI para obras habitacionais.</td>
+        </tr>
+        <tr>
+          <td>SP Sem Papel (SEI/SP)</td>
+          <td>Prodesp / SGRI</td>
+          <td><span class="via-badge via-blocked">FECHADO</span></td>
+          <td>Tramitação de processos administrativos: ofícios, pleitos, minutas, pareceres — workflow documental da esteira de convênios</td>
+          <td><span class="int-url">integrador.sp.gov.br (API CDESP)</span><br><span class="int-url">spsempapel.sp.gov.br</span></td>
+          <td>API existe no Integrador SP (OAS 3.0), mas requer credencial de órgão estadual via Prodesp. Em migração para SEI/SP. Integração viável apenas com credencial SGRI (termo de cooperação). Sem acesso público.</td>
+        </tr>
+        <tr>
+          <td>Sistema Integrado de Convênios</td>
+          <td>SGRI</td>
+          <td><span class="via-badge via-blocked">FECHADO</span></td>
+          <td>Base operacional completa: todos os convênios, status, parcelas, prestações de contas — é o "banco de dados mãe" da Subsecretaria</td>
+          <td><span class="int-url">app.convenios.sp.gov.br (gestor público)</span></td>
+          <td>Acesso restrito a gestores estaduais autenticados. Sem API pública. Os dados abertos da SGRI no dadosabertos.sp.gov.br são um extrato deste sistema. Integração plena exige convênio com a SGRI.</td>
+        </tr>
+        <tr>
+          <td>SIAFEM / SIAFÍSICO</td>
+          <td>Sec. Fazenda SP / Prodesp</td>
+          <td><span class="via-badge via-blocked">FECHADO</span></td>
+          <td>Execução orçamentária e financeira do estado: empenhos, liquidações, pagamentos, notas de crédito</td>
+          <td><span class="int-url">contabilizasp.fazenda.sp.gov.br/siafemnet</span></td>
+          <td>Sistema interno do governo estadual (SERPRO). Acesso somente com credencial de servidor. Dados de execução saem nos dados abertos da Fazenda (dadosabertos.sp.gov.br) e no portal de transparência.</td>
+        </tr>
+        <tr>
+          <td>DOE-SP — Diário Oficial</td>
+          <td>Imprensa Oficial SP</td>
+          <td><span class="via-badge via-scrape">SCRAPING</span></td>
+          <td>Publicações de extratos de convênios, aditamentos, portarias, resoluções SGRI, resultados de habilitação</td>
+          <td><span class="int-url">diariooficial.imprensaoficial.com.br</span></td>
+          <td>Busca textual pública por edição, data e caderno. Scraping viável (busca + PDF parsing). Sem API REST. Fonte autoritativa para datas de celebração e publicação.</td>
+        </tr>
+        <tr>
+          <td>IBGE — APIs de Dados</td>
+          <td>IBGE</td>
+          <td><span class="via-badge via-api">API</span></td>
+          <td>Dados municipais: população, PIB, área, IDEB, Censo — para contextualizar municípios convenentes</td>
+          <td><span class="int-url">servicodados.ibge.gov.br/api/v1/localidades</span><br><span class="int-url">servicodados.ibge.gov.br/api/v3/agregados</span></td>
+          <td>API REST pública, sem autenticação, excelente documentação. JSON. Cobertura total dos 5.570 municípios. Já usamos no Radar Fiscal 360 e PME 360.</td>
+        </tr>
+        <tr>
+          <td>PNCP — Compras Governamentais</td>
+          <td>Governo Federal</td>
+          <td><span class="via-badge via-api">API</span></td>
+          <td>Licitações e contratos públicos municipais/estaduais: editais, valores, empresas, situação — para cruzar com obras conveniadas</td>
+          <td><span class="int-url">pncp.gov.br/api/consulta</span></td>
+          <td>API REST pública com documentação OpenAPI. Já usamos no Licita 360. Dados de licitações municipais vinculáveis a convênios por objeto/município.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:1.5rem; padding:1.2rem; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); max-width:800px;">
+    <div style="font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--cyan); font-weight:700; margin-bottom:0.5rem;">Resumo de viabilidade</div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.8rem; text-align:center;">
+      <div>
+        <div style="font-size:1.8rem; font-weight:800; color:var(--green);">4</div>
+        <div style="font-size:0.7rem; color:var(--text-secondary);">APIs públicas</div>
+        <div style="font-size:0.62rem; color:var(--text-muted);">TCE-SP, IBGE, PNCP, Dados Abertos</div>
+      </div>
+      <div>
+        <div style="font-size:1.8rem; font-weight:800; color:var(--navy);">4</div>
+        <div style="font-size:0.7rem; color:var(--text-secondary);">Downloads CSV/XLSX</div>
+        <div style="font-size:0.62rem; color:var(--text-muted);">SGRI, TCE-SP, SINAPI, CDHU</div>
+      </div>
+      <div>
+        <div style="font-size:1.8rem; font-weight:800; color:#9A6C00;">4</div>
+        <div style="font-size:0.7rem; color:var(--text-secondary);">Scraping viável</div>
+        <div style="font-size:0.62rem; color:var(--text-muted);">Portal Convênios, Fazenda, Painel Obras, DOE-SP</div>
+      </div>
+      <div>
+        <div style="font-size:1.8rem; font-weight:800; color:var(--red);">3</div>
+        <div style="font-size:0.7rem; color:var(--text-secondary);">Fechados</div>
+        <div style="font-size:0.62rem; color:var(--text-muted);">SP Sem Papel, Sist. Integrado, SIAFEM</div>
       </div>
     </div>
   </div>
