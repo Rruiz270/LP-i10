@@ -711,6 +711,34 @@ body {
   color: var(--cyan);
   text-decoration: none;
 }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .i10-header .header-body { padding: 1.5rem 1rem 1.2rem; }
+  .header-title { font-size: 1.3rem; }
+  .header-sub { font-size: 0.8rem; }
+  .header-tags { gap: 0.35rem; }
+  .header-tag { font-size: 0.58rem; }
+  .nav-inner { padding: 0 1rem; }
+  .content { padding: 1rem; }
+  .org-layout { grid-template-columns: 1fr; }
+  .org-tree { position: static; max-height: none; margin-bottom: 1rem; }
+  .detail-panel { max-height: none; padding: 1.2rem; }
+  .detail-unit-name { font-size: 1.1rem; }
+  .section-title { font-size: 1.2rem; }
+  .actors-grid { grid-template-columns: 1fr; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .doc-grid { grid-template-columns: 1fr; }
+  .reg-grid { grid-template-columns: repeat(3, 1fr); }
+  .int-legend { flex-direction: column; gap: 0.4rem; }
+  .legal-row { grid-template-columns: 60px 1fr; gap: 0.8rem; }
+  .legal-year { font-size: 1.1rem; }
+  .i10-topbar { padding: 0.7rem 1rem; }
+  .i10-logo-text { font-size: 1.1rem; }
+  .flow-wrap, .int-table-wrap { margin: 0 -1rem; padding: 0 1rem; }
+  .i10-footer { padding: 1.2rem 1rem; font-size: 0.65rem; }
+  .viabilidade-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
 </style>
 
 <!-- ═══ HEADER ═══ -->
@@ -1285,7 +1313,7 @@ body {
 
   <div style="margin-top:1.5rem; padding:1.2rem; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); max-width:800px;">
     <div style="font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--cyan); font-weight:700; margin-bottom:0.5rem;">Resumo de viabilidade</div>
-    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.8rem; text-align:center;">
+    <div class="viabilidade-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.8rem; text-align:center;">
       <div>
         <div style="font-size:1.8rem; font-weight:800; color:var(--green);">4</div>
         <div style="font-size:0.7rem; color:var(--text-secondary);">APIs públicas</div>
