@@ -1,0 +1,1371 @@
+<title>Mapa Operacional — Regional 360 · Instituto i10</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ── PASSWORD GATE ── */
+#gate-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(135deg, #061840, #0A2463);
+  display: flex; align-items: center; justify-content: center;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+#gate-overlay.hidden { display: none; }
+.gate-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 380px;
+  width: 90%;
+}
+.gate-logo { margin-bottom: 1.2rem; }
+.gate-logo svg { height: 40px; }
+.gate-title {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.3px;
+}
+.gate-sub {
+  color: rgba(255,255,255,0.45);
+  font-size: 0.78rem;
+  margin-bottom: 1.5rem;
+}
+.gate-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 0.88rem;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: 0.1em;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.gate-input:focus { border-color: #00B4D8; }
+.gate-input::placeholder { color: rgba(255,255,255,0.25); }
+.gate-btn {
+  width: 100%;
+  margin-top: 0.8rem;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #00B4D8, #00E5A0);
+  color: #0A2463;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  transition: opacity 0.15s;
+}
+.gate-btn:hover { opacity: 0.9; }
+.gate-error {
+  color: #E74C3C;
+  font-size: 0.73rem;
+  margin-top: 0.6rem;
+  min-height: 1.1em;
+}
+#app-content { display: none; }
+#app-content.unlocked { display: block; }
+
+:root {
+  --navy: #0A2463;
+  --navy-deep: #061840;
+  --cyan: #00B4D8;
+  --cyan-light: #E8F8FB;
+  --mint: #00E5A0;
+  --mint-light: #E6FBF3;
+  --grad-main: linear-gradient(135deg, #0A2463, #00B4D8);
+  --grad-accent: linear-gradient(90deg, #00B4D8, #00E5A0);
+  --grad-dark: linear-gradient(135deg, #061840, #0A2463);
+  --white: #FFFFFF;
+  --bg: #F7F8FA;
+  --border: #E2E6ED;
+  --text: #1A2233;
+  --text-secondary: #5A6577;
+  --text-muted: #8B95A5;
+  --red: #E74C3C;
+  --red-bg: #FEF0EE;
+  --green: #0DAB61;
+  --green-bg: #EDFAF2;
+  --amber: #E6A817;
+  --amber-bg: #FEF9E7;
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+/* ── i10 HEADER ── */
+.i10-header {
+  background: var(--grad-dark);
+  padding: 0;
+  position: relative;
+}
+.i10-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.i10-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.i10-logo svg { height: 32px; width: auto; }
+.i10-logo-text {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+.i10-logo-text span { color: var(--cyan); }
+.i10-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: var(--mint);
+  color: var(--navy);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+
+.header-body {
+  padding: 2.5rem 2rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.header-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mint);
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+.header-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.header-sub {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 72ch;
+  line-height: 1.6;
+}
+.header-tags {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.header-tag {
+  font-size: 0.62rem;
+  font-weight: 500;
+  background: rgba(0,180,216,0.12);
+  border: 1px solid rgba(0,180,216,0.25);
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+  color: var(--cyan);
+  font-family: "SF Mono", "Cascadia Code", Menlo, monospace;
+  letter-spacing: 0.02em;
+}
+.header-gradient-bar {
+  height: 3px;
+  background: var(--grad-accent);
+}
+
+/* ── NAV ── */
+.nav-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  padding: 0 2rem;
+  overflow-x: auto;
+}
+.nav-tab {
+  padding: 0.85rem 1.1rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  background: none;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+.nav-tab:hover { color: var(--navy); }
+.nav-tab.active {
+  color: var(--navy);
+  border-bottom-color: var(--cyan);
+}
+
+/* ── CONTENT ── */
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 3rem;
+}
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── SECTION INTRO ── */
+.section-intro {
+  margin-bottom: 1.8rem;
+  max-width: 70ch;
+}
+.section-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 0.2rem;
+}
+.section-title-bar {
+  width: 40px;
+  height: 3px;
+  background: var(--grad-accent);
+  border-radius: 2px;
+  margin: 0.6rem 0;
+}
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── ORG CHART ── */
+.org-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 1.2rem;
+  min-height: 72vh;
+}
+@media (max-width: 920px) {
+  .org-layout { grid-template-columns: 1fr; }
+}
+
+.org-tree {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 80vh;
+  position: sticky;
+  top: 56px;
+}
+.tree-group-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin: 1.1rem 0 0.35rem 0.5rem;
+}
+.tree-group-label:first-child { margin-top: 0.3rem; }
+
+.tree-node {
+  padding: 0.5rem 0.65rem;
+  font-size: 0.77rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-bottom: 1px;
+  transition: background 0.12s;
+  border-left: 3px solid transparent;
+  line-height: 1.35;
+  color: var(--text);
+}
+.tree-node:hover { background: var(--cyan-light); }
+.tree-node.active {
+  background: var(--cyan-light);
+  border-left-color: var(--cyan);
+  font-weight: 700;
+  color: var(--navy);
+}
+.tree-node.indent-1 { margin-left: 1rem; }
+.tree-node.indent-2 { margin-left: 2rem; font-size: 0.73rem; }
+.tree-node .node-badge {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 1px;
+  font-weight: 400;
+}
+
+/* ── DETAIL PANEL ── */
+.detail-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem 2rem;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+.detail-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+  gap: 0.8rem;
+}
+.detail-empty svg { opacity: 0.3; }
+.detail-unit-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin-bottom: 0.2rem;
+}
+.detail-parent-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 1.3rem;
+}
+
+.detail-block {
+  margin-bottom: 1.6rem;
+}
+.detail-block-head {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+.detail-block p {
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.doc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+@media (max-width: 700px) { .doc-grid { grid-template-columns: 1fr; } }
+
+.doc-card {
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.doc-card.in {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+}
+.doc-card.out {
+  background: var(--amber-bg);
+  border-left: 3px solid var(--amber);
+}
+.doc-label {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+.doc-card.in .doc-label { color: var(--green); }
+.doc-card.out .doc-label { color: var(--amber); }
+
+.chip-list { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-size: 0.66rem;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+}
+.chip-sys {
+  background: var(--navy);
+  color: #fff;
+}
+.chip-dec {
+  background: var(--cyan-light);
+  color: var(--navy);
+  border: 1px solid rgba(0,180,216,0.3);
+}
+.chip-pain {
+  background: var(--red-bg);
+  color: var(--red);
+  border: 1px solid rgba(231,76,60,0.25);
+}
+
+.ix-list { list-style: none; }
+.ix-list li {
+  font-size: 0.77rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--bg);
+  display: flex;
+  gap: 0.45rem;
+  align-items: flex-start;
+  line-height: 1.45;
+}
+.ix-list li:last-child { border-bottom: none; }
+.ix-actor {
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+  background: var(--mint-light);
+  color: var(--navy);
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.reg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+.reg-chip {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* ── FLOW VIEW ── */
+.flow-wrap { overflow-x: auto; }
+.flow-table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.75rem;
+}
+.flow-table thead th {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.7rem 0.8rem;
+  text-align: left;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: sticky;
+  top: 48px;
+  z-index: 10;
+}
+.flow-table thead th:first-child {
+  border-radius: var(--radius) 0 0 0;
+  width: 130px;
+}
+.flow-table thead th:last-child {
+  border-radius: 0 var(--radius) 0 0;
+}
+.flow-table td {
+  padding: 0.7rem 0.8rem;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+  background: var(--white);
+}
+.flow-table td:first-child {
+  font-weight: 700;
+  color: var(--navy);
+  border-right: 2px solid var(--border);
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  background: var(--white);
+}
+.flow-table tr:nth-child(even) td { background: var(--bg); }
+.flow-table tr:nth-child(even) td:first-child { background: var(--bg); }
+
+.step-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--grad-accent);
+  color: var(--navy);
+  font-size: 0.63rem;
+  font-weight: 800;
+  margin-right: 0.35rem;
+  flex-shrink: 0;
+}
+.step-name { font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+.flow-meta {
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.flow-meta strong { color: var(--text-secondary); font-weight: 600; }
+
+/* ── ACTORS VIEW ── */
+.actors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1rem;
+}
+.actor-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.4rem;
+  transition: box-shadow 0.15s;
+}
+.actor-card:hover { box-shadow: 0 2px 12px rgba(10,36,99,0.06); }
+.actor-card-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 0.1rem;
+}
+.actor-card-role {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+.actor-card ul { list-style: none; font-size: 0.77rem; }
+.actor-card li {
+  padding: 0.28rem 0;
+  border-bottom: 1px solid var(--bg);
+  padding-left: 0.85rem;
+  position: relative;
+  line-height: 1.5;
+}
+.actor-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--grad-accent);
+}
+
+/* ── GARGALOS VIEW ── */
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1rem;
+}
+.pain-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  border-top: 3px solid var(--red);
+}
+.pain-card-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 0.2rem;
+}
+.pain-card-where {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+.pain-card p {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  margin-bottom: 0.4rem;
+  color: var(--text-secondary);
+}
+.pain-opp {
+  background: var(--mint-light);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.75rem;
+  color: var(--navy);
+  margin-top: 0.5rem;
+  border-left: 3px solid var(--mint);
+  line-height: 1.5;
+}
+.pain-opp-label {
+  display: block;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 2px;
+}
+
+/* ── BASE LEGAL VIEW ── */
+.legal-timeline { max-width: 820px; }
+.legal-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 1.2rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.legal-year {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  text-align: right;
+  letter-spacing: -0.5px;
+  padding-top: 0.1rem;
+}
+.legal-content h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.02em;
+}
+.legal-content p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+.legal-src {
+  font-size: 0.65rem;
+  font-family: "SF Mono", "Cascadia Code", Menlo, monospace;
+  color: var(--cyan);
+  font-weight: 500;
+}
+
+/* ── FOOTER ── */
+.i10-footer {
+  background: var(--navy);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.7rem;
+  margin-top: 2rem;
+}
+.i10-footer a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+</style>
+
+<div id="gate-overlay">
+  <div class="gate-box">
+    <div class="gate-logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="rgba(0,180,216,0.12)"/>
+        <path d="M10 28 L10 22 Q10 18 14 18 L14 28" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M17 28 L17 16 Q17 12 21 12 L21 28" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M24 28 L24 20 Q24 16 28 16 L28 28" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <circle cx="10" cy="22" r="2.2" fill="#00B4D8"/>
+        <circle cx="17" cy="16" r="2.2" fill="#00B4D8"/>
+        <circle cx="28" cy="16" r="2.2" fill="#00E5A0"/>
+      </svg>
+    </div>
+    <div class="gate-title">Regional 360</div>
+    <div class="gate-sub">Acesso restrito — Instituto i10</div>
+    <form id="gate-form" onsubmit="return checkGate()">
+      <input type="password" class="gate-input" id="gate-pwd" placeholder="Senha" autocomplete="off" autofocus>
+      <button type="submit" class="gate-btn">Entrar</button>
+      <div class="gate-error" id="gate-err"></div>
+    </form>
+  </div>
+</div>
+
+<div id="app-content">
+
+
+<!-- ═══ HEADER ═══ -->
+<header class="i10-header">
+  <div class="i10-topbar">
+    <div class="i10-logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="rgba(0,180,216,0.12)"/>
+        <path d="M10 28 L10 22 Q10 18 14 18 L14 28" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M17 28 L17 16 Q17 12 21 12 L21 28" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M24 28 L24 20 Q24 16 28 16 L28 28" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <circle cx="10" cy="22" r="2.2" fill="#00B4D8"/>
+        <circle cx="17" cy="16" r="2.2" fill="#00B4D8"/>
+        <circle cx="28" cy="16" r="2.2" fill="#00E5A0"/>
+      </svg>
+      <span class="i10-logo-text"><span>i</span>10</span>
+    </div>
+    <span class="i10-badge">Regional 360</span>
+  </div>
+  <div class="header-body">
+    <div class="header-eyebrow">Mapa Operacional</div>
+    <h1 class="header-title">Divisão Regional da Subsecretaria de Convênios</h1>
+    <p class="header-sub">Processos, documentos, decisões, sistemas e interações externas de cada unidade da Subsecretaria de Convênios com Municípios e Entidades Não Governamentais — SGRI/SP. Base para o desenho do produto i10 Gov 360.</p>
+    <div class="header-tags">
+      <span class="header-tag">Dec. 69.618/2025</span>
+      <span class="header-tag">Dec. 66.173/2021</span>
+      <span class="header-tag">Dec. 67.435/2023</span>
+      <span class="header-tag">Dec. 52.479/2007</span>
+      <span class="header-tag">MROSC 13.019/2014</span>
+      <span class="header-tag">15 Regionais</span>
+    </div>
+  </div>
+  <div class="header-gradient-bar"></div>
+</header>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-tab active" data-view="org">Organograma</button>
+    <button class="nav-tab" data-view="flow">Fluxo do Convênio</button>
+    <button class="nav-tab" data-view="actors">Atores Externos</button>
+    <button class="nav-tab" data-view="pain">Gargalos</button>
+    <button class="nav-tab" data-view="legal">Base Legal</button>
+  </div>
+</nav>
+
+<!-- ═══ CONTENT ═══ -->
+<main class="content">
+
+<!-- ── VIEW: ORGANOGRAMA ── -->
+<div class="view active" id="view-org">
+  <div class="org-layout">
+    <aside class="org-tree" id="orgTree"></aside>
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-empty">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="8" width="40" height="32" rx="4" stroke="#0A2463" stroke-width="2"/><path d="M12 20h24M12 28h16" stroke="#00B4D8" stroke-width="2" stroke-linecap="round"/></svg>
+        Selecione uma unidade no organograma para ver seus processos, documentos, decisões, sistemas e interações.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIEW: FLUXO ── -->
+<div class="view" id="view-flow">
+  <div class="section-intro">
+    <div class="section-eyebrow">Ciclo Completo</div>
+    <h2 class="section-title">Fluxo Ponta a Ponta do Convênio Estadual</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">Do pleito municipal à conclusão pelo TCE-SP — quem faz o quê em cada etapa: município, Divisão Regional e diretorias centrais da Subsecretaria.</p>
+  </div>
+  <div class="flow-wrap">
+    <table class="flow-table">
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Município / Convenente</th>
+          <th>Divisão Regional</th>
+          <th>Diretorias Centrais</th>
+          <th>Documentos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="step-pill">1</span><span class="step-name">Pleito</span></td>
+          <td>Prefeito ou Secretário Municipal formaliza demanda por ofício, e-mail ou presencialmente na regional.</td>
+          <td>Recebe o pleito, orienta a prefeitura na montagem, agenda audiência. Avalia viabilidade preliminar.</td>
+          <td>Coord. de Planejamento e Controle registra demanda no pipeline. Assessoria de Inovação pode articular novos programas.</td>
+          <td><div class="flow-meta"><strong>Entrada:</strong> Ofício de pleito, formulário de demanda<br><strong>Sistema:</strong> Sistema Integrado de Convênios, SP Sem Papel</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">2</span><span class="step-name">Habilitação</span></td>
+          <td>Cadastra-se no Portal de Convênios. Reúne certidões: FGTS, INSS, tributos federais/estaduais, regularidade fazendária.</td>
+          <td>Confere CRMC válido. Orienta sobre pendências. Acessa Portal para verificar status.</td>
+          <td>Coord. de Formalização valida CRMC. Coord. de Informações Gerenciais cruza dados com Fazenda/SP. Assessoria de Controle checa restrições TCE-SP.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> CRMC (Dec. 52.479/2007), CND, CRF-FGTS, certidão estadual<br><strong>Sistema:</strong> cadastrodemunicipios.sp.gov.br</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">3</span><span class="step-name">Plano de Trabalho</span></td>
+          <td>Elabora plano de trabalho: objeto, metas, cronograma, plano de aplicação, contrapartida. Para obras: projeto, ART, planilha orçamentária.</td>
+          <td>Apoia municípios pequenos na elaboração. Revisa coerência antes de encaminhar à sede.</td>
+          <td>Coord. de Análise Técnica avalia mérito. Coord. de Projetos (Eng.) verifica custos referenciais. Emite parecer técnico.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Plano de trabalho (art. 4º, II Dec. 66.173), projeto, ART, planilha SINAPI, parecer<br><strong>Base:</strong> Dec. 66.173/2021 art. 4º</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">4</span><span class="step-name">Celebração</span></td>
+          <td>Assina Termo de Convênio. Câmara Municipal pode autorizar legislativamente a contrapartida.</td>
+          <td>Acompanha tramitação. Comunica ao município o número e obrigações.</td>
+          <td>Coord. de Formalização prepara minuta. PGE analisa. Subsecretário assina. Publicação DOE-SP.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Termo de convênio, parecer PGE, autorização governamental, extrato DOE-SP<br><strong>Sistema:</strong> SP Sem Papel, DOE-SP</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">5</span><span class="step-name">Liberação</span></td>
+          <td>Confirma conta específica. Providencia contrapartida financeira.</td>
+          <td>Monitora cronograma de liberação. Alerta sede sobre desbloqueio.</td>
+          <td>Coord. de Planejamento programa desembolso. Fazenda efetua repasse. Regra: até R$2mi parcela única; R$2-5mi em 2; &gt;R$5mi com 30% na 1ª (Dec. 68.484/2024).</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Cronograma desembolso, nota de empenho<br><strong>Sistema:</strong> SIAFEM, Portal de Convênios</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">6</span><span class="step-name">Execução</span></td>
+          <td>Executa o objeto. Emite NFs, licitação municipal. Solicita aditamentos se necessário.</td>
+          <td>Vistorias in loco (obras). Relatório técnico de visita. Monitora vigência, contrapartida, marcos.</td>
+          <td>Coord. de Obras analisa medições. Coord. de Planejamento monitora vigências. Dir. Engenharia acompanha execução.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Relatório de vistoria, boletim de medição, NFs, termos aditivos<br><strong>Sistema:</strong> Cadastro de Obras TCE-SP</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">7</span><span class="step-name">Prestação de Contas</span></td>
+          <td>Monta prestação: NFs, extratos, relatório de execução, fotos, termos de aceitação.</td>
+          <td>Orienta município. Conferência preliminar antes de encaminhar à sede.</td>
+          <td>Coord. de Prestação de Contas concilia NFs × plano × extratos. Emite parecer: aprovação, ressalva ou reprovação.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Prestação de contas, parecer conclusivo, ofício de diligência<br><strong>Sistema:</strong> Audesp Fase V (TCE-SP)</div></td>
+        </tr>
+        <tr>
+          <td><span class="step-pill">8</span><span class="step-name">Conclusão</span></td>
+          <td>Responde diligências TCE-SP. Recolhe saldos não utilizados.</td>
+          <td>Apoia município em respostas ao TCE-SP. Reporta conclusão.</td>
+          <td>Assessoria de Controle envia dados ao TCE-SP via Audesp. Coord. de Prestação emite termo de encerramento. Portfólio arquiva.</td>
+          <td><div class="flow-meta"><strong>Docs:</strong> Termo encerramento, envio Audesp (JSON), relatório TCE-SP<br><strong>Sistema:</strong> Audesp, TCE-SP</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── VIEW: ATORES ── -->
+<div class="view" id="view-actors">
+  <div class="section-intro">
+    <div class="section-eyebrow">Ecossistema</div>
+    <h2 class="section-title">Atores Externos e Interações</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">De prefeitos a órgãos de controle — todos que interagem com a Divisão Regional e a Subsecretaria de Convênios.</p>
+  </div>
+  <div class="actors-grid">
+    <div class="actor-card">
+      <h3 class="actor-card-name">Prefeitos e Vice-Prefeitos</h3>
+      <div class="actor-card-role">Poder Executivo Municipal</div>
+      <ul>
+        <li>Audiências na Divisão Regional para apresentar demandas</li>
+        <li>Assinatura dos termos de convênio</li>
+        <li>Recepção em eventos regionais da Subsecretaria</li>
+        <li>Articulação para inclusão em programas estaduais</li>
+        <li>Onboarding no 1º mandato — Regional apresenta fluxos e regras</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Secretarias Municipais</h3>
+      <div class="actor-card-role">Obras · Planejamento · Fazenda · Educação · Saúde · Assistência</div>
+      <ul>
+        <li>Elaboração de planos de trabalho técnicos por área setorial</li>
+        <li>Fornecimento de projetos, ART, planilhas para obras</li>
+        <li>Execução do objeto conveniado e emissão de NFs</li>
+        <li>Prestação de contas — documentação financeira e de execução</li>
+        <li>Comprovação de contrapartida municipal</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Câmaras Municipais</h3>
+      <div class="actor-card-role">Poder Legislativo Municipal</div>
+      <ul>
+        <li>Autorização legislativa para contrapartida financeira</li>
+        <li>Fiscalização da execução de convênios pelo Executivo</li>
+        <li>Solicitações de informação sobre status de convênios</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Deputados Estaduais (ALESP)</h3>
+      <div class="actor-card-role">Poder Legislativo Estadual</div>
+      <ul>
+        <li>Indicação de emendas parlamentares estaduais</li>
+        <li>Articulação política com prefeitos via Regional</li>
+        <li>Acompanhamento da execução de obras indicadas por emendas</li>
+        <li>Fiscalização TCE-SP: 66 emendas em 59 cidades auditadas (R$52mi)</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">TCE-SP</h3>
+      <div class="actor-card-role">Tribunal de Contas do Estado</div>
+      <ul>
+        <li>Recebe dados de convênios via Audesp Fase V (JSON)</li>
+        <li>Cadastro obrigatório de obras paralisadas (SDG 042/2019)</li>
+        <li>Fiscalização de prestações de contas de repasses ao terceiro setor</li>
+        <li>784 obras com problemas, 37% de convênios estaduais</li>
+        <li>Demandas centralizadas pela Assessoria de Controle</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Secretarias Estaduais Setoriais</h3>
+      <div class="actor-card-role">Educação · Saúde · Segurança · Infraestrutura · Agricultura</div>
+      <ul>
+        <li>Formulação de programas que geram convênios</li>
+        <li>Análise setorial de planos de trabalho</li>
+        <li>Gestão de convênios próprios (SGRI gerencia o sistema)</li>
+        <li>Articulação com DER e CDHU para obras</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Secretaria da Fazenda e Planejamento</h3>
+      <div class="actor-card-role">Governo do Estado de SP</div>
+      <ul>
+        <li>Efetua repasses financeiros (SIAFEM)</li>
+        <li>Emite certidão de regularidade fazendária</li>
+        <li>Controla empenhos e cronograma de desembolso</li>
+        <li>Define transferências voluntárias vs. obrigatórias</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">OSCs / Entidades Não Governamentais</h3>
+      <div class="actor-card-role">MROSC · Lei 13.019/2014 · Dec. 61.981/2016-SP</div>
+      <ul>
+        <li>Cadastro no Portal de Entidades (cadastrodeentidades.sp.gov.br)</li>
+        <li>Obtenção do CRCE (Certificado de Regularidade)</li>
+        <li>Termos de colaboração, fomento ou acordo de cooperação</li>
+        <li>Prestação de contas via Audesp Fase V (Terceiro Setor)</li>
+        <li>Regime jurídico distinto dos convênios municipais</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Consórcios Intermunicipais</h3>
+      <div class="actor-card-role">Lei 11.107/2005</div>
+      <ul>
+        <li>Pleiteiam convênios representando múltiplos municípios</li>
+        <li>Articulação com a Regional para demandas integradas</li>
+        <li>Execução de objetos multi-municipais (saúde, resíduos)</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Associações de Municípios</h3>
+      <div class="actor-card-role">APM regional</div>
+      <ul>
+        <li>Canal de comunicação entre prefeituras e a Regional</li>
+        <li>Eventos e capacitações com a Subsecretaria</li>
+        <li>Representação coletiva de demandas</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">Casa Civil / Gabinete do Governador</h3>
+      <div class="actor-card-role">Governo do Estado de SP</div>
+      <ul>
+        <li>Autorização governamental prévia (art. 2º Dec. 66.173)</li>
+        <li>Diretrizes programáticas e prioridades regionais</li>
+        <li>Articulação política de alto nível</li>
+      </ul>
+    </div>
+    <div class="actor-card">
+      <h3 class="actor-card-name">PGE</h3>
+      <div class="actor-card-role">Procuradoria Geral do Estado</div>
+      <ul>
+        <li>Análise jurídica de minutas de termos de convênio</li>
+        <li>Parecer sobre aditamentos e prorrogações</li>
+        <li>Contencioso em irregularidades graves</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIEW: GARGALOS ── -->
+<div class="view" id="view-pain">
+  <div class="section-intro">
+    <div class="section-eyebrow">Diagnóstico</div>
+    <h2 class="section-title">Gargalos e Oportunidades</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">Dores documentadas no fluxo de convênios — fontes: TCE-SP, imprensa, capacitações SGRI. Cada gargalo aponta a oportunidade para o produto digital Convênios 360.</p>
+  </div>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <h3 class="pain-card-name">Habilitação documental manual</h3>
+      <div class="pain-card-where">Habilitação · Coord. de Formalização</div>
+      <p>Servidor confere certidão por certidão, uma a uma. Certidões vencem entre consultas. Devoluções repetidas por pendências detectáveis na entrada.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Convênios 360</span>Validação automática na entrada: OCR + API de certidões com checklist vivo por tipo de convênio e alerta de vencimento.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">CRMC e cadastro desatualizado</h3>
+      <div class="pain-card-where">Habilitação · Portal de Convênios</div>
+      <p>O CRMC substitui a documentação de regularidade, mas muitos municípios não mantêm o cadastro atualizado. Regional gasta tempo orientando prefeituras a regularizar.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Convênios 360</span>Painel de regularidade municipal em tempo real com alertas proativos sobre vencimentos iminentes.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Municípios sem corpo técnico</h3>
+      <div class="pain-card-where">Plano de Trabalho · Divisão Regional</div>
+      <p>Prefeituras pequenas sem engenheiro, contador ou jurídico para montar plano de trabalho robusto. Regional compensa presencialmente, mas volume excede capacidade.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Convênios 360</span>Wizard de plano de trabalho guiado: templates por tipo de objeto, checklist inteligente, preenchimento assistido com referencial SINAPI/CDHU.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Prestação de contas em fila</h3>
+      <div class="pain-card-where">Prestação de Contas · Maior Gargalo</div>
+      <p>NFs e extratos lidos um a um. Fila de meses. Risco de apontamento TCE-SP por atraso. Retrabalho por documentação incompleta.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Convênios 360</span>IA de conciliação automática: leitura de NFs e extratos, matching com plano de trabalho, classificação de risco. Humano só nos casos de risco alto.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Obras paralisadas e atrasadas</h3>
+      <div class="pain-card-where">Execução · TCE-SP · Dir. Engenharia</div>
+      <p>784 obras com problemas no estado. 37% de convênios estaduais. 85% das obras problemáticas são municipais. Cadastro obrigatório (SDG 042/2019) mas monitoramento manual.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Convênios 360</span>Motor de alertas de execução: vigências, aditivos, marcos monitorados. Dashboard de obras por regional com status em tempo real.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Ausência de visão consolidada</h3>
+      <div class="pain-card-where">Gestão · Coord. de Informações Gerenciais</div>
+      <p>Não existe painel executivo com pipeline por regional, status por município ou execução da verba. Consolidação em planilhas sob demanda.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Convênios 360</span>Painel Executivo: 645 municípios, 15 regionais, pipeline + execução + mapa — um cockpit.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Dúvida normativa dispersa</h3>
+      <div class="pain-card-where">Todas as etapas · Assessoria de Capacitação</div>
+      <p>Servidor liga para a capital, busca no DOE. Normas fragmentadas entre Dec. 66.173, Dec. 52.479, Dec. 61.981, instruções TCE-SP.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Convênios 360</span>Copiloto Normativo: IA treinada nos decretos e resoluções. Responde com citação do dispositivo aplicável.</div>
+    </div>
+    <div class="pain-card">
+      <h3 class="pain-card-name">Vistoria de obras sem padronização</h3>
+      <div class="pain-card-where">Execução · Divisão Regional</div>
+      <p>Relatórios técnicos elaborados de formas diferentes por cada Regional. Fotos, medições e pareceres sem template. Dificulta agregação pela Dir. Engenharia.</p>
+      <div class="pain-opp"><span class="pain-opp-label">Oportunidade Convênios 360</span>App de vistoria mobile: checklist padronizado por tipo de obra, foto geolocalizada, medição in loco, relatório gerado automaticamente.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VIEW: BASE LEGAL ── -->
+<div class="view" id="view-legal">
+  <div class="section-intro">
+    <div class="section-eyebrow">Normativo</div>
+    <h2 class="section-title">Base Legal e Normativa</h2>
+    <div class="section-title-bar"></div>
+    <p class="section-desc">Legislação que estrutura a Subsecretaria de Convênios, o fluxo de celebração, o CRMC, parcerias com OSCs e controle pelo TCE-SP.</p>
+  </div>
+  <div class="legal-timeline">
+    <div class="legal-row">
+      <div class="legal-year">2025</div>
+      <div class="legal-content">
+        <h3>Decreto 69.618 — Estrutura organizacional vigente da SGRI</h3>
+        <p>Aprova a estrutura atual: Subsecretaria com 3 diretorias, Assessoria de Gestão e 15 Divisões Regionais. Define competências de cada unidade (arts. 23-27).</p>
+        <div class="legal-src">al.sp.gov.br · 11/06/2025</div>
+      </div>
+    </div>
+    <div class="legal-row">
+      <div class="legal-year">2024</div>
+      <div class="legal-content">
+        <h3>Decreto 68.484 — Nova regra de liberação de parcelas</h3>
+        <p>Altera art. 10, §2º do Dec. 66.173: até R$2mi parcela única; R$2-5mi em 2 parcelas; acima de R$5mi parcelas com 30% na 1ª.</p>
+        <div class="legal-src">al.sp.gov.br · 26/04/2024</div>
+      </div>
+    </div>
+    <div class="legal-row">
+      <div class="legal-year">2023</div>
+      <div class="legal-content">
+        <h3>Decreto 67.435 — Criação da SGRI (governo Tarcísio)</h3>
+        <p>Renomeia Sec. Governo para SGRI. Extingue Sec. Desenvolvimento Regional. Transfere a Subsecretaria de Convênios para a SGRI (art. 4º, I + art. 9º).</p>
+        <div class="legal-src">al.sp.gov.br · 01/01/2023</div>
+      </div>
+    </div>
+    <div class="legal-row">
+      <div class="legal-year">2021</div>
+      <div class="legal-content">
+        <h3>Decreto 66.173 — Celebração de convênios (norma central)</h3>
+        <p>Disciplina celebração de convênios na Adm. direta e autárquica. Autorização governamental prévia (art. 2º), plano de trabalho (art. 4º, II), substituição por CRMC (art. 8º). Em vigor com alterações.</p>
+        <div class="legal-src">al.sp.gov.br · 26/10/2021</div>
+      </div>
+    </div>
+    <div class="legal-row">
+      <div class="legal-year">2019</div>
+      <div class="legal-content">
+        <h3>Decreto 64.063 — Sec. Desenvolvimento Regional</h3>
+        <p>Criou a Subsecretaria com 13 Escritórios Regionais. Definiu 4 atribuições dos ERs: formalização, operacionalização, estudos estatísticos e vistorias (art. 23, III).</p>
+        <div class="legal-src">al.sp.gov.br · 01/01/2019</div>
+      </div>
+    </div>
+    <div class="legal-row">
+      <div class="legal-year">2016</div>
+      <div class="legal-content">
+        <h3>Decreto 61.981 — MROSC no Estado de SP</h3>
+        <p>Regulamenta Lei 13.019/2014 na administração paulista. Termos de colaboração, fomento e acordos de cooperação com entidades não governamentais.</p>
+        <div class="legal-src">al.sp.gov.br · 20/05/2016</div>
+      </div>
+    </div>
+    <div class="legal-row">
+      <div class="legal-year">2014</div>
+      <div class="legal-content">
+        <h3>Lei Federal 13.019 — Marco Regulatório das OSCs</h3>
+        <p>Regime jurídico das parcerias entre administração pública e OSCs. Prestação de contas ao TCE-SP via Audesp Fase V.</p>
+        <div class="legal-src">planalto.gov.br · 31/07/2014</div>
+      </div>
+    </div>
+    <div class="legal-row">
+      <div class="legal-year">2011</div>
+      <div class="legal-content">
+        <h3>Decreto 57.501 — Portal de Convênios</h3>
+        <p>Institui o Portal de Convênios do Estado de SP (art. 5º), hoje gerenciado pela SGRI.</p>
+        <div class="legal-src">al.sp.gov.br · 08/11/2011</div>
+      </div>
+    </div>
+    <div class="legal-row">
+      <div class="legal-year">2007</div>
+      <div class="legal-content">
+        <h3>Decreto 52.479 — Sistema Integrado de Convênios e CRMC</h3>
+        <p>Institui o Sistema Integrado de Convênios e cria o CRMC (Certificado de Regularidade do Município). Mantém o Cadastro dos Municípios. Sistema gerenciado pela SGRI.</p>
+        <div class="legal-src">al.sp.gov.br · 14/12/2007</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="i10-footer">
+  Instituto i10 · Inovação · Inteligência · Impacto — <a href="mailto:i10@i10.org.br">i10@i10.org.br</a> · institutoi10.com.br
+</footer>
+
+<script>
+const units = [
+  {id:"subsecretaria",name:"Subsecretaria de Convênios com Municípios e ENGs",parent:"SGRI",section:"Comando",indent:0,type:"Subsecretaria",
+    competencias:["Assessorar o Secretário nos assuntos de convênios com municípios e entidades não governamentais (art. 23, I — Dec. 69.618/2025)","Gerenciar e monitorar os procedimentos relativos aos convênios (art. 23, II)","Supervisionar 15 Divisões Regionais, 3 Diretorias e Assessoria de Gestão de Convênios","Gerenciar o Sistema Integrado de Convênios do Estado de SP (Dec. 52.479/2007)","Gerenciar o Portal de Convênios (Dec. 57.501/2011)","Manter o Cadastro dos Municípios","Promover interlocução com municípios e entidades para parcerias"],
+    docsIn:["Pleitos municipais (via Regionais)","Demandas de secretarias estaduais","Requisições do TCE-SP e controle","Emendas parlamentares ALESP"],
+    docsOut:["Termos de convênio celebrados","Relatórios consolidados ao Secretário","Dados ao TCE-SP via Audesp","Publicações no DOE-SP"],
+    decisions:["Priorização de pleitos","Autorização para celebração","Aprovação/reprovação de prestações de contas","Aprovação de aditamentos"],
+    systems:["Sistema Integrado de Convênios","Portal de Convênios","SP Sem Papel","Audesp (TCE-SP)"],
+    interactions:[{actor:"Secretário SGRI",desc:"Assessoramento direto e autorização"},{actor:"Casa Civil",desc:"Autorização governamental prévia (art. 2º Dec. 66.173)"},{actor:"TCE-SP",desc:"Envio de dados, resposta a demandas"},{actor:"645 Municípios",desc:"Via Divisões Regionais e Portal"},{actor:"PGE",desc:"Análise jurídica de minutas"}],
+    painPoints:["Visão consolidada inexistente — gestão em planilhas","Normas fragmentadas entre decretos"]},
+  {id:"divisao-regional",name:"Divisão Regional (15 unidades)",parent:"Subsecretaria de Convênios",section:"Divisões Regionais",indent:0,type:"Divisão de Campo",
+    competencias:["Acompanhar a formalização de convênios com municípios e ENGs (art. 23, III, 'a' — Dec. 64.063/2019)","Viabilizar procedimentos para operacionalização e acompanhamento de convênios","Realizar estudos estatísticos referentes aos convênios","Coordenar relatórios técnicos de visitas às obras (vistorias)","Receber prefeitos e secretários municipais — audiências e atendimentos","Apoiar municípios pequenos na montagem de pleitos e planos de trabalho","Articulação política regional — deputados, associações, consórcios","Eventos e capacitações regionais"],
+    docsIn:["Ofícios de pleito de prefeitos","Planos de trabalho (revisão prévia)","Documentação de habilitação (CRMC, certidões)","NFs e extratos (conferência preliminar)","Demandas de deputados estaduais"],
+    docsOut:["Relatórios técnicos de vistoria","Pareceres preliminares sobre planos de trabalho","Estudos estatísticos regionais","Relatórios de atividade regional","Encaminhamentos qualificados à sede"],
+    decisions:["Viabilidade preliminar do pleito","Priorização de vistorias","Recomendação de aprovação/ajuste do plano","Encaminhamento ou devolução ao município"],
+    systems:["Portal de Convênios","Sistema Integrado","SP Sem Papel","cadastrodemunicipios.sp.gov.br"],
+    interactions:[{actor:"Prefeitos",desc:"Audiências, onboarding de mandato"},{actor:"Sec. Municipais",desc:"Orientação em planos de trabalho e prestação de contas"},{actor:"Deputados ALESP",desc:"Articulação política, emendas"},{actor:"APMs",desc:"Eventos conjuntos, comunicação coletiva"},{actor:"Consórcios",desc:"Demandas intermunicipais"},{actor:"TCE-SP",desc:"Apoio a municípios em diligências"},{actor:"Eng. Central",desc:"Envia vistorias, recebe orientações"}],
+    painPoints:["Municípios sem corpo técnico sobrecarregam","Relatórios de vistoria sem padronização","Sem painel de status em tempo real"],
+    regionais:["Araçatuba","Araraquara","Barretos","Bauru","Campinas","Franca","Itapeva","Marília","Presidente Prudente","Registro","Ribeirão Preto","São José do Rio Preto","Sorocaba","Santos","São José dos Campos"]},
+  {id:"assessoria-gestao",name:"Assessoria de Gestão de Convênios",parent:"Subsecretaria de Convênios",section:"Assessoria de Gestão",indent:0,type:"Assessoria",
+    competencias:["Centralizar demandas de órgãos de fiscalização e requisições judiciais (art. 24, VII)","Fomentar capacitação de recursos humanos para convênios (art. 24, VI)","Coordenar inovação e projetos especiais","Gerenciar divulgação, cerimonial e eventos"],
+    docsIn:["Ofícios e requisições do TCE-SP","Requisições judiciais","Demandas de CGE, MPE","Pedidos de capacitação"],
+    docsOut:["Respostas ao TCE-SP e controle","Programas de capacitação","Comunicação institucional","Relatórios de inovação"],
+    decisions:["Priorização de demandas de controle","Agenda de capacitações","Diretrizes para projetos especiais"],
+    systems:["SP Sem Papel","Audesp"],
+    interactions:[{actor:"TCE-SP",desc:"Centraliza e responde demandas"},{actor:"CGE/MPE",desc:"Outros órgãos de controle"},{actor:"Judiciário",desc:"Requisições judiciais"},{actor:"Regionais",desc:"Capacitações e eventos"},{actor:"Municípios",desc:"Treinamentos sobre convênios"}],
+    painPoints:["Demandas de controle dispersas"]},
+  {id:"assess-capacitacao",name:"Assessoria de Capacitação",parent:"Assessoria de Gestão",section:"Assessoria de Gestão",indent:1,type:"Assessoria",
+    competencias:["Programas de capacitação para servidores da Subsecretaria","Treinamentos para prefeituras sobre CRMC, prestação de contas","Cursos regionais itinerantes","Material didático e guias"],
+    docsIn:["Demandas de treinamento das Regionais","Legislação atualizada"],docsOut:["Material didático","Programas de capacitação","Relatórios de treinamento"],
+    decisions:["Agenda e locais","Conteúdo programático"],systems:[],
+    interactions:[{actor:"Regionais",desc:"Demanda e logística"},{actor:"Municípios",desc:"Público-alvo"}],painPoints:["Escala insuficiente para 645 municípios"]},
+  {id:"assess-inovacao",name:"Assessoria em Inovação e Projetos Especiais",parent:"Assessoria de Gestão",section:"Assessoria de Gestão",indent:1,type:"Assessoria",
+    competencias:["Projetos de modernização nos processos de convênios","Articular parcerias tecnológicas","Pilotar CPSI, encomenda tecnológica"],
+    docsIn:["Propostas de inovação","Benchmarks"],docsOut:["Projetos especiais","Termos de referência"],
+    decisions:["Aprovação de pilotos","Seleção de parceiros"],systems:[],
+    interactions:[{actor:"Startups/ICTs",desc:"Parcerias de inovação"},{actor:"Sec. Ciência",desc:"Programas de inovação"}],painPoints:[]},
+  {id:"assess-controle",name:"Assessoria de Informações a Órgãos de Controle",parent:"Assessoria de Gestão",section:"Assessoria de Gestão",indent:1,type:"Assessoria",
+    competencias:["Centralizar demandas do TCE-SP, CGE, MP, Judiciário (art. 24, VII)","Preparar respostas técnicas a apontamentos","Monitorar prazos de atendimento","Alimentar Audesp"],
+    docsIn:["Ofícios TCE-SP","Requisições do MP","Mandados judiciais","Relatórios CGE"],
+    docsOut:["Respostas formais ao TCE-SP","Dados Audesp Fase V","Relatórios de risco"],
+    decisions:["Priorização de respostas","Classificação de risco"],systems:["Audesp","SP Sem Papel"],
+    interactions:[{actor:"TCE-SP",desc:"784 obras, Audesp Fase V, Terceiro Setor"},{actor:"CGE",desc:"Controladoria Geral"},{actor:"MP-SP",desc:"Demandas do Ministério Público"}],
+    painPoints:["Volume crescente","Dados dispersos para respostas"]},
+  {id:"assess-divulgacao",name:"Assessoria em Divulgação, Cerimonial e Eventos",parent:"Assessoria de Gestão",section:"Assessoria de Gestão",indent:1,type:"Assessoria",
+    competencias:["Eventos institucionais","Cerimonial de assinaturas e entregas","Comunicação — site, releases, redes","Eventos regionais com Divisões"],
+    docsIn:["Agendas de assinaturas","Demandas de cobertura"],docsOut:["Releases","Material de cerimonial","Convites"],
+    decisions:["Agenda de eventos","Pauta de comunicação"],systems:[],
+    interactions:[{actor:"Imprensa",desc:"Cobertura"},{actor:"Gab. Governador",desc:"Agenda política"},{actor:"Prefeitos",desc:"Protocolo de eventos"}],painPoints:[]},
+  {id:"dir-convenios",name:"Diretoria de Convênios",parent:"Subsecretaria de Convênios",section:"Diretoria de Convênios",indent:0,type:"Diretoria",
+    competencias:["Gerenciar ciclo documental: formalização, análise técnica, prestação de contas e conclusão","Supervisionar 3 coordenadorias","Garantir conformidade com Dec. 66.173/2021"],
+    docsIn:["Planos de trabalho","Documentação de habilitação","Prestações de contas"],
+    docsOut:["Termos formalizados","Pareceres técnicos","Pareceres de prestação"],
+    decisions:["Aprovação de minutas","Emissão de pareceres","Aprovação/reprovação de PC"],
+    systems:["Portal de Convênios","Sistema Integrado","SP Sem Papel"],
+    interactions:[{actor:"PGE",desc:"Minutas para análise jurídica"},{actor:"DOE-SP",desc:"Publicação de extratos"},{actor:"Sec. Fazenda",desc:"Liberação de parcelas"}],
+    painPoints:["Acúmulo de prestações pendentes"]},
+  {id:"coord-formalizacao",name:"Coord. de Formalização de Convênios",parent:"Diretoria de Convênios",section:"Diretoria de Convênios",indent:1,type:"Coordenadoria",
+    competencias:["Verificar habilitação (CRMC, certidões)","Validar documentação para celebração","Preparar minutas de termos","Encaminhar à PGE","Publicar no DOE-SP","Processar aditamentos"],
+    docsIn:["CRMC (Dec. 52.479/2007)","CND Federal","CRF-FGTS","Certidão estadual","Plano de trabalho aprovado","Docs do convenente"],
+    docsOut:["Minuta do Termo","Extrato para DOE-SP","Ofícios de pendência","Termos aditivos"],
+    decisions:["Habilitar ou devolver","Aprovar minuta"],systems:["cadastrodemunicipios.sp.gov.br","Portal de Convênios","SP Sem Papel","SIAFEM"],
+    interactions:[{actor:"Municípios",desc:"Verifica regularidade"},{actor:"PGE",desc:"Minutas"},{actor:"DOE-SP",desc:"Publicação"},{actor:"Sec. Fazenda",desc:"Regularidade fazendária"}],
+    painPoints:["Conferência manual certidão por certidão","Devoluções repetidas por vencimento"]},
+  {id:"coord-analise",name:"Coord. de Análise Técnica de Convênios",parent:"Diretoria de Convênios",section:"Diretoria de Convênios",indent:1,type:"Coordenadoria",
+    competencias:["Analisar mérito e coerência dos planos de trabalho","Verificar custos contra SINAPI/CDHU","Emitir parecer técnico","Identificar inconsistências"],
+    docsIn:["Plano de trabalho","Planilha orçamentária","Cronograma físico-financeiro","Memorial descritivo"],
+    docsOut:["Parecer técnico","Ofícios de diligência"],
+    decisions:["Aprovar, reprovar ou ajustar plano","Validar custos"],systems:["SINAPI","Tabela CDHU","Portal de Convênios"],
+    interactions:[{actor:"Municípios",desc:"Ajustes técnicos"},{actor:"Regionais",desc:"Análises preliminares"},{actor:"Eng. Central",desc:"Coordena para obras"}],
+    painPoints:["Pesquisa manual de preços","Dias por processo"]},
+  {id:"coord-prestacao",name:"Coord. de Prestação de Contas e Conclusão",parent:"Diretoria de Convênios",section:"Diretoria de Convênios",indent:1,type:"Coordenadoria",
+    competencias:["Analisar prestações de contas","Conciliar NFs × plano × extratos","Emitir parecer (aprovação/ressalva/reprovação)","Termo de encerramento","Gerenciar saldos e tomadas de contas especiais","Alimentar Audesp"],
+    docsIn:["Notas fiscais","Extratos bancários","Relatório de execução","Fotos e termos de aceitação","Documentação de licitação"],
+    docsOut:["Parecer conclusivo","Termo de encerramento","Ofícios de diligência","Dados Audesp Fase V"],
+    decisions:["Aprovar, ressalvar ou reprovar PC","Instaurar tomada de contas","Autorizar devolução de saldos"],
+    systems:["Portal de Convênios","Audesp Fase V","SP Sem Papel"],
+    interactions:[{actor:"Municípios",desc:"Documentação complementar"},{actor:"TCE-SP",desc:"Audesp"},{actor:"Regionais",desc:"Conferência preliminar"},{actor:"Sec. Fazenda",desc:"Recolhimento de saldos"}],
+    painPoints:["MAIOR GARGALO: NFs lidas uma a uma","Fila de meses","Risco TCE-SP","Retrabalho por docs incompletas"]},
+  {id:"dir-engenharia",name:"Diretoria de Engenharia, Obras e Serviços",parent:"Subsecretaria de Convênios",section:"Dir. de Engenharia",indent:0,type:"Diretoria",
+    competencias:["Gerir contratos de obras e serviços de engenharia (art. 26, II)","Acompanhar execução das obras das Divisões Regionais (art. 26, III)","Supervisionar Coord. de Projetos e Coord. de Obras"],
+    docsIn:["Projetos de engenharia","Relatórios de vistoria","Boletins de medição","ARTs/RRTs"],
+    docsOut:["Pareceres de engenharia","Laudos técnicos","Relatórios consolidados de obras"],
+    decisions:["Aprovar projetos","Autorizar medições","Recomendar paralisação"],
+    systems:["Portal de Convênios","Cadastro de Obras TCE-SP","SINAPI","Tabela CDHU"],
+    interactions:[{actor:"Regionais",desc:"Vistorias e orientações"},{actor:"DER",desc:"Obras rodoviárias"},{actor:"CDHU",desc:"Obras habitacionais"},{actor:"TCE-SP",desc:"Cadastro de obras"}],
+    painPoints:["37% das obras com problemas vêm de convênios","85% das problemáticas são municipais"]},
+  {id:"coord-projetos",name:"Coordenadoria de Projetos",parent:"Dir. de Engenharia",section:"Dir. de Engenharia",indent:1,type:"Coordenadoria",
+    competencias:["Analisar projetos de engenharia","Conformidade com normas ABNT e acessibilidade","Avaliar planilhas contra SINAPI/CDHU","Parecer técnico de viabilidade"],
+    docsIn:["Projeto básico/executivo","Memorial descritivo","Planilha SINAPI/CDHU","ART"],
+    docsOut:["Parecer de projetos","Solicitações de revisão"],
+    decisions:["Aprovar ou devolver projeto"],systems:["SINAPI","Tabela CDHU"],
+    interactions:[{actor:"Municípios",desc:"Analisa e devolve projetos"},{actor:"CREA/CAU",desc:"ARTs e RRTs"}],
+    painPoints:["Projetos de municípios pequenos inadequados"]},
+  {id:"coord-obras",name:"Coordenadoria de Obras e Serviços",parent:"Dir. de Engenharia",section:"Dir. de Engenharia",indent:1,type:"Coordenadoria",
+    competencias:["Acompanhar execução de obras conveniadas","Analisar boletins de medição","Coordenar vistorias com Regionais","Monitorar cronograma e marcos"],
+    docsIn:["Boletins de medição","Relatórios de vistoria","Fotos de execução"],
+    docsOut:["Relatórios de acompanhamento","Pareceres de medição","Alertas de obras atrasadas"],
+    decisions:["Aprovar medições","Recomendar intervenção"],systems:["Portal de Convênios","Cadastro de Obras TCE-SP"],
+    interactions:[{actor:"Regionais",desc:"Vistorias de campo"},{actor:"Municípios",desc:"Medições e prazos"},{actor:"TCE-SP",desc:"Cadastro obrigatório de obras"}],
+    painPoints:["Monitoramento manual","Obras paralisam sem alerta"]},
+  {id:"dir-planejamento",name:"Diretoria de Planejamento e Informações",parent:"Subsecretaria de Convênios",section:"Dir. de Planejamento",indent:0,type:"Diretoria",
+    competencias:["Planejar e controlar portfólio de convênios","Produzir informações gerenciais","Supervisionar 3 coordenadorias"],
+    docsIn:["Dados de convênios (pipeline, execução, conclusão)","Relatórios das Regionais","Dados orçamentários"],
+    docsOut:["Relatórios gerenciais","Dashboards","Análises de portfólio"],
+    decisions:["Priorização de programas","Alocação de recursos entre regionais"],
+    systems:["Portal de Convênios","Sistema Integrado","SIAFEM"],
+    interactions:[{actor:"Subsecretário",desc:"Visão gerencial"},{actor:"Sec. Fazenda",desc:"Dados orçamentários"},{actor:"Regionais",desc:"Agrega dados de campo"}],
+    painPoints:["Consolidação manual em planilhas","Sem dashboards em tempo real"]},
+  {id:"coord-plan-controle",name:"Coord. de Planejamento e Controle de Convênios",parent:"Dir. de Planejamento",section:"Dir. de Planejamento",indent:1,type:"Coordenadoria",
+    competencias:["Cronograma de desembolso","Controlar vigências, prazos e marcos","Monitorar execução orçamentária vs. previsão","Alertar sobre convênios a vencer"],
+    docsIn:["Cronogramas de desembolso","Relatórios de execução","Status de vigências"],
+    docsOut:["Relatórios de controle","Alertas de vencimento","Programação de desembolso"],
+    decisions:["Programação de liberação","Alerta de vigências críticas"],systems:["Portal de Convênios","SIAFEM"],
+    interactions:[{actor:"Sec. Fazenda",desc:"Programação de desembolso"},{actor:"Regionais",desc:"Status de convênios"}],
+    painPoints:["Vigências monitoradas manualmente"]},
+  {id:"coord-portfolio",name:"Coordenadoria de Gestão de Portfólio",parent:"Dir. de Planejamento",section:"Dir. de Planejamento",indent:1,type:"Coordenadoria",
+    competencias:["Portfólio completo: ativos, concluídos, em formalização","Arquivar processos encerrados","Visão consolidada de pipeline por regional/programa/status","Apoiar decisões de alocação"],
+    docsIn:["Dados de todos os convênios"],docsOut:["Relatórios de portfólio","Análises de pipeline","Dados históricos"],
+    decisions:["Classificação e organização"],systems:["Portal de Convênios","Sistema Integrado"],
+    interactions:[{actor:"Subsecretário",desc:"Visão consolidada"},{actor:"Todas Coord.",desc:"Agrega dados do ciclo"}],
+    painPoints:["Sem pipeline digital — planilhas"]},
+  {id:"coord-info",name:"Coordenadoria de Informações Gerenciais",parent:"Dir. de Planejamento",section:"Dir. de Planejamento",indent:1,type:"Coordenadoria",
+    competencias:["Relatórios gerenciais para Subsecretário e Secretário","Cruzar dados com Fazenda, TCE, IBGE","Indicadores de desempenho","Demandas ad hoc (ALESP, imprensa, controle)"],
+    docsIn:["Dados brutos","Demandas de relatórios"],docsOut:["Relatórios gerenciais","Indicadores","Respostas a informações"],
+    decisions:["Definição de indicadores","Priorização de relatórios"],systems:["Portal de Convênios","Bases Fazenda","IBGE","Audesp"],
+    interactions:[{actor:"ALESP",desc:"Pedidos de informação"},{actor:"Imprensa",desc:"Dados para matérias"}],
+    painPoints:["Relatórios sob demanda","Cruzamento manual de bases"]}
+];
+
+function renderTree(){
+  const t=document.getElementById('orgTree');
+  let h='',cs='';
+  units.forEach(u=>{
+    if(u.section!==cs){cs=u.section;h+=`<div class="tree-group-label">${cs}</div>`;}
+    h+=`<div class="tree-node${u.indent?` indent-${u.indent}`:''}" data-id="${u.id}">${u.name}<span class="node-badge">${u.type}</span></div>`;
+  });
+  t.innerHTML=h;
+  t.querySelectorAll('.tree-node').forEach(n=>{
+    n.addEventListener('click',()=>{
+      t.querySelectorAll('.tree-node').forEach(x=>x.classList.remove('active'));
+      n.classList.add('active');
+      showDetail(n.dataset.id);
+    });
+  });
+}
+
+function showDetail(id){
+  const u=units.find(x=>x.id===id);if(!u)return;
+  const p=document.getElementById('detailPanel');
+  let h=`<h2 class="detail-unit-name">${u.name}</h2><div class="detail-parent-label">${u.parent} · ${u.type}</div>`;
+  if(u.regionais){
+    h+=`<div class="detail-block"><div class="detail-block-head">15 Divisões Regionais</div><div class="reg-grid">${u.regionais.map(r=>`<div class="reg-chip">${r}</div>`).join('')}</div></div>`;
+  }
+  if(u.competencias.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Competências e Atribuições</div>${u.competencias.map(c=>`<p>${c}</p>`).join('')}</div>`;
+  }
+  if(u.docsIn.length||u.docsOut.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Documentos</div><div class="doc-grid">${u.docsIn.map(d=>`<div class="doc-card in"><div class="doc-label">Recebe</div>${d}</div>`).join('')}${u.docsOut.map(d=>`<div class="doc-card out"><div class="doc-label">Produz</div>${d}</div>`).join('')}</div></div>`;
+  }
+  if(u.decisions.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Decisões</div><div class="chip-list">${u.decisions.map(d=>`<span class="chip chip-dec">${d}</span>`).join('')}</div></div>`;
+  }
+  if(u.systems.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Sistemas</div><div class="chip-list">${u.systems.map(s=>`<span class="chip chip-sys">${s}</span>`).join('')}</div></div>`;
+  }
+  if(u.interactions.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Interações Externas</div><ul class="ix-list">${u.interactions.map(i=>`<li><span class="ix-actor">${i.actor}</span>${i.desc}</li>`).join('')}</ul></div>`;
+  }
+  if(u.painPoints&&u.painPoints.length){
+    h+=`<div class="detail-block"><div class="detail-block-head">Gargalos Identificados</div><div class="chip-list">${u.painPoints.map(x=>`<span class="chip chip-pain">${x}</span>`).join('')}</div></div>`;
+  }
+  p.innerHTML=h;p.scrollTop=0;
+}
+
+document.querySelectorAll('.nav-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('view-'+tab.dataset.view).classList.add('active');
+  });
+});
+
+renderTree();
+</script>
+
+</div>
+
+<script>
+function checkGate(){
+  var p=document.getElementById('gate-pwd').value;
+  if(p==='2026i10'){
+    document.getElementById('gate-overlay').classList.add('hidden');
+    document.getElementById('app-content').classList.add('unlocked');
+    try{sessionStorage.setItem('r360','1')}catch(e){}
+    return false;
+  }
+  document.getElementById('gate-err').textContent='Senha incorreta';
+  document.getElementById('gate-pwd').value='';
+  document.getElementById('gate-pwd').focus();
+  return false;
+}
+(function(){
+  try{if(sessionStorage.getItem('r360')==='1'){
+    document.getElementById('gate-overlay').classList.add('hidden');
+    document.getElementById('app-content').classList.add('unlocked');
+  }}catch(e){}
+})();
+</script>
