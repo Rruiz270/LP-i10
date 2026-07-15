@@ -2,78 +2,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-/* ── PASSWORD GATE ── */
-#gate-overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  background: linear-gradient(135deg, #061840, #0A2463);
-  display: flex; align-items: center; justify-content: center;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-#gate-overlay.hidden { display: none; }
-.gate-box {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: 2.5rem;
-  text-align: center;
-  max-width: 380px;
-  width: 90%;
-}
-.gate-logo { margin-bottom: 1.2rem; }
-.gate-logo svg { height: 40px; }
-.gate-title {
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-  letter-spacing: -0.3px;
-}
-.gate-sub {
-  color: rgba(255,255,255,0.45);
-  font-size: 0.78rem;
-  margin-bottom: 1.5rem;
-}
-.gate-input {
-  width: 100%;
-  padding: 0.7rem 1rem;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 6px;
-  background: rgba(255,255,255,0.06);
-  color: #fff;
-  font-size: 0.88rem;
-  font-family: inherit;
-  text-align: center;
-  letter-spacing: 0.1em;
-  outline: none;
-  transition: border-color 0.15s;
-}
-.gate-input:focus { border-color: #00B4D8; }
-.gate-input::placeholder { color: rgba(255,255,255,0.25); }
-.gate-btn {
-  width: 100%;
-  margin-top: 0.8rem;
-  padding: 0.7rem;
-  border: none;
-  border-radius: 6px;
-  background: linear-gradient(90deg, #00B4D8, #00E5A0);
-  color: #0A2463;
-  font-weight: 700;
-  font-size: 0.82rem;
-  cursor: pointer;
-  font-family: inherit;
-  letter-spacing: 0.02em;
-  transition: opacity 0.15s;
-}
-.gate-btn:hover { opacity: 0.9; }
-.gate-error {
-  color: #E74C3C;
-  font-size: 0.73rem;
-  margin-top: 0.6rem;
-  min-height: 1.1em;
-}
-#app-content { display: none; }
-#app-content.unlocked { display: block; }
-
 :root {
   --navy: #0A2463;
   --navy-deep: #061840;
@@ -710,32 +638,6 @@ body {
 }
 </style>
 
-<div id="gate-overlay">
-  <div class="gate-box">
-    <div class="gate-logo">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="40" height="40" rx="8" fill="rgba(0,180,216,0.12)"/>
-        <path d="M10 28 L10 22 Q10 18 14 18 L14 28" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <path d="M17 28 L17 16 Q17 12 21 12 L21 28" stroke="#00B4D8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <path d="M24 28 L24 20 Q24 16 28 16 L28 28" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <circle cx="10" cy="22" r="2.2" fill="#00B4D8"/>
-        <circle cx="17" cy="16" r="2.2" fill="#00B4D8"/>
-        <circle cx="28" cy="16" r="2.2" fill="#00E5A0"/>
-      </svg>
-    </div>
-    <div class="gate-title">Regional 360</div>
-    <div class="gate-sub">Acesso restrito — Instituto i10</div>
-    <form id="gate-form" onsubmit="return checkGate()">
-      <input type="password" class="gate-input" id="gate-pwd" placeholder="Senha" autocomplete="off" autofocus>
-      <button type="submit" class="gate-btn">Entrar</button>
-      <div class="gate-error" id="gate-err"></div>
-    </form>
-  </div>
-</div>
-
-<div id="app-content">
-
-
 <!-- ═══ HEADER ═══ -->
 <header class="i10-header">
   <div class="i10-topbar">
@@ -1344,28 +1246,4 @@ document.querySelectorAll('.nav-tab').forEach(tab=>{
 });
 
 renderTree();
-</script>
-
-</div>
-
-<script>
-function checkGate(){
-  var p=document.getElementById('gate-pwd').value;
-  if(p==='2026i10'){
-    document.getElementById('gate-overlay').classList.add('hidden');
-    document.getElementById('app-content').classList.add('unlocked');
-    try{sessionStorage.setItem('r360','1')}catch(e){}
-    return false;
-  }
-  document.getElementById('gate-err').textContent='Senha incorreta';
-  document.getElementById('gate-pwd').value='';
-  document.getElementById('gate-pwd').focus();
-  return false;
-}
-(function(){
-  try{if(sessionStorage.getItem('r360')==='1'){
-    document.getElementById('gate-overlay').classList.add('hidden');
-    document.getElementById('app-content').classList.add('unlocked');
-  }}catch(e){}
-})();
 </script>
