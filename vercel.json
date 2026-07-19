@@ -29,6 +29,14 @@
       "destination": "https://i10-licitacoes-360.vercel.app/licita360/:path*"
     },
     {
+      "source": "/agentes",
+      "destination": "https://agentes-i10.vercel.app/agentes"
+    },
+    {
+      "source": "/agentes/:path*",
+      "destination": "https://agentes-i10.vercel.app/agentes/:path*"
+    },
+    {
       "source": "/better-financeiro/",
       "destination": "https://financeiro-better.vercel.app/"
     },
