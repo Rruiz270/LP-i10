@@ -33,6 +33,10 @@
       "destination": "https://agentes-i10.vercel.app/agentes"
     },
     {
+      "source": "/agentes/",
+      "destination": "https://agentes-i10.vercel.app/agentes"
+    },
+    {
       "source": "/agentes/:path*",
       "destination": "https://agentes-i10.vercel.app/agentes/:path*"
     },
