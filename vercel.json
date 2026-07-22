@@ -41,6 +41,18 @@
       "destination": "https://agentes-i10.vercel.app/agentes/:path*"
     },
     {
+      "source": "/aee-future",
+      "destination": "https://i10-observatorio.vercel.app/aee-future"
+    },
+    {
+      "source": "/aee-future/",
+      "destination": "https://i10-observatorio.vercel.app/aee-future"
+    },
+    {
+      "source": "/aee-future/:path*",
+      "destination": "https://i10-observatorio.vercel.app/aee-future/:path*"
+    },
+    {
       "source": "/better-financeiro/",
       "destination": "https://financeiro-better.vercel.app/"
     },
