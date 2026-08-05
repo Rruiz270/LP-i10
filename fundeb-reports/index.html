@@ -194,6 +194,58 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
 .city-item .ci-name { font-size: 0.9rem; font-weight: 500; }
 .city-item .ci-icon { color: var(--primary2); font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
 
+/* clickable card affordance */
+.city-item, .gr-item { cursor: pointer; }
+.badge-new {
+  display: inline-block; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.5px;
+  background: var(--green2); color: var(--primary); padding: 1px 6px; border-radius: 5px;
+  margin-left: 8px; vertical-align: middle;
+}
+
+/* report picker modal */
+.rm-overlay {
+  position: fixed; inset: 0; z-index: 9998; background: rgba(10,36,99,0.55);
+  backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.rm-overlay.show { display: flex; animation: rmFade 0.18s ease; }
+@keyframes rmFade { from { opacity: 0; } to { opacity: 1; } }
+.rm-card {
+  background: var(--card); border-radius: 18px; max-width: 440px; width: 100%;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.28); overflow: hidden; animation: rmPop 0.2s ease;
+}
+@keyframes rmPop { from { transform: translateY(12px) scale(0.98); opacity: 0; } to { transform: none; opacity: 1; } }
+.rm-head {
+  background: linear-gradient(135deg, #0A2463 0%, #00B4D8 100%); color: #fff;
+  padding: 22px 24px; position: relative;
+}
+.rm-head .rm-kicker { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: #8fe9c6; font-weight: 800; }
+.rm-head .rm-city { font-family: 'Source Serif 4', serif; font-size: 1.5rem; font-weight: 700; margin-top: 2px; line-height: 1.1; }
+.rm-head .rm-uf { font-size: 0.82rem; opacity: 0.8; margin-top: 2px; }
+.rm-close {
+  position: absolute; top: 16px; right: 18px; background: rgba(255,255,255,0.15); border: none;
+  color: #fff; width: 30px; height: 30px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; line-height: 1;
+  transition: background 0.15s;
+}
+.rm-close:hover { background: rgba(255,255,255,0.28); }
+.rm-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.rm-opt {
+  display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--text);
+  border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 16px; transition: all 0.15s;
+}
+.rm-opt:hover { border-color: var(--primary2); background: var(--blue-bg); transform: translateY(-1px); }
+.rm-opt.micro { border-color: rgba(0,180,216,0.4); background: linear-gradient(135deg, rgba(0,180,216,0.06), rgba(0,229,160,0.08)); }
+.rm-opt.micro:hover { border-color: var(--green); }
+.rm-ico {
+  flex: 0 0 auto; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 1.2rem; background: var(--bg); color: var(--primary);
+}
+.rm-opt.micro .rm-ico { background: linear-gradient(135deg, #00B4D8, #00E5A0); color: #fff; }
+.rm-txt { flex: 1 1 auto; }
+.rm-t { font-size: 0.98rem; font-weight: 700; color: var(--primary); }
+.rm-d { font-size: 0.78rem; color: var(--text2); margin-top: 2px; line-height: 1.35; }
+.rm-arrow { color: var(--primary2); font-weight: 700; font-size: 1.1rem; }
+.rm-note { font-size: 0.72rem; color: var(--text3); text-align: center; padding: 0 16px 16px; }
+
 /* Global search results */
 .global-results { display: none; padding: 0 0 40px; }
 .global-results.show { display: block; }
@@ -253,7 +305,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
     <a href="/" class="back-link">&larr; Instituto i10</a>
     <div class="brand-top">INSTITUTO i10</div>
     <h1>Relat&oacute;rios de Potencial FUNDEB 2026</h1>
-    <p class="subtitle">Diagn&oacute;sticos individuais de todos os munic&iacute;pios brasileiros. Identifique recursos n&atilde;o captados em cada uma das 6 alavancas.</p>
+    <p class="subtitle">Diagn&oacute;sticos individuais de todos os munic&iacute;pios brasileiros, agora em <b>dois n&iacute;veis</b>: a <b>An&aacute;lise</b> completa (PDF, 6 alavancas) e a nova <b>Micro An&aacute;lise</b> &#10024; &mdash; depurada no microdado do Censo 2025, separando o <b>real capt&aacute;vel</b> do teto te&oacute;rico, com tabelas de quem <b>recebe &times; n&atilde;o recebe</b> em cada alavanca.</p>
     <div class="hero-stats">
       <div class="hero-stat">
         <div class="number" id="statTotal">5.570</div>
@@ -337,6 +389,20 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
 </div>
 
 </div><!-- /mainContent -->
+
+<!-- Report picker modal -->
+<div class="rm-overlay" id="reportModal">
+  <div class="rm-card">
+    <div class="rm-head">
+      <button class="rm-close" id="rmClose" aria-label="Fechar">&times;</button>
+      <div class="rm-kicker">Relat&oacute;rios FUNDEB 2026</div>
+      <div class="rm-city" id="rmCity"></div>
+      <div class="rm-uf" id="rmUf"></div>
+    </div>
+    <div class="rm-body" id="rmBody"></div>
+    <div class="rm-note">Instituto i10 &mdash; escolha o n&iacute;vel de an&aacute;lise do munic&iacute;pio.</div>
+  </div>
+</div>
 
 <div class="footer-bar" id="footerBar" style="display:none">
   <div class="container">
@@ -484,12 +550,60 @@ function renderStateSummary(uf) {
   renderCities(m.cidades);
 }
 
+function dataAttrs(uf, c) {
+  return 'data-uf="' + uf + '" data-nome="' + encodeURIComponent(c.nome) +
+    '" data-arq="' + encodeURIComponent(c.arquivo) + '" data-micro="' + encodeURIComponent(c.micro || '') + '"';
+}
+
+function openReportModal(uf, nome, arquivo, micro) {
+  document.getElementById('rmCity').textContent = nome;
+  document.getElementById('rmUf').textContent = (STATE_NAMES[uf] || uf) + ' (' + uf + ')';
+  var pdf = '/fundeb-reports/relatorios/' + uf + '/' + encodeURIComponent(arquivo);
+  var html = '<a class="rm-opt" href="' + pdf + '" target="_blank" rel="noopener">' +
+    '<div class="rm-ico">&#128202;</div>' +
+    '<div class="rm-txt"><div class="rm-t">Diagn&oacute;stico FUNDEB 2026</div>' +
+    '<div class="rm-d">Relat&oacute;rio completo &middot; potencial nas 6 alavancas (PDF)</div></div>' +
+    '<div class="rm-arrow">&rarr;</div></a>';
+  if (micro) {
+    var murl = '/fundeb-reports/micro/' + uf + '/' + encodeURIComponent(micro);
+    html += '<a class="rm-opt micro" href="' + murl + '" target="_blank" rel="noopener">' +
+      '<div class="rm-ico">&#10024;</div>' +
+      '<div class="rm-txt"><div class="rm-t">Micro An&aacute;lise 2026 <span class="badge-new">NOVO</span></div>' +
+      '<div class="rm-d">Depurada no microdado do Censo 2025 &middot; real capt&aacute;vel &times; teto te&oacute;rico</div></div>' +
+      '<div class="rm-arrow">&rarr;</div></a>';
+  }
+  document.getElementById('rmBody').innerHTML = html;
+  document.getElementById('reportModal').classList.add('show');
+}
+
+function closeReportModal() { document.getElementById('reportModal').classList.remove('show'); }
+
+document.getElementById('rmClose').addEventListener('click', closeReportModal);
+document.getElementById('reportModal').addEventListener('click', function(e) {
+  if (e.target === this) closeReportModal();
+});
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeReportModal(); });
+
+function handleCityClick(e) {
+  var el = e.target.closest('[data-nome]');
+  if (!el) return;
+  var uf = el.getAttribute('data-uf');
+  var arq = decodeURIComponent(el.getAttribute('data-arq'));
+  var micro = decodeURIComponent(el.getAttribute('data-micro'));
+  if (micro) {
+    openReportModal(uf, decodeURIComponent(el.getAttribute('data-nome')), arq, micro);
+  } else {
+    window.open('/fundeb-reports/relatorios/' + uf + '/' + encodeURIComponent(arq), '_blank', 'noopener');
+  }
+}
+document.getElementById('cityList').addEventListener('click', handleCityClick);
+document.getElementById('grList').addEventListener('click', handleCityClick);
+
 function renderCities(cities) {
   document.getElementById('cityList').innerHTML = cities.map(function(c) {
-    var url = '/fundeb-reports/relatorios/' + currentState + '/' + encodeURIComponent(c.arquivo);
-    return '<a class="city-item" href="' + url + '" target="_blank" rel="noopener">' +
-      '<span class="ci-name">' + c.nome + '</span>' +
-      '<span class="ci-icon">PDF &rarr;</span></a>';
+    return '<div class="city-item" ' + dataAttrs(currentState, c) + '>' +
+      '<span class="ci-name">' + c.nome + (c.micro ? ' <span class="badge-new">MICRO</span>' : '') + '</span>' +
+      '<span class="ci-icon">' + (c.micro ? 'Ver relat&oacute;rios &rarr;' : 'PDF &rarr;') + '</span></div>';
   }).join('');
 }
 
@@ -539,7 +653,7 @@ document.getElementById('globalSearch').addEventListener('input', function() {
       var c = MANIFEST[uf].cidades[i];
       var norm = c.nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
       if (norm.includes(q)) {
-        matches.push({ nome: c.nome, arquivo: c.arquivo, uf: uf });
+        matches.push({ nome: c.nome, arquivo: c.arquivo, micro: c.micro, uf: uf });
       }
       if (matches.length >= 50) break;
     }
@@ -557,10 +671,9 @@ document.getElementById('globalSearch').addEventListener('input', function() {
   document.getElementById('citiesSection').classList.remove('show');
   document.getElementById('grTitle').textContent = matches.length + (matches.length >= 50 ? '+' : '') + ' resultado' + (matches.length !== 1 ? 's' : '');
   document.getElementById('grList').innerHTML = matches.map(function(m) {
-    var url = '/fundeb-reports/relatorios/' + m.uf + '/' + encodeURIComponent(m.arquivo);
-    return '<a class="gr-item" href="' + url + '" target="_blank" rel="noopener">' +
-      '<span><span class="gi-name">' + m.nome + '</span><span class="gi-state">' + (STATE_NAMES[m.uf] || m.uf) + ' (' + m.uf + ')</span></span>' +
-      '<span class="gi-icon">PDF &rarr;</span></a>';
+    return '<div class="gr-item" ' + dataAttrs(m.uf, { nome: m.nome, arquivo: m.arquivo, micro: m.micro }) + '>' +
+      '<span><span class="gi-name">' + m.nome + (m.micro ? ' <span class="badge-new">MICRO</span>' : '') + '</span><span class="gi-state">' + (STATE_NAMES[m.uf] || m.uf) + ' (' + m.uf + ')</span></span>' +
+      '<span class="gi-icon">' + (m.micro ? 'Ver relat&oacute;rios &rarr;' : 'PDF &rarr;') + '</span></div>';
   }).join('');
   resultsDiv.classList.add('show');
 });

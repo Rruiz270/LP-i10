@@ -19260,7 +19260,8 @@
     "cidades": [
       {
         "nome": "Adamantina",
-        "arquivo": "Adamantina_SP.pdf"
+        "arquivo": "Adamantina_SP.pdf",
+        "micro": "ADAMANTINA_SP_Micro_Analise.html"
       },
       {
         "nome": "Adolfo",
