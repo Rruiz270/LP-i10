@@ -65,6 +65,10 @@
       "destination": "https://i10-mercado-360.vercel.app/licita-inteligencia"
     },
     {
+      "source": "/licita-inteligencia/",
+      "destination": "https://i10-mercado-360.vercel.app/licita-inteligencia"
+    },
+    {
       "source": "/licita-inteligencia/:path*",
       "destination": "https://i10-mercado-360.vercel.app/licita-inteligencia/:path*"
     },
