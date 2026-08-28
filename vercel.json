@@ -165,6 +165,18 @@
       "destination": "https://ldo-dados-sp.vercel.app/ldo-dados/:path*"
     },
     {
+      "source": "/bandfm",
+      "destination": "https://escuta-360-bandfm.vercel.app/bandfm"
+    },
+    {
+      "source": "/bandfm/",
+      "destination": "https://escuta-360-bandfm.vercel.app/bandfm"
+    },
+    {
+      "source": "/bandfm/:path*",
+      "destination": "https://escuta-360-bandfm.vercel.app/bandfm/:path*"
+    },
+    {
       "source": "/insights",
       "destination": "https://i10-insights.vercel.app/insights"
     },
