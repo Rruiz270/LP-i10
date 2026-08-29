@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/eleicoes2026/",
+      "destination": "https://i10-eleicoes-360.vercel.app/eleicoes2026/"
+    },
+    {
+      "source": "/eleicoes2026/:path*",
+      "destination": "https://i10-eleicoes-360.vercel.app/eleicoes2026/:path*"
+    },
+    {
       "source": "/cnm_conexao/",
       "destination": "https://conexao-cnm-360.vercel.app/"
     },
@@ -362,6 +370,11 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/eleicoes2026",
+      "destination": "/eleicoes2026/",
+      "permanent": false
+    },
     {
       "source": "/cnm_conexao",
       "destination": "/cnm_conexao/",
