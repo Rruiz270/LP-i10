@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Impositivas Hub · Instituto i10</title>
+<style>
+  :root{--azul:#1e5bd6;--azul-esc:#123a8f;--verde:#22b573;--verde-esc:#158f5a;--ink:#13202e;--muted:#5b6b7c;--bg:#f4f7fa;--card:#fff;--line:#e2e9f0;--amar:#f5a623;--verm:#e05252}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:14px}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 22px}
+  /* gate */
+  #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0e2a5c,var(--azul-esc) 55%,var(--verde) 140%);padding:22px}
+  #gate .box{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  #gate h1{font-size:19px;font-weight:800;margin-bottom:4px}
+  #gate p{font-size:13px;color:var(--muted);margin-bottom:18px}
+  #gate input{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:12px 13px;font-size:15px;font-family:inherit}
+  #gate button{width:100%;margin-top:14px;background:linear-gradient(120deg,var(--azul),var(--verde));color:#fff;border:none;border-radius:9px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+  #gate .err{color:var(--verm);font-size:12.5px;margin-top:10px;display:none}
+  #app{display:none}
+  .top{background:#0e2a5c;color:#fff;padding:14px 0}
+  .top .row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}
+  .bars{display:flex;align-items:flex-end;gap:3px;height:22px}
+  .bars span{width:6px;border-radius:2px;display:block}
+  .bars span:nth-child(1){height:9px;background:#9ec3ff}
+  .bars span:nth-child(2){height:15px;background:#cfe4ff}
+  .bars span:nth-child(3){height:22px;background:#7ef0b6}
+  .tag{font-size:11.5px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:3px 12px;font-weight:700}
+  .upd{font-size:12px;opacity:.85}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 16px;align-items:center}
+  .filters input,.filters select{border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px;font-size:13px;font-family:inherit;color:var(--ink)}
+  .filters input{min-width:250px}
+  .filters button{background:#fff;border:1.5px solid var(--azul);color:var(--azul-esc);border-radius:9px;padding:8px 16px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+  .filters .right{margin-left:auto;display:flex;gap:10px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:12px;margin-bottom:18px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .kpi .v{font-size:24px;font-weight:800;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+  .kpi .l{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:1px}
+  .kpi .d{font-size:11px;font-weight:700;margin-top:3px;color:var(--muted)}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+  .panel h3{font-size:15px;font-weight:800;margin-bottom:14px}
+  .panel h3 small{font-weight:600;color:var(--muted);font-size:12px}
+  .cols2{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+  @media(max-width:900px){.cols2{grid-template-columns:1fr}}
+  .fun{display:grid;gap:7px}
+  .frow{display:grid;grid-template-columns:190px 1fr 118px;align-items:center;gap:12px;font-size:13px}
+  .fl{color:var(--muted);font-weight:600;text-align:right}
+  .track{background:#eef3f9;border-radius:6px;height:26px}
+  .bar{height:26px;border-radius:6px 4px 4px 6px;min-width:3px;display:block}
+  .fv{font-weight:800;font-variant-numeric:tabular-nums}
+  .fv small{color:var(--muted);font-weight:600}
+  .split{display:grid;gap:10px}
+  .s{border-radius:12px;padding:14px 16px;border:1.5px solid}
+  .s.a{border-color:var(--verde);background:#f2fcf7}
+  .s.b{border-color:var(--amar);background:#fffaf0}
+  .s.n{border-color:var(--line);background:#fafbfd}
+  .s .num{font-size:22px;font-weight:800;letter-spacing:-.5px}
+  .s .sl{font-size:12.5px;color:var(--muted);font-weight:600}
+  .s .desc{font-size:12px;color:#4a5a6a;margin-top:4px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;padding:9px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+  th:hover{color:var(--azul)}
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  tbody tr:hover td{background:#f7fafd}
+  .muni{font-weight:700}
+  .pres{font-size:11.5px;color:var(--muted)}
+  .chip{display:inline-block;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:800;white-space:nowrap}
+  .c-a{background:#ddf6e9;color:var(--verde-esc)}
+  .c-b{background:#fdf1dc;color:#a06508}
+  .c-n{background:#e9eef4;color:var(--muted)}
+  .c-opp{background:#e3edff;color:var(--azul-esc)}
+  .c-opt{background:#fde4e4;color:var(--verm)}
+  .steps{display:flex;gap:4px}
+  .st{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;border:1px solid var(--line);background:#f2f6fa;color:#b6c2cf}
+  .st.on{background:var(--azul);border-color:var(--azul);color:#fff}
+  .st.on.g{background:var(--verde);border-color:var(--verde)}
+  .lastev{font-size:12px;color:var(--muted);white-space:nowrap}
+  .legenda{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:12px;font-weight:600;align-items:center}
+  .legenda .st{width:18px;height:18px;font-size:9.5px}
+  .legenda span{display:inline-flex;align-items:center;gap:5px}
+  .camp{width:100%;font-size:12.5px}
+  .camp td,.camp th{padding:7px 9px}
+  .st-draft{color:var(--muted)} .st-scheduled{color:var(--azul-esc);font-weight:700}
+  .st-sending{color:#a06508;font-weight:700} .st-sent{color:var(--verde-esc);font-weight:700}
+  #loading{padding:60px 0;text-align:center;color:var(--muted)}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:26px 0 40px}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <h1>Impositivas Hub</h1>
+    <p>Painel interno da campanha i10 × APM. Informe a chave de acesso.</p>
+    <input id="key" type="password" placeholder="Chave de acesso" autocomplete="current-password">
+    <button id="enter">Entrar</button>
+    <div class="err" id="gateErr">Chave inválida.</div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="top"><div class="wrap"><div class="row">
+    <div class="logo"><span class="bars"><span></span><span></span><span></span></span>Impositivas Hub <span class="tag">interno · i10 × APM</span></div>
+    <div class="upd" id="upd">carregando…</div>
+  </div></div></div>
+
+  <div class="wrap">
+    <div class="filters">
+      <input id="q" placeholder="🔎 Buscar município ou presidente…">
+      <select id="fTrilha">
+        <option value="">Trilha: todas</option>
+        <option value="A">A · Engajados</option>
+        <option value="B">B · Frios</option>
+        <option value="observacao">Em observação</option>
+        <option value="opt-out">Descadastrados</option>
+      </select>
+      <select id="fEtapa">
+        <option value="">Etapa: todas</option>
+        <option value="entregue">Entregue</option>
+        <option value="abriu">Abriu</option>
+        <option value="clicou">Clicou</option>
+        <option value="baixou">Baixou material</option>
+        <option value="inscreveu">Inscrito na LP</option>
+        <option value="wa_conversa">Conversa WhatsApp</option>
+        <option value="oportunidade">Virou oportunidade</option>
+        <option value="bounce">Bounce</option>
+      </select>
+      <div class="right">
+        <button id="reload">↻ Atualizar</button>
+        <button id="csv">⬇ Exportar CSV</button>
+      </div>
+    </div>
+
+    <div id="loading">Carregando dados da campanha…</div>
+
+    <div id="content" style="display:none">
+      <div class="kpis" id="kpis"></div>
+
+      <div class="cols2">
+        <div class="panel">
+          <h3>Funil da campanha <small>· municípios únicos</small></h3>
+          <div class="fun" id="funil"></div>
+        </div>
+        <div class="panel">
+          <h3>Trilhas de comunicação</h3>
+          <div class="split" id="trilhas"></div>
+          <div style="margin-top:12px;font-size:12px;color:var(--muted)" id="saude"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Calendário de disparos</h3>
+        <div style="overflow-x:auto"><table class="camp" id="campanhas"></table></div>
+      </div>
+
+      <div class="panel">
+        <h3>Municípios <small id="tblCount"></small></h3>
+        <div style="overflow-x:auto"><table id="tabela"></table></div>
+        <div class="legenda">
+          Jornada:
+          <span><span class="st on">✉</span> entregue</span>
+          <span><span class="st on">👁</span> abriu</span>
+          <span><span class="st on">🔗</span> clicou</span>
+          <span><span class="st on">⬇</span> baixou</span>
+          <span><span class="st on g">📝</span> inscrito</span>
+          <span><span class="st on g">💬</span> WhatsApp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>Impositivas Hub · dados ao vivo do CRM i10 (Brevo + LP + WhatsApp) · atualiza a cada carregamento</footer>
+</div>
+
+<script>
+(function () {
+  var API = 'https://crm.institutoi10.com.br/api/marketing/public/impositivas-hub';
+  var key = null, data = null, sortCol = 'municipio', sortDir = 1;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var fmtDate = function (s) {
+    if (!s) return '—';
+    var d = new Date(s);
+    if (isNaN(d)) return '—';
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ' ' +
+           d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  };
+
+  // ── gate ────────────────────────────────────────────────────────────────
+  function tryKey(k) {
+    return fetch(API + '?key=' + encodeURIComponent(k))
+      .then(function (r) { if (r.status === 401) throw new Error('401'); return r.json(); });
+  }
+  function enter() {
+    var k = $('key').value.trim();
+    if (!k) return;
+    $('gateErr').style.display = 'none';
+    tryKey(k).then(function (d) {
+      key = k; data = d;
+      try { sessionStorage.setItem('imp_hub_key', k); } catch (e) {}
+      $('gate').style.display = 'none';
+      $('app').style.display = 'block';
+      render();
+    }).catch(function () { $('gateErr').style.display = 'block'; });
+  }
+  $('enter').addEventListener('click', enter);
+  $('key').addEventListener('keydown', function (e) { if (e.key === 'Enter') enter(); });
+  try {
+    var saved = sessionStorage.getItem('imp_hub_key');
+    if (saved) { $('key').value = saved; enter(); }
+  } catch (e) {}
+
+  // ── render ──────────────────────────────────────────────────────────────
+  function render() {
+    $('loading').style.display = 'none';
+    $('content').style.display = 'block';
+    $('upd').innerHTML = 'Campanha: <b>' + esc(data.projeto) + '</b> · atualizado ' + fmtDate(data.atualizado_em);
+
+    var k = data.kpis, base = k.base || 1;
+    var pct = function (n) { return Math.round((n / base) * 100) + '%'; };
+    $('kpis').innerHTML = [
+      ['base', 'Câmaras na base', k.com_whatsapp + ' com WhatsApp'],
+      ['entregue', 'E-mails entregues', pct(k.entregue)],
+      ['abriu', 'Abriram', pct(k.abriu)],
+      ['clicou', 'Clicaram', pct(k.clicou)],
+      ['baixou', 'Baixaram material', pct(k.baixou)],
+      ['inscreveu', 'Inscritos na LP', pct(k.inscreveu)],
+      ['wa_conversa', 'Conversas WhatsApp', pct(k.wa_conversa)],
+      ['oportunidades', 'Oportunidades', 'no pipeline']
+    ].map(function (r) {
+      return '<div class="kpi"><div class="v">' + (k[r[0]] || 0) + '</div><div class="l">' + r[1] +
+             '</div><div class="d">' + r[2] + '</div></div>';
+    }).join('');
+
+    // Funil: rampa sequencial de um só tom (azul claro → escuro), valor sempre
+    // rotulado ao lado — nunca depende só da cor.
+    var ramp = ['#dbe7fb', '#b3ccf5', '#7fa8ea', '#4f80dd', '#2e5fc7', '#1d448f'];
+    var etapas = [
+      ['Base importada', base], ['Entregue', k.entregue], ['Abriu', k.abriu],
+      ['Clicou', k.clicou], ['Baixou / inscreveu / WA', Math.max(k.baixou, k.inscreveu, k.wa_conversa)],
+      ['Virou oportunidade', k.oportunidades]
+    ];
+    $('funil').innerHTML = etapas.map(function (e, i) {
+      var w = Math.max((e[1] / base) * 100, 0.4);
+      return '<div class="frow"><span class="fl">' + e[0] + '</span>' +
+        '<span class="track"><span class="bar" style="width:' + w + '%;background:' + ramp[i] + '"></span></span>' +
+        '<span class="fv">' + e[1] + ' <small>' + pct(e[1]) + '</small></span></div>';
+    }).join('');
+
+    var t = data.trilhas;
+    $('trilhas').innerHTML =
+      '<div class="s a"><span class="num">' + t.A + '</span> <span class="sl">· Trilha A — Engajados 🔥</span>' +
+        '<div class="desc">Clicou, baixou, inscreveu ou respondeu. Em régua quente (A1/A2) e fora dos disparos em massa.</div></div>' +
+      '<div class="s b"><span class="num">' + t.B + '</span> <span class="sl">· Trilha B — Frios ❄️</span>' +
+        '<div class="desc">Sem clique. Recebem a cadência de reativação B1–B4.</div></div>' +
+      '<div class="s n"><span class="num">' + t.observacao + '</span> <span class="sl">· Em observação</span>' +
+        '<div class="desc">Abriu mas não clicou — seguem na sequência base até o corte.</div></div>';
+    $('saude').innerHTML = 'Descadastros: <b style="color:var(--verm)">' + t.optout + '</b> · Bounces: <b>' +
+      k.bounce + '</b> (contatos com 2º e-mail na planilha entram como alternativa)';
+
+    $('campanhas').innerHTML =
+      '<tr><th>Peça</th><th>Canal</th><th>Agendada</th><th>Status</th><th>Enviados</th><th>Aberturas</th><th>Cliques</th></tr>' +
+      data.campanhas.map(function (c) {
+        return '<tr><td><b>' + esc(c.name) + '</b></td><td>' + (c.channel === 'whatsapp' ? '💬 WhatsApp' : '✉ E-mail') +
+          '</td><td>' + fmtDate(c.scheduled_at) + '</td><td class="st-' + esc(c.status) + '">' + esc(c.status) +
+          '</td><td>' + (c.sent_count || 0) + '</td><td>' + (c.open_count || 0) + '</td><td>' +
+          (c.click_count || 0) + '</td></tr>';
+      }).join('');
+
+    renderTable();
+  }
+
+  function filtered() {
+    var q = $('q').value.trim().toLowerCase();
+    var tr = $('fTrilha').value, et = $('fEtapa').value;
+    return data.municipios.filter(function (m) {
+      if (q && (m.municipio + ' ' + (m.presidente || '')).toLowerCase().indexOf(q) < 0) return false;
+      if (tr && m.trilha !== tr) return false;
+      if (et === 'oportunidade' ? !m.oportunidade : et && !m[et]) return false;
+      return true;
+    }).sort(function (a, b) {
+      var x = a[sortCol], y = b[sortCol];
+      if (typeof x === 'boolean') return (y === x ? 0 : x ? -1 : 1) * sortDir;
+      return String(x || '').localeCompare(String(y || '')) * sortDir;
+    });
+  }
+
+  function renderTable() {
+    var rows = filtered();
+    $('tblCount').textContent = '· ' + rows.length + ' de ' + data.municipios.length;
+    var chip = { A: 'c-a', B: 'c-b', observacao: 'c-n', 'opt-out': 'c-opt' };
+    var rotulo = { A: 'A · engajado', B: 'B · frio', observacao: 'observação', 'opt-out': 'descadastrado' };
+    var cols = [['municipio', 'Município / presidente'], ['trilha', 'Trilha'], ['', 'Jornada'],
+                ['ultimo_evento_em', 'Último evento'], ['oportunidade', 'Pipeline']];
+    var head = '<tr>' + cols.map(function (c) {
+      return '<th data-col="' + c[0] + '">' + c[1] + (sortCol === c[0] ? (sortDir > 0 ? ' ▲' : ' ▼') : '') + '</th>';
+    }).join('') + '</tr>';
+
+    var body = rows.slice(0, 700).map(function (m) {
+      var steps = [['✉', m.entregue, ''], ['👁', m.abriu, ''], ['🔗', m.clicou, ''],
+                   ['⬇', m.baixou, ''], ['📝', m.inscreveu, 'g'], ['💬', m.wa_conversa, 'g']]
+        .map(function (s) { return '<span class="st' + (s[1] ? ' on ' + s[2] : '') + '">' + s[0] + '</span>'; }).join('');
+      return '<tr><td><div class="muni">' + esc(m.municipio) + '</div><div class="pres">' +
+        esc(m.presidente || '—') + (m.com_whatsapp ? ' · 📱' : '') + '</div></td>' +
+        '<td><span class="chip ' + chip[m.trilha] + '">' + rotulo[m.trilha] + '</span></td>' +
+        '<td><div class="steps">' + steps + '</div></td>' +
+        '<td class="lastev">' + fmtDate(m.ultimo_evento_em) + (m.ultimo_evento ? ' · ' + esc(m.ultimo_evento) : '') + '</td>' +
+        '<td>' + (m.oportunidade ? '<span class="chip c-opp">' + esc(m.oportunidade) + '</span>' :
+                  m.bounce ? '<span class="chip c-opt">bounce</span>' : '—') + '</td></tr>';
+    }).join('');
+    $('tabela').innerHTML = head + body;
+
+    $('tabela').querySelectorAll('th[data-col]').forEach(function (th) {
+      th.addEventListener('click', function () {
+        var c = th.getAttribute('data-col');
+        if (!c) return;
+        if (sortCol === c) sortDir = -sortDir; else { sortCol = c; sortDir = 1; }
+        renderTable();
+      });
+    });
+  }
+
+  ['q', 'fTrilha', 'fEtapa'].forEach(function (id) {
+    $(id).addEventListener('input', function () { if (data) renderTable(); });
+  });
+  $('reload').addEventListener('click', function () {
+    $('reload').textContent = '↻ …';
+    tryKey(key).then(function (d) { data = d; render(); $('reload').textContent = '↻ Atualizar'; });
+  });
+  $('csv').addEventListener('click', function () {
+    var rows = filtered();
+    var head = ['municipio', 'presidente', 'trilha', 'entregue', 'abriu', 'clicou', 'baixou',
+                'inscreveu', 'wa_conversa', 'oportunidade', 'ultimo_evento_em'];
+    var csv = head.join(';') + '\n' + rows.map(function (m) {
+      return head.map(function (h) { return '"' + String(m[h] == null ? '' : m[h]).replace(/"/g, '""') + '"'; }).join(';');
+    }).join('\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(["﻿" + csv], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'impositivas-sp.csv';
+    a.click();
+  });
+})();
+</script>
+</body>
+</html>

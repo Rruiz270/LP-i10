@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emendas Impositivas · Câmaras Municipais de SP · Instituto i10</title>
+<meta name="description" content="O TCE-SP passou a fiscalizar as emendas impositivas das Câmaras Municipais. Verifique a conformidade da sua Câmara — diagnóstico gratuito do Instituto i10, com indicação da APM.">
+<meta property="og:title" content="As emendas impositivas mudaram. E o TCE-SP já está cobrando.">
+<meta property="og:description" content="6 atos normativos do TCE-SP desde mai/2025. Veja onde a sua Câmara está diante do checklist dos auditores.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/assets/favicon.ico">
+<style>
+  :root{--azul:#1e5bd6;--azul-esc:#123a8f;--verde:#22b573;--verde-esc:#158f5a;--ink:#13202e;--muted:#5b6b7c;--bg:#ffffff;--soft:#f4f7fa;--line:#e2e9f0;--verm:#e05252}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.6;background:var(--bg);-webkit-font-smoothing:antialiased}
+  .container{max-width:1080px;margin:0 auto;padding:0 24px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:10px}
+  .bars{display:flex;align-items:flex-end;gap:3px;height:26px}
+  .bars span{width:7px;border-radius:2px;display:block}
+  .bars span:nth-child(1){height:11px;background:var(--azul)}
+  .bars span:nth-child(2){height:18px;background:#4f80dd}
+  .bars span:nth-child(3){height:26px;background:var(--verde)}
+  .logo b{font-size:17px}
+  .logo .apm{font-size:12px;color:var(--muted);border-left:1px solid var(--line);padding-left:10px}
+  .btn{display:inline-block;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;border:none;font-family:inherit;text-align:center}
+  .btn.wa{background:#25d366;color:#fff}
+  .btn.wa.small{padding:9px 16px;font-size:13.5px;border-radius:8px}
+  .btn.primary{background:linear-gradient(120deg,var(--azul),var(--verde));color:#fff}
+  .btn.ghost{background:#fff;color:var(--azul-esc);border:1.5px solid var(--azul)}
+  .btn:disabled{opacity:.6;cursor:default}
+  .hero{background:linear-gradient(135deg,#0e2a5c 0%,var(--azul-esc) 40%,var(--azul) 78%,var(--verde) 130%);color:#fff;padding:60px 0 54px}
+  .eyebrow{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 16px;font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:20px}
+  .hero h1{font-size:40px;line-height:1.15;font-weight:800;letter-spacing:-.8px;max-width:760px}
+  .hero h1 em{font-style:normal;color:#7ef0b6}
+  .hero p.sub{font-size:17.5px;opacity:.94;max-width:670px;margin:18px 0 28px}
+  .ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:38px;border-top:1px solid rgba(255,255,255,.25);padding-top:24px}
+  .stat b{font-size:28px;display:block;letter-spacing:-.5px}
+  .stat span{font-size:13px;opacity:.85}
+  section{padding:56px 0}
+  section.soft{background:var(--soft)}
+  .kicker{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--verde-esc);margin-bottom:8px}
+  h2{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px;max-width:720px}
+  .lead{color:var(--muted);font-size:15.5px;max-width:680px;margin-bottom:28px}
+  .tl{border-left:3px solid var(--azul);margin-left:8px}
+  .tl .item{padding:0 0 20px 22px;position:relative}
+  .tl .item::before{content:"";width:13px;height:13px;border-radius:50%;background:var(--azul);border:3px solid #fff;box-shadow:0 0 0 2px var(--azul);position:absolute;left:-8px;top:4px}
+  .tl .item.hl::before{background:var(--verm);box-shadow:0 0 0 2px var(--verm)}
+  .tl .d{font-size:12.5px;font-weight:800;color:var(--azul-esc);text-transform:uppercase;letter-spacing:.5px}
+  .tl .t{font-size:15px;font-weight:700}
+  .tl .s{font-size:13.5px;color:var(--muted)}
+  .check{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;max-width:760px}
+  .check .row{display:flex;justify-content:space-between;gap:16px;padding:15px 20px;border-top:1px solid var(--line);font-size:14.5px;align-items:center}
+  .check .row:first-child{border-top:none}
+  .badge{flex:none;font-size:12px;font-weight:800;border-radius:999px;padding:4px 13px;white-space:nowrap}
+  .ok{background:#ddf6e9;color:var(--verde-esc)}
+  .bad{background:#fde4e4;color:var(--verm)}
+  .fonte{font-size:12px;color:var(--muted);margin-top:10px;max-width:760px}
+  .cards2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .isca{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:12px}
+  .isca .tipo{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--azul)}
+  .isca h3{font-size:19px;font-weight:800;letter-spacing:-.3px}
+  .isca ul{font-size:13.5px;color:#2c3d4f;padding-left:18px;display:grid;gap:4px;flex:1}
+  .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:8px}
+  .feat .f{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+  .feat .ic{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--azul),var(--verde));color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px}
+  .feat h4{font-size:15px;font-weight:800;margin-bottom:5px}
+  .feat p{font-size:13.5px;color:var(--muted)}
+  .selo{display:flex;gap:20px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 28px;max-width:780px;flex-wrap:wrap}
+  .selo .apmlogo{flex:none;width:74px;height:74px;border-radius:14px;background:linear-gradient(135deg,#0e2a5c,var(--azul));color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;letter-spacing:.5px}
+  .convert{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start}
+  .pitch h2{color:#fff}
+  .pitch p,.pitch li{color:rgba(255,255,255,.93)}
+  .pitch ul{font-size:14.5px;padding-left:18px;display:grid;gap:8px;margin-top:16px}
+  .formcard{background:#fff;border-radius:18px;padding:28px;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+  .formcard h3{font-size:19px;font-weight:800;margin-bottom:4px;color:var(--ink)}
+  .formcard .sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .formcard label{font-size:12.5px;font-weight:700;color:var(--muted);display:block;margin:12px 0 4px}
+  .formcard input,.formcard select{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:11px 13px;font-size:14.5px;font-family:inherit;color:var(--ink)}
+  .formcard input:focus,.formcard select:focus{outline:2px solid var(--azul);outline-offset:-1px;border-color:var(--azul)}
+  .formcard .btn{width:100%;margin-top:18px}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .ou{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12.5px;margin-top:16px}
+  .ou::before,.ou::after{content:"";height:1px;background:var(--line);flex:1}
+  .lgpd{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5}
+  .msg{border-radius:10px;padding:14px 16px;font-size:14px;margin-top:14px;display:none}
+  .msg.ok{background:#ddf6e9;color:var(--verde-esc);display:block}
+  .msg.err{background:#fde4e4;color:var(--verm);display:block}
+  .obrigado{display:none;text-align:center;padding:14px 0}
+  .obrigado.show{display:block}
+  .obrigado .big{font-size:44px;line-height:1}
+  .obrigado h3{margin:12px 0 6px;font-size:21px;color:var(--ink)}
+  .obrigado p{font-size:14px;color:var(--muted);margin-bottom:16px}
+  footer{background:#0e2a5c;color:rgba(255,255,255,.85);padding:34px 0;font-size:13px}
+  footer .cols{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer a{color:#9ec3ff}
+  .wa-float{position:fixed;right:20px;bottom:20px;background:#25d366;color:#fff;border-radius:999px;padding:14px 22px;font-weight:800;font-size:14.5px;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:50}
+  @media(max-width:760px){.hero h1{font-size:29px}.convert{grid-template-columns:1fr}.stats{gap:22px}}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="topbar">
+    <div class="logo"><span class="bars"><span></span><span></span><span></span></span><b>Instituto i10</b><span class="apm">em parceria com a <b>APM</b> — Associação Paulista de Municípios</span></div>
+    <a class="btn wa small" href="#" data-wa>💬 Falar no WhatsApp</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="container">
+    <span class="eyebrow">Câmaras Municipais · Estado de São Paulo</span>
+    <h1>As emendas impositivas mudaram.<br>E o TCE-SP <em>já está cobrando</em> nas contas anuais.</h1>
+    <p class="sub">O STF encerrou o orçamento secreto e as “emendas Pix”. Em pouco mais de um ano, o Tribunal de Contas paulista publicou <b>6 atos normativos</b> sobre as emendas — e os relatórios de fiscalização já registram <b>impropriedades</b> em Câmaras que não se adequaram. Veja em minutos onde a sua está.</p>
+    <div class="ctas">
+      <a class="btn primary" href="#diagnostico">Verificar a conformidade da minha Câmara</a>
+      <a class="btn wa" href="#" data-wa>💬 Prefiro conversar no WhatsApp</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>6</b><span>atos do TCE-SP desde mai/2025</span></div>
+      <div class="stat"><b>2</b><span>decisões do STF (ADI 7697 · ADPF 854)</span></div>
+      <div class="stat"><b>4</b><span>emendas constitucionais desde 2015</span></div>
+      <div class="stat"><b>2</b><span>fases fiscalizadas: planejamento e execução</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="soft">
+  <div class="container">
+    <div class="kicker">Por que agora</div>
+    <h2>A régua subiu — e tem data e número de ato</h2>
+    <p class="lead">Não é tendência: é norma publicada. O TCE-SP construiu, passo a passo, um regime completo de fiscalização das emendas impositivas municipais.</p>
+    <div class="tl">
+      <div class="item"><div class="d">Mai/2025</div><div class="t">Comunicado SDG 28/2025</div><div class="s">Cuidados na instituição das emendas impositivas.</div></div>
+      <div class="item hl"><div class="d">Nov/2025</div><div class="t">Resolução 17/2025</div><div class="s">Regras de fiscalização das emendas parlamentares.</div></div>
+      <div class="item"><div class="d">Dez/2025</div><div class="t">Comunicados GP 43/2025 e Audesp 55</div><div class="s">Questionário aos órgãos + novas diretrizes de prestação de contas.</div></div>
+      <div class="item hl"><div class="d">Mar/2026</div><div class="t">Comunicado Audesp 09</div><div class="s">Conta bancária específica por emenda — proibido misturar recursos.</div></div>
+      <div class="item"><div class="d">Abr/2026</div><div class="t">Comunicado GP 15/2026</div><div class="s">Providências e fiscalização.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="kicker">O checklist real</div>
+    <h2>O que os auditores conferem nas contas da Câmara</h2>
+    <p class="lead">Itens extraídos de relatório de fiscalização do TCE-SP sobre contas anuais de uma Câmara Municipal paulista (exercício 2025):</p>
+    <div class="check">
+      <div class="row"><span>A Lei Orgânica prevê o regime de emendas obrigatórias (art. 166)?</span><span class="badge ok">Sim ✓</span></div>
+      <div class="row"><span>O Regimento Interno disciplina prazos e critérios de impedimento técnico?</span><span class="badge ok">Sim ✓</span></div>
+      <div class="row"><span>A Câmara instituiu manual orientativo para indicação e execução das emendas?</span><span class="badge bad">Não · impropriedade</span></div>
+      <div class="row"><span>Há rastreabilidade ponta a ponta e identificação do beneficiário final?</span><span class="badge bad">Não · impropriedade</span></div>
+    </div>
+    <p class="fonte">Fonte: TCE-SP — Relatório de Fiscalização, Contas Anuais 2025. A ausência de manual orientativo foi apontada como desatendimento ao art. 165 da CF e ao princípio da eficiência (art. 37, caput).</p>
+  </div>
+</section>
+
+<section class="soft" id="materiais">
+  <div class="container">
+    <div class="kicker">Materiais gratuitos</div>
+    <h2>Entenda o tema em 20 minutos</h2>
+    <p class="lead">Dois materiais preparados pelo Instituto i10 para presidentes de Câmara, vereadores e servidores do Legislativo:</p>
+    <div class="cards2">
+      <div class="isca">
+        <div class="tipo">🎓 Aula aberta · 20 minutos</div>
+        <h3>Emendas impositivas: quem decide onde o dinheiro vai parar</h3>
+        <ul>
+          <li>2015: o ano em que o pedido virou ordem (EC 86 → EC 126)</li>
+          <li>O filtro que sumiu — e o rastro que se rompe</li>
+          <li>As 2 exigências que o controle passou a fazer</li>
+          <li>O que olhar no portal da sua cidade</li>
+        </ul>
+        <a class="btn primary" href="/impositivas-sp/aula/" data-material="aula">Assistir à aula agora</a>
+      </div>
+      <div class="isca">
+        <div class="tipo">📑 Apresentação técnica</div>
+        <h3>Emendas Parlamentares Impositivas: STF, MP-SP e TCE-SP</h3>
+        <ul>
+          <li>As 2 decisões do STF que reescreveram as regras</li>
+          <li>A linha do tempo completa dos atos do TCE-SP</li>
+          <li>O checklist aplicado nas contas das Câmaras</li>
+          <li>As 2 fases: planejamento e acompanhamento</li>
+        </ul>
+        <a class="btn ghost" href="/impositivas-sp/apresentacao/" data-material="apresentacao">Abrir a apresentação</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="kicker">A solução</div>
+    <h2>Um sistema para a Câmara sair do “não · impropriedade” para o “sim ✓”</h2>
+    <p class="lead">O Instituto i10 desenvolveu uma plataforma que organiza o ciclo completo das emendas impositivas — do planejamento à prestação de contas — no formato que o controle externo passou a exigir.</p>
+    <div class="feat">
+      <div class="f"><div class="ic">📋</div><h4>Planejamento e admissibilidade</h4><p>Plano de trabalho com metas e objeto delimitado, aderência a PPA/LDO/LOA e parecer de admissibilidade — antes de a emenda virar despesa.</p></div>
+      <div class="f"><div class="ic">🏦</div><h4>Execução controlada</h4><p>Conta específica por emenda, contabilidade segregada padrão Audesp e trilha de impedimento técnico com justificativa e prazos.</p></div>
+      <div class="f"><div class="ic">🔍</div><h4>Transparência ativa</h4><p>Portal público com busca e filtros: autor, objeto, valor, cronograma, status e documentos de cada emenda — como exige o art. 163-A.</p></div>
+      <div class="f"><div class="ic">📊</div><h4>Pronto para o TCE</h4><p>Relatórios e evidências organizados no formato do checklist de fiscalização — rastreabilidade ponta a ponta até o beneficiário final.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="container">
+    <div class="kicker">Quem está por trás</div>
+    <h2>Instituto i10, com indicação da APM</h2>
+    <div class="selo">
+      <div class="apmlogo">APM</div>
+      <p style="font-size:14.5px;color:#2c3d4f;flex:1;min-width:260px">O Instituto i10 atua com gestão pública municipal — orçamento, educação e conformidade — em centenas de municípios. Esta iniciativa chega à sua Câmara <b>por indicação da APM — Associação Paulista de Municípios</b>, como apoio à adequação do Legislativo paulista ao novo regime das emendas impositivas.</p>
+    </div>
+  </div>
+</section>
+
+<div class="hero" id="diagnostico" style="padding:56px 0">
+  <div class="container convert">
+    <div class="pitch">
+      <h2 style="font-size:30px">Verifique a situação da sua Câmara — sem custo e sem compromisso</h2>
+      <p style="margin-top:12px;font-size:15.5px">Preencha ao lado e nossa equipe retorna com:</p>
+      <ul>
+        <li>Leitura rápida da situação da sua Câmara frente ao checklist do TCE-SP</li>
+        <li>Acesso aos dois materiais completos (aula + apresentação)</li>
+        <li>Demonstração do sistema, se fizer sentido para o seu município</li>
+      </ul>
+    </div>
+    <div class="formcard">
+      <div id="formWrap">
+        <h3>Quero verificar minha Câmara</h3>
+        <div class="sub">Resposta em até 1 dia útil.</div>
+        <form id="lead" novalidate>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label for="f-nome">Nome completo *</label>
+          <input id="f-nome" name="name" placeholder="Seu nome" required autocomplete="name">
+          <label for="f-cargo">Cargo</label>
+          <select id="f-cargo" name="cargo">
+            <option>Presidente da Câmara</option>
+            <option>Vereador(a)</option>
+            <option>Diretor(a) / Secretário(a) da Câmara</option>
+            <option>Assessor(a) / Servidor(a)</option>
+            <option>Outro</option>
+          </select>
+          <label for="f-muni">Câmara Municipal de *</label>
+          <input id="f-muni" name="municipio" placeholder="Seu município" required>
+          <label for="f-email">E-mail *</label>
+          <input id="f-email" name="email" type="email" placeholder="email@camara.sp.gov.br" required autocomplete="email">
+          <label for="f-fone">WhatsApp</label>
+          <input id="f-fone" name="phone" placeholder="(11) 9 9999-9999" inputmode="tel" autocomplete="tel">
+          <button class="btn primary" type="submit" id="submitBtn">Verificar conformidade →</button>
+        </form>
+        <div class="msg" id="msg"></div>
+        <div class="ou">ou</div>
+        <a class="btn wa" style="width:100%;margin-top:14px" href="#" data-wa>💬 Falar agora no WhatsApp</a>
+        <p class="lgpd">Ao enviar, você autoriza o contato do Instituto i10 sobre este tema. Dados tratados conforme a LGPD; você pode pedir a exclusão a qualquer momento pelo e-mail i10@i10.org.br.</p>
+      </div>
+      <div class="obrigado" id="obrigado">
+        <div class="big">✅</div>
+        <h3>Recebemos seu pedido!</h3>
+        <p>Nossa equipe entra em contato em até 1 dia útil. Enquanto isso, comece pela aula de 20 minutos:</p>
+        <a class="btn primary" style="width:100%" href="/impositivas-sp/aula/" data-material="aula">Assistir à aula agora</a>
+        <a class="btn wa" style="width:100%;margin-top:10px" href="#" data-wa>💬 Falar agora no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container cols">
+    <div><b style="color:#fff">Instituto i10</b> · em parceria com a APM<br>i10@i10.org.br · institutoi10.com.br</div>
+    <div style="text-align:right">Você recebeu nosso contato por ser presidente de Câmara Municipal do estado de SP.<br><a href="mailto:i10@i10.org.br?subject=Descadastro%20Impositivas%20SP">Não quero mais receber comunicações</a></div>
+  </div>
+</footer>
+
+<a class="wa-float" href="#" data-wa>💬 WhatsApp</a>
+
+<script>
+(function () {
+  var CRM = 'https://crm.institutoi10.com.br';
+  var SLUG = 'impositivas-sp';
+  var WA = '5511947223906';
+
+  var qs = new URLSearchParams(location.search);
+  // `t` é o tracking token do e-mail que trouxe a pessoa — é ele que liga
+  // tudo o que acontece aqui ao contato certo no CRM.
+  var token = qs.get('t');
+  var ibge = qs.get('ibge');
+  if (token) { try { sessionStorage.setItem('imp_t', token); } catch (e) {} }
+  if (!token) { try { token = sessionStorage.getItem('imp_t'); } catch (e) {} }
+  if (ibge) { try { sessionStorage.setItem('imp_ibge', ibge); } catch (e) {} }
+  if (!ibge) { try { ibge = sessionStorage.getItem('imp_ibge'); } catch (e) {} }
+
+  function track(type, extra) {
+    var payload = Object.assign({ slug: SLUG, type: type, t: token, ibge: ibge, path: location.pathname }, extra || {});
+    var body = JSON.stringify(payload);
+    try {
+      // sendBeacon sobrevive à navegação — importante nos cliques de saída.
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(CRM + '/api/marketing/public/lp-event', new Blob([body], { type: 'application/json' }));
+        return;
+      }
+    } catch (e) {}
+    fetch(CRM + '/api/marketing/public/lp-event', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true
+    }).catch(function () {});
+  }
+
+  track('visit');
+
+  // Links de material: registram o download antes de navegar.
+  document.querySelectorAll('[data-material]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      track('download', { material: a.getAttribute('data-material') });
+    });
+  });
+
+  // Botões de WhatsApp: deep link com mensagem já identificando o município.
+  var muniInput = document.getElementById('f-muni');
+  function waHref() {
+    var muni = (muniInput && muniInput.value.trim()) || '';
+    var txt = 'Olá! Sou da Câmara Municipal' + (muni ? ' de ' + muni : '') +
+      ' e quero saber sobre a conformidade das emendas impositivas.';
+    return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(txt);
+  }
+  document.querySelectorAll('[data-wa]').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      track('wa_click', { municipio: muniInput ? muniInput.value.trim() : null });
+      window.open(waHref(), '_blank', 'noopener');
+    });
+  });
+
+  // Formulário → webhook do CRM (cria contato, tag, oportunidade e régua A).
+  var form = document.getElementById('lead');
+  var msg = document.getElementById('msg');
+  var btn = document.getElementById('submitBtn');
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (form.website.value) return; // honeypot
+    var name = form.name.value.trim();
+    var email = form.email.value.trim();
+    var municipio = form.municipio.value.trim();
+    if (!name || !email || !municipio || email.indexOf('@') < 1) {
+      msg.className = 'msg err';
+      msg.textContent = 'Preencha nome, município e um e-mail válido.';
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    msg.className = 'msg';
+    msg.textContent = '';
+
+    fetch(CRM + '/api/marketing/webhooks/form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        projectSlug: SLUG,
+        name: name,
+        email: email,
+        phone: form.phone.value.trim() || null,
+        municipio: municipio,
+        uf: 'SP',
+        ibge: ibge || null,
+        source: 'lp:impositivas-sp',
+        attributes: { cargo: form.cargo.value, presidente: name, camara: 'Câmara Municipal de ' + municipio }
+      })
+    })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function () {
+        track('form_open', { municipio: municipio });
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('obrigado').classList.add('show');
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Verificar conformidade →';
+        msg.className = 'msg err';
+        msg.innerHTML = 'Não conseguimos enviar agora. Tente novamente ou fale conosco no WhatsApp.';
+      });
+  });
+})();
+</script>
+</body>
+</html>

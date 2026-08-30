@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emendas Impositivas em 20 Minutos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A2463;
+    --bg:#081427;
+    --bg-2:#0b1b35;
+    --bg-deep:#050e1f;
+    --cyan:#22d3ee;
+    --teal:#2dd4bf;
+    --green:#00E5A0;
+    --gold:#f4c84a;
+    --blue:#5b8def;
+    --paper:#eaf2ff;
+    --muted:#9fb3d6;
+    --muted-2:#7e93bd;
+    --line:rgba(255,255,255,.10);
+    --card:rgba(255,255,255,.045);
+    --shadow:0 30px 80px -30px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:#020a18;
+    color:var(--paper);
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  .deck{
+    position:relative;
+    width:min(1180px,96vw);
+    height:min(700px,94vh);
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    background:var(--bg);
+  }
+  .slide{
+    position:absolute;inset:0;
+    padding:56px 70px 64px;
+    display:none;
+    flex-direction:column;
+    opacity:0;
+    background:linear-gradient(150deg,var(--bg) 0%,var(--bg-deep) 100%);
+    transition:opacity .45s ease;
+    overflow:hidden;
+  }
+  .slide.active{display:flex;opacity:1;animation:fade .5s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+  .orb.green{width:330px;height:330px;border:1px solid rgba(45,212,191,.18);right:-90px;top:60px}
+  .orb.blue{width:280px;height:280px;background:radial-gradient(circle at 30% 30%,rgba(91,141,239,.16),transparent 70%);right:-70px;bottom:-90px}
+  .slide > *{position:relative;z-index:1}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--teal);font-weight:600;margin-bottom:16px;display:flex;gap:10px;align-items:center;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--green);display:inline-block}
+  h1{font-family:'Inter',sans-serif;font-weight:800;font-size:54px;line-height:1.05;color:#fff;letter-spacing:-.02em}
+  h2{font-family:'Inter',sans-serif;font-weight:800;font-size:36px;line-height:1.1;color:#fff;letter-spacing:-.02em;margin-bottom:8px;position:relative}
+  h2.ul{padding-bottom:14px}
+  h2.ul::after{content:"";position:absolute;left:0;bottom:0;width:74px;height:3px;background:linear-gradient(90deg,var(--teal),var(--green));border-radius:2px}
+  h3{font-size:17px;font-weight:700;color:#fff}
+  p.lead{font-size:18px;line-height:1.55;color:#c3d2ee;max-width:64ch}
+  p.body{font-size:15px;line-height:1.6;color:var(--muted)}
+  .accent{color:var(--teal)}
+  .accent-g{color:var(--green)}
+  .accent-w{color:var(--gold)}
+  strong.w{color:#fff}
+
+  .brand{display:flex;align-items:center;gap:11px}
+  .logo{display:flex;align-items:flex-end;gap:3px;height:28px}
+  .logo .bar{width:6px;border-radius:3px;background:var(--cyan)}
+  .logo .bar:nth-child(1){height:12px}
+  .logo .bar:nth-child(2){height:19px}
+  .logo .bar:nth-child(3){height:27px;background:var(--green)}
+  .logo-word{font-weight:800;font-size:20px;letter-spacing:-.02em;color:#fff}
+  .logo-word b{color:var(--cyan)}
+  .corner-logo{position:absolute;top:30px;right:40px;z-index:3;display:flex;align-items:center;gap:8px}
+  .corner-logo .logo{height:22px}
+  .corner-logo .logo-word{font-size:16px}
+
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:12px;padding:20px;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .card.g{border-top-color:var(--green)}
+  .card.b{border-top-color:var(--blue)}
+  .card.w{border-top-color:var(--gold)}
+  .card .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;font-weight:600}
+  .card.g .tag{color:var(--green)}
+  .card.b .tag{color:var(--blue)}
+  .card.w .tag{color:var(--gold)}
+  .card p{font-size:13.5px;line-height:1.5;color:var(--muted)}
+
+  .stat-num{font-family:'Inter',sans-serif;font-weight:800;font-size:46px;line-height:1;color:var(--teal)}
+  .stat-lab{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(45,212,191,.12);color:#d7f7f1;border:1px solid rgba(45,212,191,.3)}
+
+  ol.steps{list-style:none;display:flex;flex-direction:column;gap:13px;counter-reset:s}
+  ol.steps li{display:flex;gap:16px;align-items:center}
+  ol.steps li::before{
+    counter-increment:s;content:counter(s,decimal-leading-zero);
+    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;color:var(--bg-deep);
+    background:linear-gradient(145deg,var(--teal),var(--green));border-radius:999px;min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  ol.steps li strong{display:block;color:#fff;font-size:15px;margin-bottom:2px}
+  ol.steps li span{font-size:13.5px;color:var(--muted);line-height:1.45}
+
+  .agenda{display:grid;grid-template-columns:1fr 1fr;gap:18px 46px;margin-top:14px}
+  .ag{display:flex;gap:16px;align-items:flex-start}
+  .ag .num{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;color:var(--bg-deep);background:linear-gradient(145deg,var(--teal),var(--green));border-radius:999px;min-width:42px;height:42px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .ag h3{font-size:17px;margin-bottom:3px}
+  .ag p{font-size:13px;color:var(--muted);line-height:1.4}
+  a.ag{text-decoration:none;color:inherit;cursor:pointer}
+  a.ag:hover h3{color:var(--teal);transition:color .2s}
+
+  .badge{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:999px;font-weight:600}
+  .badge.flag{background:var(--green);color:var(--bg-deep)}
+  .badge.line{background:transparent;border:1px solid var(--teal);color:var(--teal)}
+
+  .divider{justify-content:center;background:linear-gradient(150deg,var(--bg-2) 0%,var(--bg-deep) 100%)}
+  .divider .part-no{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.3em;color:var(--green);font-weight:600;margin-bottom:14px}
+  .divider h1{font-size:60px;max-width:18ch}
+  .divider .pline{height:3px;width:90px;background:linear-gradient(90deg,var(--teal),var(--green));border-radius:2px;margin:22px 0 24px}
+  .divider p.lead{max-width:58ch}
+
+  .two{display:grid;grid-template-columns:1.12fr .88fr;gap:36px;flex:1;align-items:center}
+  .rule{height:1px;background:var(--line);margin:18px 0}
+  .mini{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+  .kfacts{display:flex;gap:30px;flex-wrap:wrap;margin-top:28px}
+  .kfacts div .n{font-family:'Inter',sans-serif;font-size:32px;font-weight:800;color:var(--teal)}
+  .kfacts div .l{font-size:12px;color:var(--muted)}
+
+  .source{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted-2);margin-top:18px}
+
+  .quote{
+    font-size:30px;line-height:1.25;font-weight:700;color:#fff;letter-spacing:-.015em;
+    border-left:3px solid var(--gold);padding-left:26px;max-width:26ch;
+  }
+
+  figure{margin:0}
+  figure svg{display:block;width:100%;height:auto;color:var(--paper)}
+  figcaption{font-size:13.5px;line-height:1.55;color:var(--muted);margin-top:14px;max-width:78ch}
+
+  .foot{position:absolute;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted-2);letter-spacing:.06em;border-top:1px solid rgba(255,255,255,.06)}
+  .foot .who{display:flex;gap:8px;align-items:center}
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+
+  .nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;z-index:20}
+  .nav button{
+    width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
+    background:rgba(255,255,255,.1);color:#fff;font-size:18px;backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;transition:.2s;
+  }
+  .nav button:hover{background:var(--teal);color:var(--bg-deep)}
+  .counter{color:#9fb3d6;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:0 10px;min-width:64px;text-align:center}
+  .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--green));z-index:30;transition:width .4s ease}
+  .hint{position:fixed;top:14px;right:18px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f74a0;z-index:20}
+
+  #hero-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9;z-index:0}
+  .slide > .bg-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.8;z-index:0;pointer-events:none}
+  .hero-content{position:relative;z-index:2;margin-top:auto;margin-bottom:auto}
+
+  button:focus-visible, a:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+  @media print{
+    body{overflow:visible;background:#fff}
+    .stage{position:static}
+    .deck{width:100%;height:auto;box-shadow:none;border-radius:0}
+    .slide{display:flex!important;opacity:1!important;position:relative;page-break-after:always;height:720px;border-bottom:1px solid #222}
+    .nav,.hint,.progress{display:none}
+  }
+  @media (max-width:760px){
+    .slide{padding:30px 24px 56px}
+    h1{font-size:34px}h2{font-size:26px}.divider h1{font-size:38px}
+    .two{grid-template-columns:1fr;gap:18px}
+    .g3,.g4{grid-template-columns:1fr 1fr}
+    .agenda{grid-template-columns:1fr;gap:14px}
+    .corner-logo{display:none}
+    .quote{font-size:22px}
+  }
+</style>
+
+</head>
+<body>
+<div class="progress" id="bar"></div>
+<div class="hint">← → navegar · <b>P</b> imprimir/PDF</div>
+<div class="stage">
+  <div class="deck" id="deck">
+
+  <!-- 01 CAPA -->
+  <section class="slide active">
+    <canvas id="hero-canvas" width="1475" height="860"></canvas>
+    <div class="hero-content">
+      <div class="brand" style="margin-bottom:30px">
+        <div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        <span class="logo-word">Instituto <b>i10</b></span>
+      </div>
+      <div class="eyebrow">Aula aberta · 20 minutos</div>
+      <h1>Emendas impositivas:<br><span class="accent">quem decide onde o<br>dinheiro vai parar.</span></h1>
+      <p class="lead" style="margin-top:20px">Como um parlamentar entra no orçamento público, o que mudou quando a execução dessas escolhas virou obrigação, e por que isso provocou a maior reforma de transparência orçamentária das últimas décadas.</p>
+      <div class="kfacts">
+        <div><div class="n">2015</div><div class="l">o ano em que o pedido virou ordem</div></div>
+        <div><div class="n">4</div><div class="l">emendas constitucionais em sete anos</div></div>
+        <div><div class="n">2</div><div class="l">exigências que o controle passou a fazer</div></div>
+      </div>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> institutoi10.com.br</span><span>01 / 21</span></div>
+  </section>
+
+  <!-- 02 AGENDA -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <h2 class="ul">Roteiro</h2>
+    <div class="agenda">
+      <a class="ag" href="#p1"><span class="num">01</span><div><h3>O tabuleiro</h3><p>00:00 · O orçamento é uma lei, e quem propõe não é quem aprova</p></div></a>
+      <a class="ag" href="#p2"><span class="num">02</span><div><h3>A virada</h3><p>05:00 · De autorizativa a impositiva: o pedido vira ordem</p></div></a>
+      <a class="ag" href="#p3"><span class="num">03</span><div><h3>O efeito colateral</h3><p>10:00 · O filtro que sumiu e o rastro que se rompe</p></div></a>
+      <a class="ag" href="#p4"><span class="num">04</span><div><h3>A resposta do controle</h3><p>14:00 · Duas exigências que reorganizaram o sistema</p></div></a>
+      <a class="ag" href="#p5"><span class="num">05</span><div><h3>A tensão que fica</h3><p>18:00 · O trade-off, sem resposta pronta</p></div></a>
+      <a class="ag" href="#p6"><span class="num">06</span><div><h3>Para levar</h3><p>19:00 · O que olhar no portal da sua cidade</p></div></a>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> Roteiro</span><span>02 / 21</span></div>
+  </section>
+
+  <!-- 03 DIVISOR 1 -->
+  <section class="slide divider" id="p1">
+    <canvas class="bg-canvas"></canvas>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="part-no">PARTE 01</div>
+    <h1>O<br><span class="accent">tabuleiro</span></h1>
+    <div class="pline"></div>
+    <p class="lead">Toda cidade decide, uma vez por ano, o que fará com o próprio dinheiro. Quantas creches, quais ruas, qual remédio. Essa decisão não é tomada em uma reunião fechada — ela vira uma lei.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> O tabuleiro</span><span>03 / 21</span></div>
+  </section>
+
+  <!-- 04 O ORÇAMENTO É UMA LEI -->
+  <section class="slide">
+    <div class="orb green"></div>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="eyebrow">Ponto de partida</div>
+    <h2 class="ul">O orçamento público não é uma planilha. É uma lei.</h2>
+    <p class="body" style="margin:18px 0 22px;max-width:76ch">E não é uma lei só: são três, encaixadas uma dentro da outra, do plano mais amplo ao valor mais concreto. Uma despesa só pode existir se estiver prevista nas três. Não basta haver dinheiro em caixa — é preciso haver <strong class="w">autorização legal</strong> para gastá-lo naquilo.</p>
+    <div class="grid g3">
+      <div class="card"><span class="tag">4 anos</span><h3>PPA</h3><p>Plano Plurianual. <strong class="w">O quê</strong> o município pretende fazer no período de um mandato, organizado em programas.</p></div>
+      <div class="card g"><span class="tag">1 ano, antecipado</span><h3>LDO</h3><p>Diretrizes Orçamentárias. <strong class="w">Quais</strong> dessas intenções serão prioridade no ano seguinte, e sob quais regras.</p></div>
+      <div class="card b"><span class="tag">1 ano, o dinheiro</span><h3>LOA</h3><p>Orçamento Anual. <strong class="w">Quanto</strong> exatamente vai para cada finalidade. É aqui que o valor aparece.</p></div>
+    </div>
+    <div class="rule"></div>
+    <p class="body">Quem escreve a proposta é o <strong class="w">Executivo</strong>; quem discute, altera e aprova é o <strong class="w">Legislativo</strong>. A divisão é deliberada: quem executa não deveria ser o único a decidir — e quem decide sozinho, sem executar, não sente o custo da própria decisão.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> O tabuleiro</span><span>04 / 21</span></div>
+  </section>
+
+  <!-- 05 O QUE É UMA EMENDA -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="two">
+      <div>
+        <div class="eyebrow">O instrumento</div>
+        <h2>A emenda é a porta pela qual o parlamentar entra nessa decisão.</h2>
+        <p class="body" style="margin:16px 0 14px">Quando o projeto de orçamento chega ao Legislativo, cada parlamentar pode propor alterações. A emenda diz, em essência: <em style="color:#c3d2ee">“deste montante, tanto vai para esta finalidade específica”</em>.</p>
+        <p class="body">É o instrumento pelo qual quem conhece o bairro, a fila do posto e a rua sem asfalto consegue redirecionar uma parte do orçamento.</p>
+        <div class="chips" style="margin-top:18px">
+          <span class="chip">Fase legislativa</span><span class="chip">Anual</span><span class="chip">Individual ou coletiva</span>
+        </div>
+      </div>
+      <div class="grid" style="gap:14px">
+        <div class="card w">
+          <span class="tag">O mal-entendido nº 1</span>
+          <h3 style="font-size:16px">Ela não cria dinheiro</h3>
+          <p>O total do orçamento continua o mesmo. Para colocar recurso em um lugar, é preciso <strong class="w">tirar de outro</strong> — tecnicamente, anular uma dotação.</p>
+        </div>
+        <div class="card">
+          <span class="tag">E nem de qualquer lugar</span>
+          <p>Ficam fora, por vedação constitucional, a folha de pessoal, o serviço da dívida e as transferências obrigatórias. Sobra a <strong class="w">margem discricionária</strong> — justamente aquela em que o gestor teria liberdade de escolha.</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> O tabuleiro</span><span>05 / 21</span></div>
+  </section>
+
+  <!-- 06 DIVISOR 2 -->
+  <section class="slide divider" id="p2">
+    <canvas class="bg-canvas"></canvas>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="part-no">PARTE 02</div>
+    <h1>A<br><span class="accent">virada</span></h1>
+    <div class="pline"></div>
+    <p class="lead">Em 2015, uma mudança aparentemente técnica reorganizou a relação entre Executivo e Legislativo no Brasil inteiro: o que era um pedido virou uma ordem.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> A virada</span><span>06 / 21</span></div>
+  </section>
+
+  <!-- 07 ANTES DE 2015 -->
+  <section class="slide">
+    <div class="orb blue"></div>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="two">
+      <div>
+        <div class="eyebrow">O problema original</div>
+        <h2>A emenda aprovada era só uma autorização.</h2>
+        <p class="body" style="margin:16px 0 14px">O orçamento dizia que o dinheiro <strong class="w">podia</strong> ser gasto naquilo — não que seria. Na prática, o Executivo decidia quais emendas liberar, e quando.</p>
+        <p class="body">Isso produziu uma moeda de troca: <em style="color:#c3d2ee">vota comigo, libero a sua emenda</em>. O Legislativo, que deveria fiscalizar o Executivo, passou a depender dele.</p>
+      </div>
+      <div>
+        <p class="quote">Quem fiscaliza não pode depender de quem é fiscalizado.</p>
+        <p class="source">O diagnóstico que motivou a reforma constitucional</p>
+      </div>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> A virada</span><span>07 / 21</span></div>
+  </section>
+
+  <!-- 08 AS QUATRO ECs -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="eyebrow">A resposta constitucional</div>
+    <h2 class="ul">Quatro emendas à Constituição, sete anos.</h2>
+    <div class="grid g4" style="margin-top:22px">
+      <div class="card"><span class="tag">2015 · EC 86</span><h3 style="font-size:15px">Nasce a impositiva</h3><p>A execução das emendas individuais passa a ser <strong class="w">obrigatória</strong>, até um teto sobre a receita corrente líquida, com metade destinada à saúde.</p></div>
+      <div class="card g"><span class="tag">2019 · EC 100</span><h3 style="font-size:15px">O dever se generaliza</h3><p>A Constituição enuncia o dever de executar as programações, para <strong class="w">garantir a entrega</strong> de bens e serviços à sociedade. Alcança também as emendas de bancada.</p></div>
+      <div class="card b"><span class="tag">2019 · EC 105</span><h3 style="font-size:15px">O dinheiro vai direto</h3><p>Surgem as transferências especiais, sem convênio — as chamadas <strong class="w">“emendas PIX”</strong>. Rapidez máxima, rastreabilidade mínima.</p></div>
+      <div class="card w"><span class="tag">2022 · EC 126</span><h3 style="font-size:15px">O volume cresce</h3><p>O teto das emendas individuais sobe, no plano federal, para <strong class="w">2% da receita corrente líquida</strong> do exercício anterior.</p></div>
+    </div>
+    <p class="body" style="margin-top:24px">Repare no movimento: primeiro se tornou obrigatório executar, depois se ampliou o alcance, depois se acelerou o repasse, e por fim se aumentou o volume. Transparência não entrou em nenhuma dessas etapas.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> A virada</span><span>08 / 21</span></div>
+  </section>
+
+  <!-- 09 ANTES × DEPOIS -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="eyebrow">O que muda na prática</div>
+    <h2 class="ul">Autorizativa <span style="color:var(--muted-2);font-weight:600">×</span> impositiva</h2>
+    <div class="grid g2" style="margin-top:24px">
+      <div class="card" style="border-top-color:var(--muted-2)">
+        <span class="tag" style="color:var(--muted)">Antes</span>
+        <p style="font-size:14.5px">O Executivo <strong class="w">pode</strong> executar.</p>
+        <p style="font-size:14.5px">Não executar é decisão política legítima.</p>
+        <p style="font-size:14.5px">A emenda vale como moeda de negociação.</p>
+        <p style="font-size:14.5px">A cobrança do parlamentar é política.</p>
+      </div>
+      <div class="card g">
+        <span class="tag">Depois</span>
+        <p style="font-size:14.5px">O Executivo <strong class="w">deve</strong> executar.</p>
+        <p style="font-size:14.5px">Só não executa por impedimento técnico justificado.</p>
+        <p style="font-size:14.5px">A emenda deixa de ser barganha.</p>
+        <p style="font-size:14.5px">A cobrança passa a ser jurídica e de controle externo.</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <p class="body"><strong class="w">A válvula de escape.</strong> A obrigatoriedade não é absoluta: se a execução for tecnicamente inviável — objeto impossível, projeto inexistente, ilegalidade —, cabe alegar <span class="accent">impedimento de ordem técnica</span>, com justificativa formal e prazos definidos em lei. É a única saída legítima, e é onde se concentram as disputas.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> A virada</span><span>09 / 21</span></div>
+  </section>
+
+  <!-- 10 E NOS MUNICÍPIOS -->
+  <section class="slide">
+    <div class="orb green"></div>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="two">
+      <div>
+        <div class="eyebrow">A sutileza que passa batida</div>
+        <h2>Nenhum município é obrigado a ter emendas impositivas.</h2>
+        <p class="body" style="margin:16px 0 14px">Esse regime foi desenhado para a União. Os municípios que o adotaram fizeram-no por escolha própria, alterando a sua <strong class="w">Lei Orgânica</strong> — o que se chama de adoção “por simetria”.</p>
+        <p class="body">Consequência prática: cada município fixa <strong class="w">livremente o seu percentual</strong>. Não existe um número nacional.</p>
+      </div>
+      <div class="card w">
+        <span class="tag">Ao estudar um caso concreto</span>
+        <h3 style="font-size:16px">A primeira pergunta é sempre a mesma</h3>
+        <p style="font-size:14.5px">O que diz a Lei Orgânica <em>daquela</em> cidade? Percentual, reserva para a saúde, prazos de impedimento técnico e rito de tramitação variam de município para município.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> A virada</span><span>10 / 21</span></div>
+  </section>
+
+  <!-- 11 DIVISOR 3 -->
+  <section class="slide divider" id="p3">
+    <canvas class="bg-canvas"></canvas>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="part-no">PARTE 03</div>
+    <h1>O efeito<br><span class="accent">colateral</span></h1>
+    <div class="pline"></div>
+    <p class="lead">A reforma resolveu um problema real e criou outro. O mecanismo é contraintuitivo — e é a parte mais interessante da história.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> O efeito colateral</span><span>11 / 21</span></div>
+  </section>
+
+  <!-- 12 O FILTRO QUE DESAPARECEU -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="two">
+      <div>
+        <div class="eyebrow">O mecanismo</div>
+        <h2>O filtro que desapareceu.</h2>
+        <p class="body" style="margin:16px 0 14px">Enquanto o Executivo podia recusar, existia um filtro natural no meio do caminho: alguém olhava a proposta e simplesmente não a executava se fosse inviável.</p>
+        <p class="body" style="margin-bottom:14px">Esse filtro era arbitrário e sujeito a troca política — por isso foi eliminado. Mas ele também barrava o que não deveria passar.</p>
+        <p class="body">Ao tornar a execução obrigatória <strong class="w">sem instalar um exame técnico no lugar</strong>, o sistema passou a obrigar o município a executar propostas que ninguém examinou.</p>
+      </div>
+      <div>
+        <p class="quote">Quando o gasto deixa de ser opcional, ele precisa ser bem fundamentado antes — não depois.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> O efeito colateral</span><span>12 / 21</span></div>
+  </section>
+
+  <!-- 13 O OBJETO GENÉRICO -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="eyebrow">Sintoma nº 1</div>
+    <h2 class="ul">O objeto genérico</h2>
+    <p class="body" style="margin:18px 0 20px;max-width:78ch">Uma emenda vaga tem uma vantagem para quem a propõe: é flexível, nunca é rejeitada por inviabilidade e serve a qualquer aplicação. E tem uma desvantagem fatal para o interesse público.</p>
+    <div class="grid g2">
+      <div class="card w">
+        <span class="tag">Genérico</span>
+        <p style="font-size:15px;color:#c3d2ee">“Melhorias na área da saúde”</p>
+        <p style="font-size:15px;color:#c3d2ee">“Apoio a entidades assistenciais”</p>
+        <p style="margin-top:6px">Impossível verificar se foi cumprida. Sem objeto definido, ninguém consegue afirmar que <em>não</em> foi entregue.</p>
+      </div>
+      <div class="card g">
+        <span class="tag">Delimitado</span>
+        <p style="font-size:15px;color:#c3d2ee">“Duas cadeiras odontológicas para a UBS do bairro X”</p>
+        <p style="font-size:15px;color:#c3d2ee">“Custeio de 600 atendimentos de fisioterapia/ano”</p>
+        <p style="margin-top:6px">Verificável. E, por isso mesmo, cobrável — inclusive pelo próprio autor.</p>
+      </div>
+    </div>
+    <p class="body" style="margin-top:22px">Eis o paradoxo: a emenda genérica parece proteger o parlamentar, mas é a única que ele <strong class="w">não consegue exigir</strong>.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> O efeito colateral</span><span>13 / 21</span></div>
+  </section>
+
+  <!-- 14 O RASTRO QUE SE ROMPE -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="eyebrow">Sintoma nº 2</div>
+    <h2 style="margin-bottom:22px">O rastro que se rompe</h2>
+    <figure>
+      <svg viewBox="0 0 1000 190" role="img" aria-label="O percurso de uma emenda, do parlamentar que a propõe até a entrega ao cidadão, com o rastro da informação interrompido no momento em que a dotação entra na execução da despesa">
+        <defs>
+          <marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <g stroke="currentColor" stroke-width="1.1" fill="none" opacity=".55">
+          <rect x="8" y="16" width="170" height="68" rx="8"/>
+          <rect x="210" y="16" width="170" height="68" rx="8"/>
+          <rect x="412" y="16" width="170" height="68" rx="8"/>
+          <rect x="614" y="16" width="170" height="68" rx="8"/>
+          <rect x="816" y="16" width="170" height="68" rx="8"/>
+        </g>
+
+        <g fill="currentColor" font-family="Inter, sans-serif" text-anchor="middle">
+          <text x="93" y="46" font-size="14" font-weight="700">Parlamentar propõe</text>
+          <text x="93" y="66" font-size="11" opacity=".62">autor · objeto · valor</text>
+
+          <text x="295" y="46" font-size="14" font-weight="700">Orçamento aprovado</text>
+          <text x="295" y="66" font-size="11" opacity=".62">a dotação vira obrigação</text>
+
+          <text x="497" y="46" font-size="14" font-weight="700">Execução da despesa</text>
+          <text x="497" y="66" font-size="11" opacity=".62">empenho · liquidação · pagamento</text>
+
+          <text x="699" y="46" font-size="14" font-weight="700">Fornecedor ou entidade</text>
+          <text x="699" y="66" font-size="11" opacity=".62">contrato ou repasse</text>
+
+          <text x="901" y="46" font-size="14" font-weight="700">Entrega ao cidadão</text>
+          <text x="901" y="66" font-size="11" opacity=".62">obra · equipamento · serviço</text>
+        </g>
+
+        <g stroke="currentColor" stroke-width="1.4" marker-end="url(#seta)" opacity=".8">
+          <line x1="182" y1="50" x2="204" y2="50"/>
+          <line x1="384" y1="50" x2="406" y2="50"/>
+          <line x1="586" y1="50" x2="608" y2="50"/>
+          <line x1="788" y1="50" x2="810" y2="50"/>
+        </g>
+
+        <g stroke="#f4c84a" fill="none">
+          <g opacity=".35" stroke-width="1" stroke-dasharray="2 4">
+            <line x1="93" y1="84" x2="93" y2="134"/>
+            <line x1="295" y1="84" x2="295" y2="134"/>
+            <line x1="497" y1="84" x2="497" y2="134"/>
+            <line x1="699" y1="84" x2="699" y2="134"/>
+            <line x1="901" y1="84" x2="901" y2="134"/>
+          </g>
+          <path d="M 93 140 L 358 140" stroke-width="2" stroke-dasharray="6 5"/>
+          <path d="M 434 140 L 901 140" stroke-width="2" stroke-dasharray="6 5"/>
+          <g stroke-width="2">
+            <line x1="372" y1="128" x2="384" y2="152"/>
+            <line x1="408" y1="128" x2="420" y2="152"/>
+          </g>
+        </g>
+        <g fill="#f4c84a" font-family="IBM Plex Mono, monospace" font-size="11">
+          <text x="8" y="144" text-anchor="start">rastro</text>
+          <text x="396" y="176" text-anchor="middle">a despesa deixa de identificar de qual emenda veio</text>
+        </g>
+      </svg>
+      <figcaption><strong class="w">O dinheiro chega ao fim; a informação, não.</strong> A partir do momento em que a dotação entra na execução, os registros contábeis frequentemente deixam de dizer <em>de qual emenda</em> aquele empenho veio. Dali em diante ninguém consegue ligar o que foi gasto ao que foi prometido — nem o cidadão, nem o auditor, nem o parlamentar autor.</figcaption>
+    </figure>
+    <div class="foot"><span class="who"><span class="dot"></span> O efeito colateral</span><span>14 / 21</span></div>
+  </section>
+
+  <!-- 15 DIVISOR 4 -->
+  <section class="slide divider" id="p4">
+    <canvas class="bg-canvas"></canvas>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="part-no">PARTE 04</div>
+    <h1>A resposta<br><span class="accent">do controle</span></h1>
+    <div class="pline"></div>
+    <p class="lead">O caso chegou ao Supremo. E o que saiu de lá cabe em duas ideias — que hoje os Tribunais de Contas cobram de todo município.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> A resposta do controle</span><span>15 / 21</span></div>
+  </section>
+
+  <!-- 16 DE ONDE VEIO -->
+  <section class="slide">
+    <div class="orb blue"></div>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="two">
+      <div>
+        <div class="eyebrow">De onde veio a exigência</div>
+        <h2>O episódio do “orçamento secreto”.</h2>
+        <p class="body" style="margin:16px 0 14px">A discussão chegou ao Supremo pelas chamadas <strong class="w">emendas de relator</strong>: bilhões destinados sem autoria identificável. Começou ali e se generalizou.</p>
+        <p class="body">O princípio que se firmou é simples de enunciar e caro de implementar: se o dinheiro é público e a execução é obrigatória, <strong class="w">o percurso inteiro tem que ser conhecido</strong>.</p>
+      </div>
+      <div class="grid" style="gap:14px">
+        <div class="card"><span class="tag">Do julgamento</span><p style="font-size:14px">Identificação de responsáveis, destinação dos recursos e beneficiários finais; concentração das informações em portal.</p></div>
+        <div class="card g"><span class="tag">Dos Tribunais de Contas</span><p style="font-size:14px">Conformidade procedimental cobrada nas fiscalizações e nas contas anuais de cada ente — inclusive municípios.</p></div>
+      </div>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> A resposta do controle</span><span>16 / 21</span></div>
+  </section>
+
+  <!-- 17 IDEIA 1 -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px">
+      <span class="badge flag">Ideia 01</span>
+      <span class="mini">recolocar o exame no começo</span>
+    </div>
+    <h2 class="ul">Se a execução é obrigatória, a análise vem antes da aprovação.</h2>
+    <div class="two" style="margin-top:20px">
+      <ol class="steps">
+        <li><div class="sgroup"><strong>Objeto delimitado</strong><span>O que exatamente será entregue, em que quantidade e onde.</span></div></li>
+        <li><div class="sgroup"><strong>Plano de trabalho</strong><span>Metas verificáveis, custo estimado com base real, cronograma.</span></div></li>
+        <li><div class="sgroup"><strong>Compatibilidade com o planejamento</strong><span>Demonstrar que aquilo cabe nos programas já aprovados.</span></div></li>
+        <li><div class="sgroup"><strong>Parecer técnico prévio</strong><span>Alguém, formalmente, atesta que é viável.</span></div></li>
+      </ol>
+      <div class="card w">
+        <span class="tag">O que isso implica</span>
+        <p style="font-size:14.5px">A obrigatoriedade da execução <strong class="w">não dispensa</strong> a análise técnica — ela a torna mais necessária. É o oposto da leitura intuitiva.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> A resposta do controle</span><span>17 / 21</span></div>
+  </section>
+
+  <!-- 18 IDEIA 2 -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px">
+      <span class="badge flag">Ideia 02</span>
+      <span class="mini">costurar o rastro de volta</span>
+    </div>
+    <h2 class="ul">Rastreabilidade ponta a ponta</h2>
+    <p class="body" style="margin:18px 0 20px;max-width:78ch">Qualquer pessoa deve conseguir puxar um fio e percorrer o caminho inteiro, do parlamentar que propôs até o serviço entregue. Isso exige medidas prosaicas, quase administrativas.</p>
+    <div class="grid g4">
+      <div class="card"><span class="tag">Identidade</span><p>Cada emenda recebe um <strong class="w">número próprio</strong>, que passa a acompanhá-la em todos os documentos.</p></div>
+      <div class="card g"><span class="tag">Contabilidade</span><p>A escrituração <strong class="w">identifica a emenda</strong> em cada empenho, liquidação e pagamento.</p></div>
+      <div class="card b"><span class="tag">Dinheiro</span><p>Recursos em <strong class="w">conta específica</strong>, sem contas de passagem que embaralhem a origem.</p></div>
+      <div class="card w"><span class="tag">Publicidade</span><p>Portais com <strong class="w">busca e filtros</strong>: autor, objeto, valor, beneficiário e estágio de execução.</p></div>
+    </div>
+    <div class="rule"></div>
+    <p class="body">O deslocamento conceitual: a emenda deixa de ser um <span class="accent">ato político isolado</span> e passa a ser um <span class="accent-g">processo administrativo</span>, com começo, meio e fim documentados. É o que separa um sistema auditável de um que apenas publica listas.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> A resposta do controle</span><span>18 / 21</span></div>
+  </section>
+
+  <!-- 19 DIVISOR 5 -->
+  <section class="slide divider" id="p5">
+    <canvas class="bg-canvas"></canvas>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="part-no">PARTE 05</div>
+    <h1>A tensão<br><span class="accent">que fica</span></h1>
+    <div class="pline"></div>
+    <p class="lead">Encerro com o desconforto, que é a parte mais interessante do tema. Não há resposta pronta — há um desenho institucional a ser calibrado.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> A tensão que fica</span><span>19 / 21</span></div>
+  </section>
+
+  <!-- 20 O TRADE-OFF -->
+  <section class="slide">
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="eyebrow">Os dois lados</div>
+    <h2 class="ul">O que ela corrige e o que ela cobra</h2>
+    <div class="grid g2" style="margin-top:22px">
+      <div class="card g">
+        <span class="tag">Corrige</span>
+        <p style="font-size:14.5px">Elimina a liberação de recursos como moeda de troca por votos.</p>
+        <p style="font-size:14.5px">É instrumento de <strong class="w">independência do Legislativo</strong> — e o Legislativo independente é condição da fiscalização.</p>
+      </div>
+      <div class="card w">
+        <span class="tag">Cobra</span>
+        <p style="font-size:14.5px">Pulveriza o orçamento em centenas de destinações individuais, cada uma boa em si e nem sempre coerentes entre si.</p>
+        <p style="font-size:14.5px">Desloca a escolha de quem vê o conjunto para quem vê o bairro — e, sem exame prévio, transforma boa intenção em <strong class="w">obrigação legal de gastar mal</strong>.</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <div class="mini" style="margin-bottom:12px">Para discutir</div>
+    <div class="grid g2" style="gap:10px">
+      <p class="body" style="font-size:14px">→ A emenda impositiva fortalece ou enfraquece o Legislativo?</p>
+      <p class="body" style="font-size:14px">→ Quem decide melhor a prioridade: o gestor, que vê o conjunto, ou o parlamentar, que vê o bairro?</p>
+      <p class="body" style="font-size:14px">→ Rastreabilidade resolve o problema ou apenas o torna visível?</p>
+      <p class="body" style="font-size:14px">→ Exigir plano de trabalho qualifica a emenda — ou reintroduz, por via burocrática, o veto que a impositividade quis eliminar?</p>
+    </div>
+    <div class="foot"><span class="who"><span class="dot"></span> A tensão que fica</span><span>20 / 21</span></div>
+  </section>
+
+  <!-- 21 PARA LEVAR -->
+  <section class="slide">
+    <div class="orb green"></div>
+    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
+    <div class="eyebrow">Para levar</div>
+    <h2 class="ul">Quatro perguntas ao portal da sua cidade</h2>
+    <p class="body" style="margin:18px 0 20px;max-width:78ch">Testam, na prática, tudo o que vimos. Qualquer pessoa pode fazê-las hoje, sem pedir autorização a ninguém.</p>
+    <ol class="steps">
+      <li><div class="sgroup"><strong>A Lei Orgânica do município prevê emendas impositivas? Com qual percentual?</strong><span>Se não houver resposta pública, já é uma resposta.</span></div></li>
+      <li><div class="sgroup"><strong>Existe a lista das emendas do ano, com autor, objeto e valor?</strong><span>O piso da transparência ativa.</span></div></li>
+      <li><div class="sgroup"><strong>Dá para saber o estágio de execução de cada uma — ou só o valor autorizado?</strong><span>É aqui que a maioria das cidades trava.</span></div></li>
+      <li><div class="sgroup"><strong>Dá para chegar, a partir de uma emenda, ao contrato e ao pagamento?</strong><span>A rastreabilidade ponta a ponta, na prática.</span></div></li>
+    </ol>
+    <div class="rule"></div>
+    <p class="body">Na maioria das cidades brasileiras, a resposta trava na terceira pergunta. É exatamente ali que está o trabalho a ser feito.</p>
+    <div class="foot"><span class="who"><span class="dot"></span> Instituto i10 · institutoi10.com.br</span><span>21 / 21</span></div>
+  </section>
+
+  </div>
+</div>
+
+<div class="nav">
+  <button id="prev" aria-label="Anterior">‹</button>
+  <span class="counter" id="counter">01 / 21</span>
+  <button id="next" aria-label="Próximo">›</button>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;const total=slides.length;
+  const bar=document.getElementById('bar');
+  const counter=document.getElementById('counter');
+  const fieldMap=new Map();
+  function pad(n){return String(n).padStart(2,'0')}
+  function resizeActive(){const act=slides[i];if(!act)return;const c=act.querySelector('canvas');const f=c&&fieldMap.get(c);if(f)f();}
+  function show(n){
+    i=Math.max(0,Math.min(total-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    if(bar)bar.style.width=((i+1)/total*100)+'%';
+    if(counter)counter.textContent=pad(i+1)+' / '+pad(total);
+    requestAnimationFrame(resizeActive);
+  }
+  document.getElementById('next').onclick=()=>show(i+1);
+  document.getElementById('prev').onclick=()=>show(i-1);
+  document.addEventListener('keydown',e=>{
+    if(e.target.isContentEditable)return;
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')show(i+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);
+    if(e.key==='Home')show(0);
+    if(e.key==='End')show(total-1);
+    if(e.key.toLowerCase()==='p'){window.print()}
+  });
+  let sx=0;
+  document.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)show(i+(dx<0?1:-1))},{passive:true});
+
+  document.querySelectorAll('a.ag').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const el=document.getElementById(a.getAttribute('href').slice(1));
+      const idx=slides.indexOf(el);
+      if(idx>=0)show(idx);
+    });
+  });
+
+  function initField(cv){
+    const ctx=cv.getContext('2d');
+    let W=0,H=0,DPR=1,pts=[];
+    const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function build(){const N=Math.floor(W<760?70:160);pts=[];for(let k=0;k<N;k++){const x=Math.random()*W;const climb=x/W;const y=H*(0.85-climb*0.55)+(Math.random()-0.5)*H*0.4;pts.push({x,y,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15});}}
+    function resize(){DPR=Math.min(window.devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;if(W<2||H<2)return;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);build();}
+    function tick(){
+      if(W>2&&H>2&&pts.length){
+        ctx.clearRect(0,0,W,H);
+        for(let a=0;a<pts.length;a++){const p=pts[a];
+          if(!prefersReduced){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;}
+          for(let b=a+1;b<pts.length;b++){const q=pts[b];const dx=p.x-q.x,dy=p.y-q.y;const d=dx*dx+dy*dy;if(d<9000){const o=1-d/9000;ctx.strokeStyle='rgba(45,212,191,'+(o*0.32)+')';ctx.lineWidth=0.6;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}
+        }
+        for(const p of pts){const climb=p.x/W;ctx.fillStyle=climb>0.78?'rgba(0,229,160,0.95)':'rgba(120,200,240,0.8)';ctx.beginPath();ctx.arc(p.x,p.y,climb>0.78?2.4:1.5,0,7);ctx.fill();}
+      }
+      requestAnimationFrame(tick);
+    }
+    window.addEventListener('resize',resize);
+    resize();tick();
+    return resize;
+  }
+  document.querySelectorAll('#hero-canvas, .bg-canvas').forEach(cv=>fieldMap.set(cv,initField(cv)));
+
+  show(0);
+</script>
+
+</body></html>

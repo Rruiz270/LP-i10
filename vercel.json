@@ -383,6 +383,38 @@
     {
       "source": "/fundeb-to",
       "destination": "/fundeb-estado.html?uf=to"
+    },
+    {
+      "source": "/impositivas-sp",
+      "destination": "/impositivas-sp/index.html"
+    },
+    {
+      "source": "/impositivas-sp/",
+      "destination": "/impositivas-sp/index.html"
+    },
+    {
+      "source": "/impositivas-sp/aula",
+      "destination": "/impositivas-sp/aula/index.html"
+    },
+    {
+      "source": "/impositivas-sp/aula/",
+      "destination": "/impositivas-sp/aula/index.html"
+    },
+    {
+      "source": "/impositivas-sp/apresentacao",
+      "destination": "/impositivas-sp/apresentacao/index.html"
+    },
+    {
+      "source": "/impositivas-sp/apresentacao/",
+      "destination": "/impositivas-sp/apresentacao/index.html"
+    },
+    {
+      "source": "/impositivashub",
+      "destination": "/impositivashub/index.html"
+    },
+    {
+      "source": "/impositivashub/",
+      "destination": "/impositivashub/index.html"
     }
   ],
   "redirects": [
@@ -425,6 +457,24 @@
   "headers": [
     {
       "source": "/apm-lp(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/impositivas-sp(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/impositivashub(.*)",
       "headers": [
         {
           "key": "Cache-Control",
