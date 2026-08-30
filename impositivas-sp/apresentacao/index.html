@@ -1,528 +1,714 @@
-<!DOCTYPE html>
-<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emendas Parlamentares Impositivas · Instituto i10</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<title>Emendas Impositivas sob Controle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
 <style>
-  :root{
-    --navy:#0A2463;
-    --bg:#081427;
-    --bg-2:#0b1b35;
-    --bg-deep:#050e1f;
-    --cyan:#22d3ee;
-    --teal:#2dd4bf;
-    --green:#00E5A0;
-    --gold:#f4c84a;
-    --red:#ff6b6b;
-    --blue:#5b8def;
-    --paper:#eaf2ff;
-    --muted:#9fb3d6;
-    --muted-2:#7e93bd;
-    --line:rgba(255,255,255,.10);
-    --card:rgba(255,255,255,.045);
-    --shadow:0 30px 80px -30px rgba(0,0,0,.7);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family:'Inter',system-ui,sans-serif;
-    background:#020a18;
-    color:var(--paper);
-    overflow:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
-  .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
-  .deck{
-    position:relative;
-    width:min(1180px,96vw);
-    height:min(700px,94vh);
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    background:var(--bg);
-  }
-  .slide{
-    position:absolute;inset:0;
-    padding:clamp(30px,4vw,56px) clamp(26px,5vw,70px) 64px;
-    display:none;
-    flex-direction:column;
-    opacity:0;
-    background:linear-gradient(150deg,var(--bg) 0%,var(--bg-deep) 100%);
-    transition:opacity .45s ease;
-    overflow:auto;
-  }
-  .slide.active{display:flex;opacity:1;animation:fade .5s ease}
-  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* ===== Sistema visual i10 Gov 360 ===== */
+:root{
+  --navy:#0A2463; --deep:#061840; --cyan:#00B4D8; --mint:#00E5A0;
+  --bg:#F4F7FB; --card:#FFFFFF; --ink:#0A2463; --muted:#5A6B8C; --line:#E3E9F2;
+  --red:#E5484D; --amber:#F5A524; --green:#00B278; --purple:#7C5CFC;
+  --grad-main:linear-gradient(135deg,#0A2463,#00B4D8);
+  --grad-hi:linear-gradient(90deg,#00B4D8,#00E5A0);
+  --grad-dark:linear-gradient(135deg,#061840,#0A2463);
+  --radius:14px; --shadow:0 2px 10px rgba(6,24,64,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg); color:var(--ink); font-size:15px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{letter-spacing:-.5px; line-height:1.2; font-weight:800}
+.serif{font-family:'Source Serif 4',Georgia,serif; font-weight:400}
+a{color:var(--cyan)}
+strong{font-weight:700}
 
-  .orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
-  .orb.green{width:330px;height:330px;border:1px solid rgba(45,212,191,.18);right:-90px;top:60px}
-  .orb.blue{width:280px;height:280px;background:radial-gradient(circle at 30% 30%,rgba(91,141,239,.16),transparent 70%);right:-70px;bottom:-90px}
-  .slide > *{position:relative;z-index:1}
+/* ===== TOPBAR ===== */
+.topbar{background:var(--grad-dark);color:#fff;position:fixed;top:0;left:0;right:0;z-index:60;box-shadow:0 2px 14px rgba(6,24,64,.35)}
+.topbar-inner{max-width:1380px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:9px 22px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo svg{height:34px;width:34px}
+.logo .wm{font-weight:800;font-size:21px;letter-spacing:-.5px;display:block}
+.logo .wm .i{color:var(--cyan)}.logo .wm .dez{color:var(--mint)}
+.logo .sub{display:block;font-size:9.5px;font-weight:500;letter-spacing:2px;color:#9FB4D8;text-transform:uppercase;margin-top:-4px}
+.prod{font-weight:700;font-size:15px;color:#fff;border-left:1px solid rgba(255,255,255,.25);padding-left:16px;white-space:nowrap}
+.prod small{display:block;font-size:10px;font-weight:500;color:#8FE8FF;letter-spacing:1.4px;text-transform:uppercase}
+.demo-tag{margin-left:auto;background:var(--grad-hi);color:var(--deep);font-size:10.5px;font-weight:800;letter-spacing:1px;padding:5px 12px;border-radius:20px;text-transform:uppercase;white-space:nowrap}
 
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--teal);font-weight:600;margin-bottom:16px;display:flex;gap:10px;align-items:center;
-  }
-  .eyebrow::before{content:"";width:26px;height:2px;background:var(--green);display:inline-block}
-  h1{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(34px,5vw,54px);line-height:1.05;color:#fff;letter-spacing:-.02em}
-  h2{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(26px,3.6vw,36px);line-height:1.1;color:#fff;letter-spacing:-.02em;margin-bottom:8px;position:relative}
-  h2.ul{padding-bottom:14px}
-  h2.ul::after{content:"";position:absolute;left:0;bottom:0;width:74px;height:3px;background:linear-gradient(90deg,var(--teal),var(--green));border-radius:2px}
-  h3{font-size:17px;font-weight:700;color:#fff}
-  p.lead{font-size:clamp(16px,2vw,18px);line-height:1.55;color:#c3d2ee;max-width:66ch}
-  p.body{font-size:clamp(14px,1.7vw,15px);line-height:1.6;color:var(--muted)}
-  .accent{color:var(--teal)}
-  .accent-g{color:var(--green)}
+/* ===== DECK ===== */
+.deck{height:100dvh;overflow-y:auto;scroll-snap-type:y proximity;scroll-behavior:smooth;padding-top:56px}
+.slide{
+  min-height:calc(100dvh - 56px);scroll-snap-align:start;
+  display:flex;align-items:center;padding:38px 22px 74px;position:relative;
+}
+.slide.dark{background:var(--grad-dark);color:#fff}
+.slide.dark h1,.slide.dark h2,.slide.dark h3{color:#fff}
+.inner{width:100%;max-width:1180px;margin:0 auto}
 
-  .brand{display:flex;align-items:center;gap:11px}
-  .logo{display:flex;align-items:flex-end;gap:3px;height:28px}
-  .logo .bar{width:6px;border-radius:3px;background:var(--cyan)}
-  .logo .bar:nth-child(1){height:12px}
-  .logo .bar:nth-child(2){height:19px}
-  .logo .bar:nth-child(3){height:27px;background:var(--green)}
-  .logo-word{font-weight:800;font-size:20px;letter-spacing:-.02em;color:#fff}
-  .logo-word b{color:var(--cyan)}
-  .corner-logo{position:absolute;top:30px;right:40px;z-index:3;display:flex;align-items:center;gap:8px}
-  .corner-logo .logo{height:22px}
-  .corner-logo .logo-word{font-size:16px}
+/* títulos */
+.eyebrow{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.sec-title{display:flex;align-items:center;gap:12px;margin:0 0 10px;flex-wrap:wrap}
+.sec-title .bar{width:34px;height:4px;background:var(--grad-hi);border-radius:2px;flex-shrink:0}
+h2.title{font-size:clamp(22px,3.1vw,34px);font-weight:800}
+.lede{font-size:clamp(14.5px,1.25vw,16.5px);color:var(--muted);max-width:74ch;margin-top:10px;line-height:1.65}
+.slide.dark .lede{color:#C3D3EE}
+.spacer{height:22px}
+.spacer-sm{height:14px}
 
-  .grid{display:grid;gap:16px}
-  .g2{grid-template-columns:1fr 1fr}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .g4{grid-template-columns:repeat(4,1fr)}
-  .card{
-    background:var(--card);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:12px;padding:20px;
-    display:flex;flex-direction:column;gap:8px;
-  }
-  .card.g{border-top-color:var(--green)}
-  .card.b{border-top-color:var(--blue)}
-  .card.gold{border-top-color:var(--gold)}
-  .card.red{border-top-color:var(--red)}
-  .card .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;font-weight:600}
-  .card.g .tag{color:var(--green)}
-  .card.b .tag{color:var(--blue)}
-  .card.gold .tag{color:var(--gold)}
-  .card.red .tag{color:var(--red)}
-  .card p{font-size:13.5px;line-height:1.5;color:var(--muted)}
+/* ===== GRIDS ===== */
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g23{grid-template-columns:1fr 1.25fr;gap:34px;align-items:start}
+@media(max-width:1080px){.g4,.g3{grid-template-columns:repeat(2,1fr)}.g23,.g2{grid-template-columns:1fr;gap:22px}}
+@media(max-width:640px){.g4,.g3,.g2{grid-template-columns:1fr}}
 
-  .stat-num{font-family:'Inter',sans-serif;font-weight:800;font-size:46px;line-height:1;color:var(--teal)}
-  .stat-lab{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45}
+/* ===== CARDS ===== */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:7px;position:relative}
+.card.dark{background:var(--grad-dark);color:#fff;border:none}
+.card.hi{background:var(--grad-main);color:#fff;border:none}
+.card.ghost{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;box-shadow:none}
+.card h3{font-size:16px;font-weight:800}
+.card p{font-size:13.5px;color:var(--muted);line-height:1.6}
+.card.dark p,.card.hi p,.card.ghost p{color:rgba(255,255,255,.8)}
+.card .num{font-size:10.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--cyan)}
+.card.top-accent{border-top:4px solid transparent;border-image:linear-gradient(90deg,#00B4D8,#00E5A0) 1;border-image-slice:1}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted)}
 
-  .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(45,212,191,.12);color:#d7f7f1;border:1px solid rgba(45,212,191,.3)}
+/* KPI */
+.kpi-num{font-size:30px;font-weight:800;letter-spacing:-1px;line-height:1.05}
+.kpi-lbl{font-size:12.5px;font-weight:600;color:var(--muted);margin-top:2px;line-height:1.45}
+.card.hi .kpi-lbl,.card.dark .kpi-lbl{color:rgba(255,255,255,.78)}
 
-  ol.steps{list-style:none;display:flex;flex-direction:column;gap:13px;counter-reset:s}
-  ol.steps li{display:flex;gap:16px;align-items:flex-start}
-  ol.steps li .sgroup{display:flex;flex-direction:column}
-  ol.steps li::before{
-    counter-increment:s;content:counter(s,decimal-leading-zero);
-    font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;color:var(--bg-deep);
-    background:linear-gradient(145deg,var(--teal),var(--green));border-radius:999px;min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
-  ol.steps li strong{display:block;color:#fff;font-size:15px;margin-bottom:2px}
-  ol.steps li span{font-size:13.5px;color:var(--muted);line-height:1.45}
+/* tags */
+.tag{font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:12px;white-space:nowrap;display:inline-block}
+.tag.ok{background:#E2FBF0;color:var(--green)}
+.tag.warn{background:#FDF3DD;color:#B97A0B}
+.tag.bad{background:#FDEBEC;color:var(--red)}
+.tag.info{background:#E4F7FC;color:#0779A8}
+.tag.roxo{background:#EFEAFE;color:#5B3DF5}
+.tag.grad{background:var(--grad-hi);color:var(--deep)}
 
-  ul.clean{list-style:none;display:flex;flex-direction:column;gap:11px}
-  ul.clean li{position:relative;padding-left:24px;font-size:clamp(14px,1.7vw,15.5px);line-height:1.5;color:#c3d2ee}
-  ul.clean li::before{content:"";position:absolute;left:4px;top:8px;width:8px;height:8px;border-radius:50%;background:linear-gradient(145deg,var(--teal),var(--green))}
-  ul.clean li b{color:#fff}
+/* banner */
+.banner{border-radius:12px;padding:13px 18px;display:flex;gap:12px;align-items:center;font-size:13.5px;flex-wrap:wrap}
+.banner.warn{background:#FDF3DD;border:1px solid #F5DFAE;color:#8A5B06}
+.banner.ok{background:#E9FBF3;border:1px solid #BFF0DA;color:#0B6E4C}
+.banner b{font-weight:800}
 
-  .tl{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 16px;margin-bottom:9px}
-  .tl .date{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--gold);font-size:12.5px}
-  .tl .what{font-size:14px;color:#c3d2ee}
-  .tl .what b{color:#fff}
+/* ===== ITENS DO CHECKLIST ===== */
+.itens{display:flex;flex-direction:column;gap:10px}
+.item{display:flex;gap:13px;align-items:flex-start;padding:15px 17px;border-radius:12px;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow)}
+.item .dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.dot.g{background:var(--green);box-shadow:0 0 0 4px #E2FBF0}
+.dot.a{background:var(--amber);box-shadow:0 0 0 4px #FDF3DD}
+.item b{font-size:14.5px;display:block;font-weight:700}
+.item span.d{font-size:12.5px;color:var(--muted);display:block;margin-top:2px}
+.item .idx{font-size:11px;font-weight:800;color:var(--muted);width:20px;flex-shrink:0;margin-top:4px}
+.item .tag{margin-left:auto;flex-shrink:0;align-self:center}
+.item.destaque{border:1.5px solid var(--cyan);background:linear-gradient(180deg,#FFFFFF,#F3FBFE)}
+.item.destaque b{color:var(--navy)}
+@media(max-width:760px){.item{flex-wrap:wrap}.item .tag{margin-left:33px}}
 
-  .chk{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:9px}
-  .chk .q{flex:1;font-size:14px;color:#c3d2ee;line-height:1.4}
-  .chk .q b{color:#fff}
-  .verdict{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;white-space:nowrap}
-  .verdict.ok{background:rgba(0,229,160,.14);color:var(--green);border:1px solid rgba(0,229,160,.35)}
-  .verdict.no{background:rgba(255,107,107,.14);color:var(--red);border:1px solid rgba(255,107,107,.4)}
+/* ===== FLUXO ===== */
+.fluxo{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1080px){.fluxo{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.fluxo{grid-template-columns:1fr}}
+.step{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:15px 16px;display:flex;flex-direction:column;gap:5px;position:relative;overflow:hidden}
+.step::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--grad-hi)}
+.step .n{font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--cyan)}
+.step .t{font-size:14px;font-weight:700;line-height:1.3}
+.step .d{font-size:12px;color:var(--muted);line-height:1.5}
+.step .who{font-size:10px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);margin-top:auto;padding-top:8px}
+.step.exec::before{background:linear-gradient(180deg,#7C5CFC,#00B4D8)}
+.step.exec .n{color:var(--purple)}
+.step.plat::before{background:linear-gradient(180deg,#00E5A0,#00B278)}
+.step.plat .n{color:var(--green)}
 
-  .doc{background:#0c1a30;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:22px 26px;font-family:'IBM Plex Mono',monospace;position:relative}
-  .doc .docmeta{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);margin-bottom:14px;display:flex;flex-wrap:wrap;gap:6px 18px}
-  .doc .line{font-size:13.5px;line-height:1.7;color:#d4e2ff;margin-bottom:10px}
-  .doc .line:last-child{margin-bottom:0}
-  .doc .art{color:var(--teal)}
-  .redact{background:#000;color:#000;border-radius:2px;user-select:none}
-  .redact::after{content:"███████████";letter-spacing:-1px}
-  .quote-mark{position:absolute;top:8px;right:18px;font-size:60px;line-height:1;color:rgba(244,200,74,.18);font-family:Georgia,serif}
+/* ===== CADEIA ===== */
+.cadeia{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:1080px){.cadeia{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cadeia{grid-template-columns:1fr}}
+.elo{background:#fff;border:1px solid var(--line);border-left:4px solid var(--cyan);border-radius:11px;padding:14px 15px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:5px}
+.elo .lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.elo .val{font-size:14px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+.elo .d{font-size:11.5px;color:var(--muted);line-height:1.45}
+.elo.fim{border-left-color:var(--mint)}
 
-  .mini{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-  .kfacts{display:flex;gap:30px;flex-wrap:wrap;margin-top:28px}
-  .kfacts div .n{font-family:'Inter',sans-serif;font-size:32px;font-weight:800;color:var(--teal)}
-  .kfacts div .l{font-size:12px;color:var(--muted)}
-  .source{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted-2);margin-top:16px}
+/* ===== TABELA ===== */
+.tblwrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;padding:12px 14px;border-bottom:2px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.k{font-weight:700}
+td.neg{color:var(--red)}
+td.pos{color:var(--green);font-weight:600}
 
-  .divider{justify-content:center;background:linear-gradient(150deg,var(--bg-2) 0%,var(--bg-deep) 100%)}
-  .divider .part-no{font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.3em;color:var(--green);font-weight:600;margin-bottom:14px}
-  .divider h1{max-width:20ch}
-  .divider .pline{height:3px;width:90px;background:linear-gradient(90deg,var(--teal),var(--green));border-radius:2px;margin:22px 0 24px}
-  .divider p.lead{max-width:60ch}
+/* ===== LISTAS ===== */
+.bul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.bul li{position:relative;padding-left:18px;font-size:13.5px;color:var(--muted);line-height:1.55}
+.bul li::before{content:'';position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:2px;background:var(--grad-hi)}
+.card.ghost .bul li{color:rgba(255,255,255,.82)}
 
-  .callout{background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.25);border-radius:12px;padding:16px 20px;margin-top:18px}
-  .callout p{font-size:14.5px;line-height:1.55;color:#c3d2ee;margin:0}
-  .callout p b{color:#fff}
+/* ===== TIMELINE ===== */
+.tl{display:flex;flex-direction:column;gap:9px}
+.tl-item{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 15px;box-shadow:var(--shadow)}
+.tl-date{width:96px;flex-shrink:0;font-size:11.5px;font-weight:800;color:var(--cyan);letter-spacing:.4px;padding-top:2px}
+.tl-body b{display:block;font-size:13.5px;font-weight:700}
+.tl-body span{font-size:12.5px;color:var(--muted);line-height:1.5}
+@media(max-width:560px){.tl-item{flex-direction:column;gap:3px}.tl-date{width:auto}}
 
-  .foot{position:absolute;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted-2);letter-spacing:.06em;border-top:1px solid rgba(255,255,255,.06)}
-  .foot .who{display:flex;gap:8px;align-items:center}
-  .fdot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+/* ===== SELO ===== */
+.selo{
+  width:186px;flex-shrink:0;border-radius:18px;padding:20px 18px;text-align:center;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+  display:flex;flex-direction:column;align-items:center;gap:9px;position:relative;overflow:hidden;
+}
+.selo::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad-hi)}
+.selo svg{width:48px;height:48px}
+.selo .wm{font-size:26px;font-weight:800;letter-spacing:-.5px;color:#fff;line-height:1}
+.selo .wm .i{color:var(--cyan)}.selo .wm .dez{color:var(--mint)}
+.selo .role{font-size:9.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#8FE8FF;line-height:1.5}
+.selo .org{font-size:10px;color:#9FB4D8;letter-spacing:.6px}
+.selo .divider{width:44px;height:2px;background:var(--grad-hi);border-radius:2px}
 
-  .nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;z-index:20}
-  .nav button{
-    width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
-    background:rgba(255,255,255,.1);color:#fff;font-size:18px;backdrop-filter:blur(6px);
-    display:flex;align-items:center;justify-content:center;transition:.2s;
-  }
-  .nav button:hover{background:var(--teal);color:var(--bg-deep)}
-  .counter{color:#9fb3d6;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:0 10px;min-width:64px;text-align:center}
-  .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--green));z-index:30;transition:width .4s ease}
-  .hint{position:fixed;top:14px;right:18px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5f74a0;z-index:20}
+/* ===== CAPA ===== */
+.cover{display:flex;gap:38px;align-items:center;flex-wrap:wrap}
+.cover .txt{flex:1;min-width:290px}
+.cover h1{font-size:clamp(30px,5vw,54px);font-weight:800;letter-spacing:-1.6px;line-height:1.08}
+.cover h1 .gr{background:var(--grad-hi);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{font-size:clamp(15px,1.5vw,18px);color:#C3D3EE;margin-top:16px;max-width:56ch;line-height:1.6}
+.cover .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
 
-  #hero-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9;z-index:0}
-  .slide > .bg-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.8;z-index:0;pointer-events:none}
-  .hero-content{position:relative;z-index:2;margin-top:auto;margin-bottom:auto}
+/* botões */
+.btn{font-family:inherit;border:none;cursor:pointer;font-weight:700;font-size:13.5px;border-radius:9px;padding:11px 18px;transition:.2s;display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+.btn-g{background:var(--grad-hi);color:var(--deep)}
+.btn-g:hover{filter:brightness(1.06)}
+.btn-o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+.btn-o:hover{border-color:var(--mint)}
+.btn:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
 
-  @media print{
-    body{overflow:visible;background:#fff}
-    .stage{position:static}
-    .deck{width:100%;height:auto;box-shadow:none;border-radius:0}
-    .slide{display:flex!important;opacity:1!important;position:relative;page-break-after:always;height:720px;border-bottom:1px solid #222}
-    .nav,.hint,.progress{display:none}
-  }
-  @media (max-width:760px){
-    .two{grid-template-columns:1fr;gap:18px}
-    .g3,.g4{grid-template-columns:1fr 1fr}
-    .tl{grid-template-columns:96px 1fr}
-    .corner-logo{display:none}
-  }
-  @media (max-width:520px){
-    .g2,.g3,.g4{grid-template-columns:1fr}
-    .tl{grid-template-columns:1fr;gap:3px}
-    .chk{flex-wrap:wrap}
-  }
-  /* Mobile: o slide cresce em altura e a página rola normalmente (sem rolagem interna) */
-  @media (max-width:600px){
-    html,body{height:auto;overflow-y:auto;overflow-x:hidden}
-    .stage{position:static;display:block;min-height:100vh}
-    .deck{width:100%;height:auto;min-height:100vh;border-radius:0;overflow:visible;box-shadow:none}
-    .slide{position:relative;inset:auto;height:auto;min-height:100vh;overflow:visible;padding:34px 22px 104px}
-    .slide:not(.active){display:none}
-    .hero-content{margin:0}
-    #hero-canvas,.slide>.bg-canvas{position:absolute}
-    .foot{padding:0 22px}
-    .hint{display:none}
-  }
+/* rodapé do slide */
+.sfoot{
+  position:absolute;left:22px;right:22px;bottom:20px;display:flex;justify-content:space-between;
+  align-items:center;gap:12px;font-size:10.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;
+  color:#93A3BF;pointer-events:none;max-width:1180px;margin:0 auto;
+}
+.slide.dark .sfoot{color:rgba(255,255,255,.45)}
+.sfoot .b{display:flex;align-items:center;gap:7px}
+.sfoot .sq{width:7px;height:7px;border-radius:2px;background:var(--grad-hi)}
+
+/* ===== NAVEGAÇÃO ===== */
+.rail{position:fixed;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:7px;z-index:55}
+.rail button{width:9px;height:9px;padding:0;border-radius:50%;cursor:pointer;border:1.5px solid #A9BAD6;background:transparent;transition:.18s}
+.rail button[aria-current="true"]{background:var(--cyan);border-color:var(--cyan);transform:scale(1.4)}
+.rail button:hover{border-color:var(--cyan)}
+.rail button:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.hud{position:fixed;left:16px;bottom:16px;z-index:55;display:flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:5px 6px;box-shadow:0 4px 16px rgba(6,24,64,.14)}
+.hud button{width:30px;height:30px;display:grid;place-items:center;cursor:pointer;background:transparent;border:none;color:var(--navy);border-radius:8px;font-size:15px;font-weight:700}
+.hud button:hover{background:#EFF4FB;color:var(--cyan)}
+.hud button:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+.hud .count{font-size:11.5px;font-weight:800;color:var(--muted);padding:0 6px;font-variant-numeric:tabular-nums}
+.progress{position:fixed;top:56px;left:0;height:3px;background:var(--grad-hi);z-index:61;width:0;transition:width .25s ease}
+
+@media(max-width:1080px){
+  .rail{display:none}
+  .slide{min-height:auto;padding:32px 18px 62px}
+  .deck{scroll-snap-type:none}
+  .sfoot{position:static;margin-top:26px;flex-wrap:wrap}
+  .prod{display:none}
+}
+@media(prefers-reduced-motion:reduce){.deck{scroll-behavior:auto}*{transition:none!important}}
+@media print{.rail,.hud,.progress,.topbar{display:none}.deck{height:auto;overflow:visible;padding-top:0}.slide{min-height:auto;page-break-after:always}}
 </style>
-</head>
-<body>
-<div class="progress" id="bar"></div>
-<div class="hint">← → navegar · <b>P</b> imprimir/PDF</div>
-<div class="stage">
-  <div class="deck" id="deck">
 
-  <!-- 1 CAPA -->
-  <section class="slide active">
-    <canvas id="hero-canvas" width="1475" height="860"></canvas>
-    <div class="hero-content">
-      <div class="brand" style="margin-bottom:30px">
-        <div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
-        <span class="logo-word">Instituto <b>i10</b></span>
-      </div>
-      <div class="eyebrow">Gestão pública · Orçamento e controle</div>
-      <h1>Emendas Parlamentares<br><span class="accent">Impositivas.</span></h1>
-      <p class="lead" style="margin-top:20px">O que são, por que mudaram e como o Judiciário, o Ministério Público e o Tribunal de Contas passaram a analisá-las — do planejamento das políticas públicas ao acompanhamento da execução.</p>
-      <div class="kfacts">
-        <div><div class="n">2</div><div class="l">decisões do STF que reescreveram as regras</div></div>
-        <div><div class="n">3</div><div class="l">instâncias de controle atuando</div></div>
-        <div><div class="n">2</div><div class="l">fases: planejamento e acompanhamento</div></div>
-      </div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">
+      <svg viewBox="0 0 48 48" fill="none" aria-label="Instituto i10">
+        <rect width="48" height="48" rx="12" fill="rgba(255,255,255,.08)"/>
+        <defs><linearGradient id="lgTop" x1="10" y1="34" x2="38" y2="14"><stop stop-color="#00B4D8"/><stop offset="1" stop-color="#00E5A0"/></linearGradient></defs>
+        <polyline points="9,33 17,21 24,28 32,13 39,22" stroke="url(#lgTop)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="9" cy="33" r="3" fill="#00B4D8"/><circle cx="32" cy="13" r="3" fill="#00E5A0"/>
+      </svg>
+      <div><span class="wm"><span class="i">i</span><span class="dez">10</span></span><span class="sub">Instituto</span></div>
     </div>
-    <div class="foot"><span class="who"><span class="fdot"></span> institutoi10.com.br</span><span>01 / 16</span></div>
-  </section>
-
-  <!-- 2 O QUE É -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">O conceito</div>
-    <h2 class="ul">O que é uma emenda parlamentar?</h2>
-    <p class="lead" style="margin:20px 0 26px">É a forma pela qual um vereador (ou deputado) indica <b style="color:#fff">parte do orçamento público</b> para financiar uma obra, um serviço ou uma entidade em benefício da população.</p>
-    <div class="grid g2">
-      <div class="card"><span class="tag">De onde vem</span><h3>O dinheiro já existe</h3><p>Vem do orçamento anual (a LOA). O parlamentar não cria recurso novo — ele <b style="color:#fff">direciona</b> um valor já previsto para uma finalidade específica.</p></div>
-      <div class="card g"><span class="tag">Para onde vai</span><h3>Um destino definido</h3><p>Saúde, obras, educação, assistência, entidades do terceiro setor. Sempre com <b style="color:#fff">objeto definido</b> e um beneficiário identificado.</p></div>
-    </div>
-    <div class="foot"><span class="who"><span class="fdot"></span> O conceito</span><span>02 / 16</span></div>
-  </section>
-
-  <!-- 3 POR QUE IMPOSITIVAS -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">A palavra-chave</div>
-    <h2 class="ul">Por que se chamam “impositivas”?</h2>
-    <p class="lead" style="margin:20px 0 22px">Antes, o Executivo podia escolher se pagava ou não a emenda. Hoje, uma vez aprovada e sem impedimento técnico, a execução é <b style="color:#fff">obrigatória</b> — daí o nome “impositiva”.</p>
-    <div class="callout"><p>Base constitucional: <b>art. 166, §§ 9º e 11 da Constituição Federal</b>. A obrigatoriedade trouxe previsibilidade, mas também muito mais exigência de <b>planejamento, controle e transparência</b>.</p></div>
-    <div class="chips" style="margin-top:22px">
-      <span class="chip" style="background:rgba(0,229,160,.14);border-color:rgba(0,229,160,.35);color:#c9ffe9">Execução obrigatória</span>
-      <span class="chip">Objeto e valor definidos</span>
-      <span class="chip" style="background:rgba(244,200,74,.14);border-color:rgba(244,200,74,.35);color:#ffe9ad">Sujeita a impedimento técnico</span>
-    </div>
-    <div class="foot"><span class="who"><span class="fdot"></span> Por que “impositivas”</span><span>03 / 16</span></div>
-  </section>
-
-  <!-- 4 STF -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">O que mudou · Supremo Tribunal Federal</div>
-    <h2 class="ul">Duas decisões do STF mudaram o jogo.</h2>
-    <div class="grid g2" style="margin:24px 0 0">
-      <div class="card b"><span class="tag" style="color:var(--blue)">Decisão 01</span><h3 style="font-size:19px">ADI 7697</h3><p>Relator Min. Flávio Dino, referendada pelo STF em <b style="color:#fff">agosto/2024</b>. Pôs <b style="color:#fff">fim às “emendas Pix”</b> e às transferências sem rastreabilidade.</p></div>
-      <div class="card b"><span class="tag" style="color:var(--blue)">Decisão 02</span><h3 style="font-size:19px">ADPF 854</h3><p>Homologada em <b style="color:#fff">fevereiro/2025</b>. Encerrou o chamado <b style="color:#fff">“orçamento secreto”</b> e exigiu identificação do autor e do destino dos recursos.</p></div>
-    </div>
-    <div class="callout"><p>Mensagem central do Judiciário: <b>rastreabilidade e transparência ponta a ponta</b>. Quem propôs, para onde foi, quanto e com qual resultado — tudo deve ser identificável (art. 163-A da Constituição).</p></div>
-    <div class="foot"><span class="who"><span class="fdot"></span> O que mudou · STF</span><span>04 / 16</span></div>
-  </section>
-
-  <!-- 5 QUEM FISCALIZA -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Quem está de olho</div>
-    <h2 class="ul">Três instâncias analisam as emendas.</h2>
-    <div class="grid g3" style="margin:26px 0 0">
-      <div class="card b"><span class="tag" style="color:var(--blue)">Judiciário</span><h3>STF</h3><p>Fixou as regras: fim do orçamento secreto, transparência e rastreabilidade obrigatórias.</p></div>
-      <div class="card gold"><span class="tag">Ministério Público</span><h3>MP / SP</h3><p>Investiga e acompanha. Abre <b style="color:#fff">inquérito civil</b> para prevenir irregularidades e desvio de finalidade.</p></div>
-      <div class="card g"><span class="tag">Tribunal de Contas</span><h3>TCE / SP</h3><p>Fiscaliza a conformidade: edita <b style="color:#fff">comunicados e resolução</b> e cobra a adequação de Câmara e Prefeitura.</p></div>
-    </div>
-    <p class="body" style="margin-top:24px;max-width:82ch">Todos atuam em <b style="color:#fff">duas frentes</b>: no <b style="color:#fff">planejamento</b> (antes de gastar) e no <b style="color:#fff">acompanhamento</b> (durante e depois da execução).</p>
-    <div class="foot"><span class="who"><span class="fdot"></span> Quem fiscaliza</span><span>05 / 16</span></div>
-  </section>
-
-  <!-- 6 JUDICIARIO -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Judiciário · o que passou a exigir</div>
-    <h2 class="ul">O que o STF impõe na prática.</h2>
-    <ul class="clean" style="margin-top:26px;max-width:88ch">
-      <li><b>Transparência ativa:</b> os dados da emenda precisam estar públicos, em meio eletrônico, com busca e filtros.</li>
-      <li><b>Identificação do autor:</b> acabou o anonimato — sabe-se qual parlamentar propôs cada emenda.</li>
-      <li><b>Rastreabilidade dos recursos:</b> é preciso seguir o dinheiro até o beneficiário final.</li>
-      <li><b>Fim das transferências sem controle:</b> nada de “emenda Pix” ou repasses sem prestação de contas.</li>
-    </ul>
-    <div class="foot"><span class="who"><span class="fdot"></span> Judiciário</span><span>06 / 16</span></div>
-  </section>
-
-  <!-- 7 MP -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Ministério Público / SP</div>
-    <h2 class="ul">Como o MP acompanha.</h2>
-    <p class="lead" style="margin:20px 0 24px">O Ministério Público age de forma <b style="color:#fff">preventiva e investigativa</b>, para garantir que o recurso público chegue a quem deve, sem desvios.</p>
-    <div class="grid g2">
-      <div class="card gold"><span class="tag">Instrumento I</span><h3>Inquérito Civil</h3><p>Portaria de instauração para apurar a correta instituição e execução das emendas.</p></div>
-      <div class="card gold"><span class="tag">Instrumento II</span><h3>Acompanhamento contínuo</h3><p>Procedimento administrativo que monitora conflitos de interesse, sobretudo com entidades do <b style="color:#fff">terceiro setor</b>.</p></div>
-    </div>
-    <div class="foot"><span class="who"><span class="fdot"></span> Ministério Público</span><span>07 / 16</span></div>
-  </section>
-
-  <!-- 8 TCE LINHA DO TEMPO -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Tribunal de Contas / SP · atos normativos</div>
-    <h2 class="ul">O TCE detalhou as regras passo a passo.</h2>
-    <div style="margin-top:22px">
-      <div class="tl"><span class="date">08/05/2025</span><span class="what"><b>Comunicado SDG 28/2025</b> — cuidados na instituição das emendas</span></div>
-      <div class="tl"><span class="date">19/11/2025</span><span class="what"><b>Resolução 17/2025</b> — regras de fiscalização</span></div>
-      <div class="tl"><span class="date">01/12/2025</span><span class="what"><b>Comunicado GP 43/2025</b> — questionário aos órgãos</span></div>
-      <div class="tl"><span class="date">16/12/2025</span><span class="what"><b>Comunicado Audesp 55</b> — novas diretrizes de prestação de contas</span></div>
-      <div class="tl"><span class="date">18/03/2026</span><span class="what"><b>Comunicado Audesp 09</b> — conta bancária específica por emenda</span></div>
-      <div class="tl"><span class="date">07/04/2026</span><span class="what"><b>Comunicado GP 15/2026</b> — providências e fiscalização</span></div>
-    </div>
-    <div class="foot"><span class="who"><span class="fdot"></span> TCE · linha do tempo</span><span>08 / 16</span></div>
-  </section>
-
-  <!-- 9 TCE CHECKLIST -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Tribunal de Contas · na prática</div>
-    <h2 class="ul">O que o TCE checa nas contas da Câmara.</h2>
-    <p class="body" style="margin:16px 0 20px;max-width:84ch">No relatório de contas, os auditores conferem item a item se a Câmara se adequou. Exemplos reais do checklist:</p>
-    <div class="chk"><span class="q"><b>Lei Orgânica</b> prevê o regime de emendas obrigatórias (art. 166)?</span><span class="verdict ok">Sim</span></div>
-    <div class="chk"><span class="q"><b>Regimento Interno</b> disciplina prazos e critérios de impedimento técnico?</span><span class="verdict ok">Sim</span></div>
-    <div class="chk"><span class="q">A Câmara instituiu <b>manual orientativo</b> para indicação e execução?</span><span class="verdict no">Não · impropriedade</span></div>
-    <div class="chk"><span class="q">Há mecanismos de <b>rastreabilidade ponta a ponta</b> e identificação do beneficiário?</span><span class="verdict no">Não · impropriedade</span></div>
-    <div class="foot"><span class="who"><span class="fdot"></span> TCE · checklist</span><span>09 / 16</span></div>
-  </section>
-
-  <!-- 10 TCE EXCERTO REAL (município tarjado) -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Tribunal de Contas · exemplo real</div>
-    <h2 class="ul">Trecho de um relatório de fiscalização do TCE-SP.</h2>
-    <p class="body" style="margin:14px 0 16px;max-width:86ch">Exemplo extraído de contas anuais de uma Câmara Municipal. Mostra como o Tribunal aponta as impropriedades:</p>
-    <div class="doc">
-      <span class="quote-mark">&#8221;</span>
-      <div class="docmeta"><span>Tribunal de Contas do Estado de São Paulo</span><span>Relatório de Fiscalização · Contas Anuais</span></div>
-      <div class="line">Entidade: Câmara Municipal de <span class="redact" title="nome preservado"></span> · Assunto: Contas Anuais · Exercício: 2025</div>
-      <div class="line"><span class="art">Item 03:</span> “A não instituição de manual orientativo para disciplinar os procedimentos de indicação e execução das emendas parlamentares desatende aos pressupostos do planejamento orçamentário previstos no <span class="art">art. 165</span> da Constituição Federal, e ao princípio da eficiência (<span class="art">art. 37, caput</span>).”</div>
-      <div class="line"><span class="art">Item 04:</span> “Constatamos a inexistência de mecanismos que garantam a transparência e a rastreabilidade ‘ponta a ponta’, impedindo a identificação precisa da origem e do beneficiário final dos recursos.”</div>
-    </div>
-    <p class="source">Fonte: TCE-SP — Relatório de Fiscalização (Contas Anuais 2025).</p>
-    <div class="foot"><span class="who"><span class="fdot"></span> TCE · exemplo real</span><span>10 / 16</span></div>
-  </section>
-
-  <!-- 11 TCE — PLANEJAMENTO E VIABILIDADE -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Tribunal de Contas · planejamento e viabilidade</div>
-    <h2 class="ul">Alinhamento com o planejamento e análise prévia de viabilidade.</h2>
-    <p class="body" style="margin:14px 0 16px;max-width:88ch">O TCE avalia se a emenda conversa com as peças de planejamento e se foi estudada antes de virar despesa. Outros trechos do mesmo relatório:</p>
-    <div class="doc">
-      <span class="quote-mark">&#8221;</span>
-      <div class="docmeta"><span>TCE-SP · Verificações — Planejamento Estratégico e Eficiência</span></div>
-      <div class="line"><span class="art">Compatibilidade:</span> as emendas devem ser “compatíveis com os programas de governo e os planos setoriais vigentes”.</div>
-      <div class="line"><span class="art">Viabilidade prévia:</span> “A indicação das despesas não precedida pela elaboração de planos de trabalho detalhados para definir metas e objetos claros prejudica a viabilidade das ações e o controle social… impede a mensuração dos resultados alcançados com o gasto público.”</div>
-      <div class="line"><span class="art">Sem pulverização:</span> “A dispersão de verbas fere o princípio da eficiência e inviabiliza a aplicação racional das emendas para prevenir o desperdício de recursos públicos.”</div>
-    </div>
-    <div class="callout"><p>Em resumo: antes de indicar a emenda é preciso <b>aderência ao PPA, à LDO, à LOA e aos planos setoriais</b> e um <b>estudo prévio de viabilidade</b>, com metas e objeto claros — sob pena de afronta ao princípio da eficiência (art. 37 da CF).</p></div>
-    <p class="source">Fonte: TCE-SP — Relatório de Fiscalização (Contas Anuais 2025).</p>
-    <div class="foot"><span class="who"><span class="fdot"></span> TCE · planejamento e viabilidade</span><span>11 / 16</span></div>
-  </section>
-
-  <!-- 12 DIVIDER — DUAS FASES -->
-  <section class="slide divider">
-    <canvas class="bg-canvas"></canvas>
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="part-no">DO COMEÇO AO FIM</div>
-    <h1>Planejamento e<br><span class="accent-g">Acompanhamento.</span></h1>
-    <div class="pline"></div>
-    <p class="lead">A análise das emendas se organiza em duas fases: antes de gastar, verifica-se se foi bem planejada; durante e depois, acompanha-se a execução, o resultado e a transparência.</p>
-    <div class="foot"><span class="who"><span class="fdot"></span> As duas fases</span><span>12 / 16</span></div>
-  </section>
-
-  <!-- 12 FASE PLANEJAMENTO -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Fase 1 · Planejamento — antes de aprovar</div>
-    <h2 class="ul">O que é exigido no planejamento.</h2>
-    <ol class="steps" style="margin-top:24px;max-width:90ch">
-      <li><div class="sgroup"><strong>Planejamento prévio</strong><span>Diagnóstico da necessidade antes de apresentar a emenda.</span></div></li>
-      <li><div class="sgroup"><strong>Plano de trabalho</strong><span>Metas mensuráveis, custos detalhados, cronograma físico-financeiro e objeto preciso.</span></div></li>
-      <li><div class="sgroup"><strong>Compatibilidade com o planejamento</strong><span>Aderência ao PPA, LDO e LOA — os instrumentos de planejamento público.</span></div></li>
-      <li><div class="sgroup"><strong>Projeto técnico</strong><span>Obras e serviços de engenharia exigem projeto básico/executivo comprovando viabilidade e custo.</span></div></li>
-      <li><div class="sgroup"><strong>Parecer de admissibilidade</strong><span>Análise técnica e jurídica formal antes da aprovação.</span></div></li>
-    </ol>
-    <div class="foot"><span class="who"><span class="fdot"></span> Fase 1 · Planejamento</span><span>13 / 16</span></div>
-  </section>
-
-  <!-- 13 FASE ACOMPANHAMENTO -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">Fase 2 · Acompanhamento — durante e depois</div>
-    <h2 class="ul">O que é exigido na execução.</h2>
-    <div class="grid g2" style="margin-top:24px">
-      <div class="card g"><span class="tag">01</span><h3>Conta bancária específica</h3><p>Vinculada à emenda. Proibido transferir para outras contas.</p></div>
-      <div class="card g"><span class="tag">02</span><h3>Contabilidade segregada</h3><p>Padrão Audesp, com receitas e despesas claramente identificadas — inclusive rendimentos.</p></div>
-      <div class="card g"><span class="tag">03</span><h3>Controle interno</h3><p>A Prefeitura acompanha para prevenir direcionamento, sobrepreço, superfaturamento e desvio de finalidade.</p></div>
-      <div class="card g"><span class="tag">04</span><h3>Fiscalização legislativa</h3><p>A Câmara monitora a execução física e financeira de forma contínua, não episódica.</p></div>
-    </div>
-    <div class="foot"><span class="who"><span class="fdot"></span> Fase 2 · Acompanhamento</span><span>14 / 16</span></div>
-  </section>
-
-  <!-- 14 TRANSPARENCIA + PAPEIS -->
-  <section class="slide">
-    <div class="corner-logo"><div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div><span class="logo-word">Instituto <b>i10</b></span></div>
-    <div class="eyebrow">O eixo comum · Transparência e papéis</div>
-    <h2 class="ul">Tudo público, rastreável — e cada um no seu papel.</h2>
-    <p class="body" style="margin:16px 0 16px;max-width:86ch">Transparência ativa integral, em meio eletrônico, com busca e filtros. Para cada emenda o cidadão deve ver: autor, objeto, valor, cronograma, status e documentos.</p>
-    <div class="grid g3" style="margin-top:6px">
-      <div class="card b"><span class="tag" style="color:var(--blue)">Câmara</span><h3>Planejar e fiscalizar</h3><p>Planejar a emenda, adequar Lei Orgânica e Regimento, criar manual, parecer de admissibilidade e fiscalizar a execução.</p></div>
-      <div class="card"><span class="tag">Prefeitura</span><h3>Executar com controle</h3><p>Conta específica, contabilidade segregada, rastreabilidade e controle interno permanente.</p></div>
-      <div class="card g"><span class="tag">Ação conjunta</span><h3>Integridade</h3><p>Transparência, prevenção de conflitos de interesse e cuidado redobrado com o terceiro setor.</p></div>
-    </div>
-    <div class="foot"><span class="who"><span class="fdot"></span> Transparência e papéis</span><span>15 / 16</span></div>
-  </section>
-
-  <!-- 15 FECHAMENTO -->
-  <section class="slide">
-    <canvas class="bg-canvas"></canvas>
-    <div class="orb green"></div><div class="orb blue"></div>
-    <div style="margin:auto 0;position:relative;z-index:2">
-      <div class="brand" style="margin-bottom:26px">
-        <div class="logo"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
-        <span class="logo-word">Instituto <b>i10</b></span>
-      </div>
-      <div class="eyebrow">Em uma frase</div>
-      <h1 style="font-size:clamp(30px,4.4vw,46px)">Emenda impositiva bem-feita é<br>emenda planejada, executada com<br>controle e <span class="accent-g">totalmente transparente.</span></h1>
-      <p class="lead" style="margin:22px 0 10px;max-width:70ch">Judiciário, Ministério Público e Tribunal de Contas convergem para o mesmo ponto: recurso público com <b style="color:#fff">objeto claro, execução rastreável e resultado verificável</b>.</p>
-      <p class="mini" style="margin-top:22px">A inteligência a serviço do humano · institutoi10.com.br</p>
-    </div>
-    <div class="foot"><span class="who"><span class="fdot"></span> Obrigado</span><span>16 / 16</span></div>
-  </section>
-
+    <div class="prod">Emendas Impositivas<small>São Paulo · conformidade TCE-SP</small></div>
+    <span class="demo-tag">Fomentador da ferramenta</span>
   </div>
-</div>
+</header>
 
-<div class="nav">
-  <button id="prev" aria-label="Anterior">&#8249;</button>
-  <span class="counter" id="counter">01 / 16</span>
-  <button id="next" aria-label="Próximo">&#8250;</button>
+<div class="progress" id="progress"></div>
+
+<main class="deck" id="deck">
+
+  <!-- 01 CAPA -->
+  <section class="slide dark" data-label="Capa">
+    <div class="inner">
+      <div class="cover">
+        <div class="txt">
+          <div class="eyebrow">Instituto i10 · Solução para Câmaras Municipais de São Paulo</div>
+          <h1>Emendas impositivas<br><span class="gr">sob controle.</span></h1>
+          <p class="sub">A norma já está posta e o TCE-SP já está cobrando nas contas anuais. O que faltava era a ferramenta que dá efetividade ao ciclo inteiro — da proposição à execução — sem planilha, sem retrabalho e sem impropriedade.</p>
+          <div class="chips">
+            <span class="tag info">Resolução TCE-SP 17/2025</span>
+            <span class="tag info">ADPF 854 · STF</span>
+            <span class="tag info">Manual TCESP 2026</span>
+            <span class="tag grad">Com indicação da APM</span>
+          </div>
+        </div>
+        <div class="selo">
+          <svg viewBox="0 0 48 48" fill="none" aria-label="Selo Instituto i10">
+            <rect width="48" height="48" rx="12" fill="rgba(255,255,255,.10)"/>
+            <defs><linearGradient id="lgSelo" x1="10" y1="34" x2="38" y2="14"><stop stop-color="#00B4D8"/><stop offset="1" stop-color="#00E5A0"/></linearGradient></defs>
+            <polyline points="9,33 17,21 24,28 32,13 39,22" stroke="url(#lgSelo)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9" cy="33" r="3" fill="#00B4D8"/><circle cx="32" cy="13" r="3" fill="#00E5A0"/>
+          </svg>
+          <span class="wm"><span class="i">i</span><span class="dez">10</span></span>
+          <span class="divider"></span>
+          <span class="role">Fomentador da<br>ferramenta tecnológica</span>
+          <span class="org">ICT · Florianópolis/SC</span>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Instituto i10 · com indicação da APM</span><span>01</span></div>
+    </div>
+  </section>
+
+  <!-- 02 ONDE ESTAMOS -->
+  <section class="slide" data-label="Onde estamos">
+    <div class="inner">
+      <div class="eyebrow">Ponto de partida</div>
+      <div class="sec-title"><span class="bar"></span><h2 class="title">O tema o senhor já conhece. O que mudou foi a cobrança.</h2></div>
+      <p class="lede">Entre maio de 2025 e abril de 2026 o TCE-SP publicou seis atos normativos e um manual sobre emendas impositivas municipais. A fiscalização deixou de ser eventual: entrou nas contas anuais, nas duas fases — planejamento e execução — e chega à Câmara na forma de questionário eletrônico.</p>
+      <div class="spacer"></div>
+      <div class="grid g4">
+        <div class="card"><span class="kpi-num">6</span><span class="kpi-lbl">atos normativos do TCE-SP desde mai/2025</span></div>
+        <div class="card"><span class="kpi-num">2</span><span class="kpi-lbl">fases fiscalizadas: planejamento e execução</span></div>
+        <div class="card"><span class="kpi-num">11</span><span class="kpi-lbl">itens de publicação obrigatória em tempo real</span></div>
+        <div class="card hi"><span class="kpi-num">01/01/26</span><span class="kpi-lbl">prazo de implementação já vencido — Res. 17/2025, art. 9º</span></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="banner warn">⚠️ <span>A pergunta que interessa hoje não é mais <b>o que mudou</b>. É <b>quem, na Câmara, faz isso acontecer todo mês</b> — e com qual ferramenta.</span></div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>02</span></div>
+    </div>
+  </section>
+
+  <!-- 03 OS QUATRO ITENS -->
+  <section class="slide" data-label="Os quatro itens">
+    <div class="inner">
+      <div class="eyebrow">O checklist da fiscalização</div>
+      <div class="sec-title"><span class="bar"></span><h2 class="title">Três itens se resolvem por ato do Legislativo. O quarto, não.</h2></div>
+      <p class="lede">Os três primeiros dependem de decisão da Casa — e podem ser aprovados nesta sessão legislativa. O quarto não se resolve por norma: exige uma ferramenta que dê efetividade ao que a norma manda fazer todo dia.</p>
+      <div class="spacer"></div>
+      <div class="itens">
+        <div class="item">
+          <span class="idx">01</span><span class="dot g"></span>
+          <span><b>Lei Orgânica com o regime de emendas impositivas</b><span class="d">Previsão do regime obrigatório e do respectivo limite.</span></span>
+          <span class="tag ok">Aprovação legislativa</span>
+        </div>
+        <div class="item">
+          <span class="idx">02</span><span class="dot g"></span>
+          <span><b>Regimento Interno disciplinando prazos e critérios</b><span class="d">Janela de indicação, forma de apresentação e critérios de admissibilidade.</span></span>
+          <span class="tag ok">Aprovação legislativa</span>
+        </div>
+        <div class="item">
+          <span class="idx">03</span><span class="dot g"></span>
+          <span><b>Manual orientativo de indicação e execução</b><span class="d">Ato da Mesa ou resolução consolidando o rito e os modelos de documento.</span></span>
+          <span class="tag ok">Aprovação legislativa</span>
+        </div>
+        <div class="item destaque">
+          <span class="idx">04</span><span class="dot a"></span>
+          <span><b>Rastreabilidade ponta a ponta, com identificação do beneficiário</b><span class="d">Não se resolve com norma: é rotina diária de registro, publicação em tempo real e conferência. Depende de ferramenta.</span></span>
+          <span class="tag grad">Exige ferramenta</span>
+        </div>
+      </div>
+      <div class="spacer-sm"></div>
+      <p class="lede"><strong>É exatamente aqui que entra o sistema.</strong> Os três primeiros itens a Casa aprova; o quarto ela precisa operar — e é o que o Tribunal confere na prestação de contas.</p>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>03</span></div>
+    </div>
+  </section>
+
+  <!-- 04 A SOLUÇÃO -->
+  <section class="slide dark" data-label="A solução">
+    <div class="inner">
+      <div class="eyebrow">A solução</div>
+      <h2 class="title" style="font-size:clamp(24px,3.6vw,40px);max-width:22ch">Um sistema para a Câmara sair do <span style="color:#FF9E8A">“impropriedade”</span> para o <span class="gr" style="background:var(--grad-hi);-webkit-background-clip:text;background-clip:text;color:transparent">“conforme ✓”</span></h2>
+      <p class="lede">Não é um portal a mais nem uma planilha compartilhada. É o ciclo da emenda impositiva transformado em fluxo de trabalho: o dado entra uma única vez, na proposição, e sai sozinho no portal público, no Audesp e no relatório do TCE.</p>
+      <div class="spacer"></div>
+      <div class="grid g4">
+        <div class="card ghost"><span class="num" style="color:var(--mint)">Módulo 01</span><h3>Planejamento e admissibilidade</h3><p>Plano de trabalho com metas, aderência ao orçamento e parecer prévio automatizado.</p></div>
+        <div class="card ghost"><span class="num" style="color:var(--mint)">Módulo 02</span><h3>Execução integrada</h3><p>Integração com o Poder Executivo para alimentação contínua da plataforma.</p></div>
+        <div class="card ghost"><span class="num" style="color:var(--mint)">Módulo 03</span><h3>Transparência ativa</h3><p>Portal público alimentado automaticamente, com busca e filtros.</p></div>
+        <div class="card ghost"><span class="num" style="color:var(--mint)">Módulo 04</span><h3>Pronto para o TCE</h3><p>Relatórios e dossiês no formato que a fiscalização pede.</p></div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Tecnologia fomentada pelo Instituto i10</span><span>04</span></div>
+    </div>
+  </section>
+
+  <!-- 05 MÓDULO 1 -->
+  <section class="slide" data-label="Módulo 1">
+    <div class="inner">
+      <div class="grid g23">
+        <div>
+          <div class="eyebrow">Módulo 01</div>
+          <div class="sec-title"><span class="bar"></span><h2 class="title">Planejamento e admissibilidade</h2></div>
+          <p class="lede">Nenhuma emenda entra no ciclo sem plano de trabalho. O sistema recusa a indicação genérica antes que ela vire problema na prestação de contas.</p>
+          <div class="spacer-sm"></div>
+          <div class="chips" style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="tag info">SDG 28/2025</span>
+            <span class="tag info">Res. 17/2025, art. 4º, §2º</span>
+          </div>
+        </div>
+        <div class="grid g2">
+          <div class="card"><span class="kicker">Formulário guiado</span><p>A proposição só avança com objeto específico, meta física, cronograma de desembolso e agente executor identificado.</p></div>
+          <div class="card"><span class="kicker">Aderência orçamentária</span><p>Conferência automática contra LOA e LDO, com a dotação vinculada já na proposição.</p></div>
+          <div class="card"><span class="kicker">Parecer de admissibilidade</span><p>Documento gerado e assinado eletronicamente, arquivado junto à emenda.</p></div>
+          <div class="card"><span class="kicker">Impedimento técnico</span><p>Quando o Executivo aponta inviabilidade, a justificativa fica registrada, datada e publicada.</p></div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>05</span></div>
+    </div>
+  </section>
+
+  <!-- 06 MÓDULO 2 -->
+  <section class="slide" data-label="Módulo 2">
+    <div class="inner">
+      <div class="grid g23">
+        <div>
+          <div class="eyebrow">Módulo 02</div>
+          <div class="sec-title"><span class="bar"></span><h2 class="title">Execução integrada</h2></div>
+          <p class="lede">A execução é do Executivo — e é lá que a rastreabilidade se perde. A plataforma se integra aos sistemas da Prefeitura e passa a ser alimentada por eles, sem digitação paralela e sem depender de ofício.</p>
+          <div class="spacer-sm"></div>
+          <div class="chips" style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="tag info">Res. 17/2025, art. 4º</span>
+            <span class="tag info">Art. 5º — vedada conta de passagem</span>
+            <span class="tag info">Audesp 55/2025</span>
+            <span class="tag info">Audesp 09/2026</span>
+          </div>
+        </div>
+        <div class="grid g2">
+          <div class="card top-accent"><span class="kicker">Integração com o Executivo</span><p>A plataforma recebe do sistema contábil da Prefeitura o andamento de cada emenda, atualizado automaticamente.</p></div>
+          <div class="card"><span class="kicker">Codificação Audesp</span><p>Estrutura de códigos contábeis padronizada e exportação no layout do Cadastro de Emendas Parlamentares.</p></div>
+          <div class="card"><span class="kicker">Conta e conciliação</span><p>Movimentação segregada e conciliada; contas intermediárias ou de passagem ficam bloqueadas por regra do sistema.</p></div>
+          <div class="card"><span class="kicker">Aplicação direta</span><p>Quando a execução é direta, a dispensa de conta específica só é liberada se a rastreabilidade estiver comprovada.</p></div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>06</span></div>
+    </div>
+  </section>
+
+  <!-- 07 MÓDULO 3 -->
+  <section class="slide" data-label="Módulo 3">
+    <div class="inner">
+      <div class="grid g23">
+        <div>
+          <div class="eyebrow">Módulo 03</div>
+          <div class="sec-title"><span class="bar"></span><h2 class="title">Transparência ativa, sem redigitação</h2></div>
+          <p class="lede">O art. 3º da Resolução 17/2025 exige onze informações publicadas <strong>em tempo real</strong>, incluindo alterações e cancelamentos. Portal atualizado à mão não sustenta essa exigência por doze meses.</p>
+          <div class="spacer-sm"></div>
+          <div class="grid g2">
+            <div class="card top-accent"><span class="kicker">No sistema</span><p>O portal público é gerado do mesmo registro do fluxo interno: publica no ato, com busca por autor, objeto, valor e bairro.</p></div>
+            <div class="card"><span class="kicker">Histórico versionado</span><p>Cada alteração fica registrada com data e responsável — a linha do tempo que o auditor pede.</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <span class="kicker">Res. 17/2025, art. 3º — publicação em tempo real</span>
+          <ul class="bul" style="margin-top:8px">
+            <li>Autor da emenda, número identificador, objeto e finalidade da despesa</li>
+            <li>Órgão executor ou entidade beneficiária e localidade atendida</li>
+            <li>Valores autorizado, liberado e executado, com a conta bancária utilizada</li>
+            <li>Classificação em custeio ou investimento e instrumento jurídico vinculado</li>
+            <li>Cronograma físico-financeiro e prazo de aplicação dos recursos</li>
+            <li>Alterações, acréscimos, reduções e cancelamentos — também em tempo real</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>07</span></div>
+    </div>
+  </section>
+
+  <!-- 08 MÓDULO 4 -->
+  <section class="slide" data-label="Módulo 4">
+    <div class="inner">
+      <div class="grid g23">
+        <div>
+          <div class="eyebrow">Módulo 04</div>
+          <div class="sec-title"><span class="bar"></span><h2 class="title">Pronto para o TCE</h2></div>
+          <p class="lede">Quando o questionário eletrônico chegar, a resposta já existe. O painel de conformidade espelha o mesmo checklist da fiscalização, item a item, com o documento comprobatório anexado.</p>
+          <div class="spacer-sm"></div>
+          <div class="chips" style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="tag info">GP 43/2025 — Executivo</span>
+            <span class="tag info">GP 46/2025 — Legislativo</span>
+            <span class="tag info">GP 15/2026 — 19 diretrizes</span>
+          </div>
+        </div>
+        <div class="grid g2">
+          <div class="card top-accent"><span class="kicker">Painel de conformidade</span><p>Farol por item do checklist: o que está atendido, o que está pendente e quem é o responsável.</p></div>
+          <div class="card"><span class="kicker">Relatório de gestão</span><p>Execução confrontada com o plano de trabalho, por emenda, conforme o Manual do TCESP.</p></div>
+          <div class="card"><span class="kicker">Dossiê do questionário</span><p>Respostas e anexos exportados em um único pacote, sem força-tarefa na véspera.</p></div>
+          <div class="card"><span class="kicker">Trilha de auditoria</span><p>Todo registro guarda autor, data e versão anterior — prova de rotina, não de improviso.</p></div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>08</span></div>
+    </div>
+  </section>
+
+  <!-- 09 O CICLO -->
+  <section class="slide" data-label="O ciclo">
+    <div class="inner">
+      <div class="eyebrow">O ciclo completo</div>
+      <div class="sec-title"><span class="bar"></span><h2 class="title">Oito etapas, um único registro.</h2></div>
+      <p class="lede">O plano de trabalho nasce junto com a proposição e a viabilidade técnica é aferida pela própria análise automatizada, ainda na tramitação legislativa. A análise de viabilidade pelo Poder Executivo vem depois da publicação. Do ponto da execução em diante, o fluxo é alimentado por integração, não por digitação.</p>
+      <div class="spacer"></div>
+      <div class="fluxo">
+        <div class="step"><span class="n">ETAPA 01</span><span class="t">Proposição com plano de trabalho</span><span class="d">Indicação e plano nascem no mesmo ato: objeto, meta física, cronograma e executor.</span><span class="who">Câmara</span></div>
+        <div class="step plat"><span class="n">ETAPA 02</span><span class="t">Análise automatizada na tramitação</span><span class="d">A plataforma afere admissibilidade, viabilidade técnica, aderência à LOA/LDO e completude documental.</span><span class="who">Câmara · Plataforma</span></div>
+        <div class="step"><span class="n">ETAPA 03</span><span class="t">Aprovação, sanção e publicação</span><span class="d">A emenda é votada já instruída — sem pendência a resolver depois.</span><span class="who">Câmara · Executivo</span></div>
+        <div class="step exec"><span class="n">ETAPA 04</span><span class="t">Análise de viabilidade pelo Executivo</span><span class="d">Depois da publicação, a Prefeitura se manifesta e registra eventual impedimento técnico.</span><span class="who">Executivo</span></div>
+        <div class="step exec"><span class="n">ETAPA 05</span><span class="t">Execução — integração com o Poder Executivo</span><span class="d">Os sistemas da Prefeitura alimentam a plataforma com o andamento de cada emenda.</span><span class="who">Executivo · Plataforma</span></div>
+        <div class="step plat"><span class="n">ETAPA 06</span><span class="t">Transparência contínua</span><span class="d">Publicação em tempo real no portal público, a cada movimentação registrada.</span><span class="who">Plataforma</span></div>
+        <div class="step"><span class="n">ETAPA 07</span><span class="t">Relatório de gestão</span><span class="d">Execução confrontada com o planejado, por emenda, no formato do Manual do TCESP.</span><span class="who">Câmara · Executivo</span></div>
+        <div class="step"><span class="n">ETAPA 08</span><span class="t">Monitoramento de resultados</span><span class="d">Acompanhamento do que a emenda entregou, com histórico por autor e por objeto.</span><span class="who">Câmara</span></div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Tecnologia fomentada pelo Instituto i10</span><span>09</span></div>
+    </div>
+  </section>
+
+  <!-- 10 RASTREABILIDADE -->
+  <section class="slide" data-label="Rastreabilidade">
+    <div class="inner">
+      <div class="eyebrow">Rastreabilidade</div>
+      <div class="sec-title"><span class="bar"></span><h2 class="title">Da proposição à execução, em uma única tela.</h2></div>
+      <p class="lede">Esta é a cadeia que hoje se reconstrói à mão, documento por documento, quando o Tribunal pergunta. No sistema, cada elo carrega o mesmo identificador — e existe desde o primeiro dia da emenda.</p>
+      <div class="spacer"></div>
+      <div class="cadeia">
+        <div class="elo"><span class="lbl">Etapa 01</span><span class="val">Proposição</span><span class="d">O vereador indica a emenda já com o plano de trabalho.</span></div>
+        <div class="elo"><span class="lbl">Etapa 02</span><span class="val">Análise</span><span class="d">A plataforma afere a admissibilidade e a viabilidade técnica.</span></div>
+        <div class="elo"><span class="lbl">Etapa 03</span><span class="val">Aprovação</span><span class="d">A emenda é votada, sancionada e publicada.</span></div>
+        <div class="elo"><span class="lbl">Etapa 04</span><span class="val">Viabilidade no Executivo</span><span class="d">A Prefeitura se manifesta e registra eventual impedimento.</span></div>
+        <div class="elo fim"><span class="lbl">Etapa 05</span><span class="val">Execução</span><span class="d">O andamento chega à plataforma pela integração.</span></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="banner ok">✓ <span>O mesmo identificador percorre a cadeia e reaparece no portal público, no Audesp e no relatório de gestão. É o que a Resolução 17/2025 chama de <b>rastreabilidade</b> — e o que a ADPF 854 fixou como padrão de transparência e impessoalidade.</span></div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>10</span></div>
+    </div>
+  </section>
+
+  <!-- 11 ANTES / DEPOIS -->
+  <section class="slide" data-label="Antes e depois">
+    <div class="inner">
+      <div class="eyebrow">O que muda na prática</div>
+      <div class="sec-title"><span class="bar"></span><h2 class="title">A mesma pergunta, duas respostas possíveis.</h2></div>
+      <div class="spacer"></div>
+      <div class="tblwrap">
+        <table>
+          <thead>
+            <tr><th style="width:30%">O que a fiscalização procura</th><th style="width:35%">Rotina atual, sem ferramenta</th><th style="width:35%">Com a plataforma</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="k">Plano de trabalho prévio</td><td class="neg">Planilha avulsa, feita depois da indicação</td><td class="pos">Nasce junto com a proposição, no mesmo ato</td></tr>
+            <tr><td class="k">Admissibilidade e viabilidade na tramitação</td><td class="neg">Conferência manual, caso a caso</td><td class="pos">Automatizada, com parecer gerado</td></tr>
+            <tr><td class="k">Viabilidade analisada pelo Executivo</td><td class="neg">Manifestação informal, sem registro do impedimento</td><td class="pos">Análise registrada e publicada após a publicação da lei</td></tr>
+            <tr><td class="k">Vínculo da despesa à emenda</td><td class="neg">Codificação genérica, reconstruída à mão</td><td class="pos">Identificador único em toda a cadeia</td></tr>
+            <tr><td class="k">Portal em tempo real</td><td class="neg">Atualização manual e esporádica</td><td class="pos">Publicação automática a cada registro</td></tr>
+            <tr><td class="k">Resposta ao questionário do TCE</td><td class="neg">Força-tarefa com prazo curto</td><td class="pos">Dossiê exportado do painel</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>11</span></div>
+    </div>
+  </section>
+
+  <!-- 12 PAPÉIS -->
+  <section class="slide" data-label="Papéis">
+    <div class="inner">
+      <div class="eyebrow">Divisão de responsabilidades</div>
+      <div class="sec-title"><span class="bar"></span><h2 class="title">Cada um responde pelo que é seu — e ninguém responde sozinho.</h2></div>
+      <div class="spacer"></div>
+      <div class="grid g3">
+        <div class="card">
+          <span class="kicker">Câmara Municipal</span><h3>Propõe e planeja</h3>
+          <ul class="bul" style="margin-top:6px">
+            <li>Regime impositivo na Lei Orgânica e critérios no Regimento</li>
+            <li>Proposição já acompanhada do plano de trabalho</li>
+            <li>Manual orientativo aprovado e publicado</li>
+            <li>Monitoramento dos resultados entregues</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="kicker">Prefeitura</span><h3>Viabiliza e executa</h3>
+          <ul class="bul" style="margin-top:6px">
+            <li>Análise de viabilidade após a publicação da lei</li>
+            <li>Execução orçamentária e financeira</li>
+            <li>Integração dos seus sistemas com a plataforma</li>
+            <li>Codificação e envio ao Audesp</li>
+          </ul>
+        </div>
+        <div class="card hi">
+          <span class="kicker" style="color:rgba(255,255,255,.75)">Instituto i10</span><h3>Fomenta a ferramenta</h3>
+          <ul class="bul" style="margin-top:6px">
+            <li>Desenvolvimento e manutenção da plataforma</li>
+            <li>Metodologia e modelos de documento</li>
+            <li>Capacitação da Mesa, da assessoria e da contabilidade</li>
+            <li>Atualização a cada novo ato do TCE-SP</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Tecnologia fomentada pelo Instituto i10</span><span>12</span></div>
+    </div>
+  </section>
+
+  <!-- 13 IMPLANTAÇÃO -->
+  <section class="slide" data-label="Implantação">
+    <div class="inner">
+      <div class="grid g23">
+        <div>
+          <div class="eyebrow">Implantação</div>
+          <div class="sec-title"><span class="bar"></span><h2 class="title">Do diagnóstico ao portal no ar em 30 dias.</h2></div>
+          <p class="lede">A implantação começa pelo diagnóstico gratuito: uma leitura da situação da Câmara frente ao checklist da fiscalização, sem compromisso e sem instalação.</p>
+        </div>
+        <div class="tl">
+          <div class="tl-item"><span class="tl-date">Semana 1</span><span class="tl-body"><b>Diagnóstico</b><span>Leitura do checklist, dos atos locais e do estágio atual do portal.</span></span></div>
+          <div class="tl-item"><span class="tl-date">Semana 2</span><span class="tl-body"><b>Parametrização e integração</b><span>LOA, dotações, estrutura Audesp e conexão com os sistemas do Executivo.</span></span></div>
+          <div class="tl-item"><span class="tl-date">Semana 3</span><span class="tl-body"><b>Capacitação</b><span>Mesa, assessoria legislativa, contabilidade e controle interno.</span></span></div>
+          <div class="tl-item"><span class="tl-date">Semana 4</span><span class="tl-body"><b>Portal no ar</b><span>Primeiro ciclo assistido, da proposição à execução.</span></span></div>
+          <div class="tl-item"><span class="tl-date">Contínuo</span><span class="tl-body"><b>Acompanhamento</b><span>Atualização normativa e suporte durante todo o exercício.</span></span></div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>13</span></div>
+    </div>
+  </section>
+
+  <!-- 14 BASE NORMATIVA -->
+  <section class="slide" data-label="Base normativa">
+    <div class="inner">
+      <div class="eyebrow">Anexo · Base normativa</div>
+      <div class="sec-title"><span class="bar"></span><h2 class="title">Cada função do sistema nasce de um ato.</h2></div>
+      <div class="spacer"></div>
+      <div class="grid g23">
+        <div class="tl">
+          <div class="tl-item"><span class="tl-date">08/05/2025</span><span class="tl-body"><b>Comunicado SDG 28/2025</b><span>Cuidados no planejamento, indicação, execução e monitoramento.</span></span></div>
+          <div class="tl-item"><span class="tl-date">Nov/2025</span><span class="tl-body"><b>Resolução 17/2025</b><span>Transparência, rastreabilidade e codificação Audesp. Vigência: 1º/01/2026.</span></span></div>
+          <div class="tl-item"><span class="tl-date">28/11/2025</span><span class="tl-body"><b>Comunicado GP 43/2025</b><span>Questionário eletrônico ao Executivo.</span></span></div>
+          <div class="tl-item"><span class="tl-date">10/12/2025</span><span class="tl-body"><b>Comunicado GP 46/2025</b><span>Questionário eletrônico ao Legislativo.</span></span></div>
+          <div class="tl-item"><span class="tl-date">16/12/2025</span><span class="tl-body"><b>Comunicado Audesp 55/2025</b><span>Cadastro de Emendas Parlamentares no Sistema Audesp.</span></span></div>
+          <div class="tl-item"><span class="tl-date">18/03/2026</span><span class="tl-body"><b>Comunicado Audesp 09/2026</b><span>Conta específica dispensada na aplicação direta, desde que rastreável.</span></span></div>
+          <div class="tl-item"><span class="tl-date">07/04/2026</span><span class="tl-body"><b>Comunicado GP 15/2026</b><span>Dezenove diretrizes de aprimoramento.</span></span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="card">
+            <span class="kicker">Supremo Tribunal Federal</span><h3>O que vincula Estados e Municípios</h3>
+            <ul class="bul" style="margin-top:6px">
+              <li><strong>ADPF 854</strong> — transparência, rastreabilidade e impessoalidade na destinação de emendas</li>
+              <li><strong>ADI 7697</strong> e correlatas (7688, 7695) — critérios técnicos de execução</li>
+              <li><strong>ADI 7869</strong> — parâmetro de teto de 1,55% da RCL</li>
+              <li>Decisão de out/2025 — modelo federal de transparência estendido a Estados e Municípios a partir de 2026</li>
+            </ul>
+          </div>
+          <div class="card dark">
+            <span class="kicker" style="color:rgba(255,255,255,.7)">Consolidação</span><h3>Manual de Emendas Parlamentares Impositivas Municipais</h3>
+            <p>Publicado pelo TCE-SP, organiza o ciclo da emenda e lista as impropriedades mais frequentes. É a régua usada na análise das contas.</p>
+          </div>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Emendas impositivas sob controle</span><span>14</span></div>
+    </div>
+  </section>
+
+  <!-- 15 PRÓXIMO PASSO -->
+  <section class="slide dark" data-label="Próximo passo">
+    <div class="inner">
+      <div class="cover">
+        <div class="txt">
+          <div class="eyebrow">Próximo passo</div>
+          <h1 style="font-size:clamp(26px,4.2vw,44px)">Comece pelo diagnóstico.<br><span class="gr">Ele é gratuito.</span></h1>
+          <p class="sub">Uma leitura objetiva da situação da sua Câmara frente ao checklist do TCE-SP, com demonstração do sistema e acesso aos materiais de formação. Resposta em até um dia útil.</p>
+          <div class="chips" style="gap:10px">
+            <a class="btn btn-g" href="mailto:i10@i10.org.br">✉ i10@i10.org.br</a>
+            <a class="btn btn-o" href="https://www.institutoi10.com.br/impositivas-sp/" target="_blank" rel="noopener">institutoi10.com.br</a>
+          </div>
+          <div class="chips" style="margin-top:20px">
+            <span class="tag info">Instituto i10 · ICT</span>
+            <span class="tag info">Florianópolis/SC</span>
+            <span class="tag grad">Com indicação da APM</span>
+          </div>
+        </div>
+        <div class="selo">
+          <svg viewBox="0 0 48 48" fill="none" aria-label="Selo Instituto i10">
+            <rect width="48" height="48" rx="12" fill="rgba(255,255,255,.10)"/>
+            <defs><linearGradient id="lgSelo2" x1="10" y1="34" x2="38" y2="14"><stop stop-color="#00B4D8"/><stop offset="1" stop-color="#00E5A0"/></linearGradient></defs>
+            <polyline points="9,33 17,21 24,28 32,13 39,22" stroke="url(#lgSelo2)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9" cy="33" r="3" fill="#00B4D8"/><circle cx="32" cy="13" r="3" fill="#00E5A0"/>
+          </svg>
+          <span class="wm"><span class="i">i</span><span class="dez">10</span></span>
+          <span class="divider"></span>
+          <span class="role">Fomentador da<br>ferramenta tecnológica</span>
+          <span class="org">ICT · Florianópolis/SC</span>
+        </div>
+      </div>
+      <div class="sfoot"><span class="b"><span class="sq"></span>Tecnologia fomentada pelo Instituto i10</span><span>15</span></div>
+    </div>
+  </section>
+
+</main>
+
+<nav class="rail" id="rail" aria-label="Navegação de slides"></nav>
+
+<div class="hud">
+  <button id="prev" aria-label="Slide anterior">←</button>
+  <span class="count" id="count">01 / 15</span>
+  <button id="next" aria-label="Próximo slide">→</button>
 </div>
 
 <script>
-  const slides=[...document.querySelectorAll('.slide')];
-  let i=0;const total=slides.length;
-  const bar=document.getElementById('bar');
-  const counter=document.getElementById('counter');
-  const fieldMap=new Map();
-  function pad(n){return String(n).padStart(2,'0')}
-  function resizeActive(){const act=slides[i];if(!act)return;const c=act.querySelector('canvas');const f=c&&fieldMap.get(c);if(f)f();}
-  function show(n){
-    i=Math.max(0,Math.min(total-1,n));
-    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
-    if(bar)bar.style.width=((i+1)/total*100)+'%';
-    if(counter)counter.textContent=pad(i+1)+' / '+pad(total);
-    if(window.matchMedia('(max-width:600px)').matches){window.scrollTo(0,0);}
-    requestAnimationFrame(resizeActive);
-  }
-  document.getElementById('next').onclick=()=>show(i+1);
-  document.getElementById('prev').onclick=()=>show(i-1);
-  document.addEventListener('keydown',e=>{
-    if(e.target.isContentEditable)return;
-    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')show(i+1);
-    if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);
-    if(e.key==='Home')show(0);
-    if(e.key==='End')show(total-1);
-    if(e.key.toLowerCase()==='p'){window.print()}
+(function(){
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+  var rail = document.getElementById('rail');
+  var count = document.getElementById('count');
+  var progress = document.getElementById('progress');
+  var current = 0;
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+  slides.forEach(function(s, i){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Ir para ' + (s.dataset.label || ('slide ' + (i+1))));
+    b.addEventListener('click', function(){ go(i); });
+    rail.appendChild(b);
   });
-  let sx=0;
-  document.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
-  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)show(i+(dx<0?1:-1))},{passive:true});
+  var dots = Array.prototype.slice.call(rail.children);
 
-  function initField(cv){
-    const ctx=cv.getContext('2d');
-    let W=0,H=0,DPR=1,pts=[];
-    const prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function build(){const N=Math.floor(W<760?70:160);pts=[];for(let k=0;k<N;k++){const x=Math.random()*W;const climb=x/W;const y=H*(0.85-climb*0.55)+(Math.random()-0.5)*H*0.4;pts.push({x,y,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15});}}
-    function resize(){DPR=Math.min(window.devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;if(W<2||H<2)return;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);build();}
-    function tick(){
-      if(W>2&&H>2&&pts.length){
-        ctx.clearRect(0,0,W,H);
-        for(let a=0;a<pts.length;a++){const p=pts[a];
-          if(!prefersReduced){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;}
-          for(let b=a+1;b<pts.length;b++){const q=pts[b];const dx=p.x-q.x,dy=p.y-q.y;const d=dx*dx+dy*dy;if(d<9000){const o=1-d/9000;ctx.strokeStyle='rgba(45,212,191,'+(o*0.32)+')';ctx.lineWidth=0.6;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}
-        }
-        for(const p of pts){const climb=p.x/W;ctx.fillStyle=climb>0.78?'rgba(0,229,160,0.95)':'rgba(120,200,240,0.8)';ctx.beginPath();ctx.arc(p.x,p.y,climb>0.78?2.4:1.5,0,7);ctx.fill();}
-      }
-      requestAnimationFrame(tick);
-    }
-    window.addEventListener('resize',resize);
-    resize();tick();
-    return resize;
+  function setCurrent(i){
+    current = i;
+    dots.forEach(function(d, k){ d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    count.textContent = pad(i+1) + ' / ' + pad(slides.length);
+    progress.style.width = (((i+1) / slides.length) * 100) + '%';
   }
-  document.querySelectorAll('#hero-canvas, .bg-canvas').forEach(cv=>fieldMap.set(cv,initField(cv)));
+  function go(i){
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setCurrent(i);
+  }
+  document.getElementById('prev').addEventListener('click', function(){ go(current - 1); });
+  document.getElementById('next').addEventListener('click', function(){ go(current + 1); });
 
-  show(0);
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) setCurrent(slides.indexOf(e.target)); });
+  }, { root: deck, threshold: 0.5 });
+  slides.forEach(function(s){ io.observe(s); });
+
+  document.addEventListener('keydown', function(e){
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(current + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(current - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+  });
+  setCurrent(0);
+})();
 </script>
-</body></html>
