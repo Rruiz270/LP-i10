@@ -201,6 +201,18 @@
       "destination": "https://escuta-360-bandfm.vercel.app/bandfm/:path*"
     },
     {
+      "source": "/metro",
+      "destination": "https://escuta-360-metro.vercel.app/metro"
+    },
+    {
+      "source": "/metro/",
+      "destination": "https://escuta-360-metro.vercel.app/metro"
+    },
+    {
+      "source": "/metro/:path*",
+      "destination": "https://escuta-360-metro.vercel.app/metro/:path*"
+    },
+    {
       "source": "/insights",
       "destination": "https://i10-insights.vercel.app/insights"
     },
