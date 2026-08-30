@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/eleicoeslogs",
+      "destination": "https://i10-eleicoes-360.vercel.app/eleicoes2026/eleicoeslogs"
+    },
+    {
       "source": "/eleicoes2026/",
       "destination": "https://i10-eleicoes-360.vercel.app/eleicoes2026/"
     },
