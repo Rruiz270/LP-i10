@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/rede",
+      "destination": "https://rede-360.vercel.app/rede"
+    },
+    {
+      "source": "/rede/:path*",
+      "destination": "https://rede-360.vercel.app/rede/:path*"
+    },
+    {
       "source": "/eleicoeslogs",
       "destination": "https://i10-eleicoes-360.vercel.app/eleicoes2026/eleicoeslogs"
     },
