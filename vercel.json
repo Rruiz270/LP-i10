@@ -5,6 +5,10 @@
       "destination": "https://rede-360.vercel.app/rede"
     },
     {
+      "source": "/rede/",
+      "destination": "https://rede-360.vercel.app/rede/"
+    },
+    {
       "source": "/rede/:path*",
       "destination": "https://rede-360.vercel.app/rede/:path*"
     },
