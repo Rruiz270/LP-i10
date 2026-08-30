@@ -59,6 +59,12 @@
   .bad{background:#fde4e4;color:var(--verm)}
   .fonte{font-size:12px;color:var(--muted);margin-top:10px;max-width:760px}
   .cards2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .pontos{display:grid;gap:14px}
+  .ponto{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;display:grid;grid-template-columns:44px 1fr;gap:4px 16px;align-items:start}
+  .ponto .n{grid-row:span 2;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--azul),var(--verde));color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
+  .ponto h3{font-size:17px;font-weight:800;letter-spacing:-.2px}
+  .ponto p{font-size:14.5px;color:#2c3d4f}
+  @media(max-width:560px){.ponto{grid-template-columns:1fr}.ponto .n{grid-row:auto}}
   .isca{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:12px}
   .isca .tipo{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--azul)}
   .isca h3{font-size:19px;font-weight:800;letter-spacing:-.3px}
@@ -113,7 +119,7 @@
   <div class="container">
     <span class="eyebrow">Câmaras Municipais · Estado de São Paulo</span>
     <h1>As emendas impositivas mudaram.<br>E o TCE-SP <em>já está cobrando</em> nas contas anuais.</h1>
-    <p class="sub">O STF encerrou o orçamento secreto e as “emendas Pix”. Em pouco mais de um ano, o Tribunal de Contas paulista publicou <b>6 atos normativos</b> sobre as emendas — e os relatórios de fiscalização já registram <b>impropriedades</b> em Câmaras que não se adequaram. Veja em minutos onde a sua está.</p>
+    <p class="sub">Em pouco mais de um ano, o Tribunal de Contas paulista publicou <b>6 atos normativos</b> sobre as emendas impositivas — incluindo conta bancária específica por emenda. Os relatórios de fiscalização já registram <b>impropriedades</b> em Câmaras que não se adequaram, e o item mais apontado não é a emenda em si: é a falta de manual e de rastreabilidade.</p>
     <div class="ctas">
       <a class="btn primary" href="#diagnostico">Verificar a conformidade da minha Câmara</a>
       <a class="btn wa" href="#" data-wa>💬 Prefiro conversar no WhatsApp</a>
@@ -146,7 +152,7 @@
   <div class="container">
     <div class="kicker">O checklist real</div>
     <h2>O que os auditores conferem nas contas da Câmara</h2>
-    <p class="lead">Itens extraídos de relatório de fiscalização do TCE-SP sobre contas anuais de uma Câmara Municipal paulista (exercício 2025):</p>
+    <p class="lead">Itens transcritos de relatório de fiscalização do TCE-SP sobre contas anuais de uma Câmara Municipal paulista (exercício 2025) — os dois primeiros a Câmara cumpria; os dois últimos viraram apontamento:</p>
     <div class="check">
       <div class="row"><span>A Lei Orgânica prevê o regime de emendas obrigatórias (art. 166)?</span><span class="badge ok">Sim ✓</span></div>
       <div class="row"><span>O Regimento Interno disciplina prazos e critérios de impedimento técnico?</span><span class="badge ok">Sim ✓</span></div>
@@ -159,31 +165,48 @@
 
 <section class="soft" id="materiais">
   <div class="container">
-    <div class="kicker">Materiais gratuitos</div>
-    <h2>Entenda o tema em 20 minutos</h2>
-    <p class="lead">Dois materiais preparados pelo Instituto i10 para presidentes de Câmara, vereadores e servidores do Legislativo:</p>
-    <div class="cards2">
+    <div class="kicker">Análise técnica</div>
+    <h2>Três pontos que decidem se a emenda se sustenta</h2>
+    <p class="lead">Nada aqui explica o que é emenda ou orçamento — a Câmara convive com isso todo ano. São os pontos que, na prática, aparecem no relatório de fiscalização:</p>
+    <div class="pontos">
+      <div class="ponto">
+        <span class="n">1</span>
+        <h3>O regime é opcional, e o percentual é decisão da Câmara</h3>
+        <p>O regime impositivo foi desenhado para a União. Quem adotou fez por simetria, alterando a Lei Orgânica — e fixou livremente o próprio percentual. Por isso a primeira pergunta do auditor não é sobre a emenda: é sobre o que a Lei Orgânica do município diz a respeito de percentual, reserva para a saúde, prazos de impedimento técnico e rito.</p>
+      </div>
+      <div class="ponto">
+        <span class="n">2</span>
+        <h3>A emenda genérica é a única que o autor não consegue cobrar</h3>
+        <p>“Melhorias na área da saúde” nunca é rejeitada por inviabilidade — e, pelo mesmo motivo, nunca pode ser exigida: sem objeto definido, ninguém consegue afirmar que não foi entregue. “Duas cadeiras odontológicas para a UBS do bairro X” é verificável e, por isso, cobrável pelo próprio vereador que a propôs.</p>
+      </div>
+      <div class="ponto">
+        <span class="n">3</span>
+        <h3>O rastro se rompe na execução — e é ali que o TCE aponta</h3>
+        <p>A partir do empenho, os registros contábeis frequentemente deixam de dizer de qual emenda aquele gasto veio. O dinheiro chega ao fim; a informação, não. É exatamente esse ponto que o Tribunal tipificou como impropriedade nas contas anuais.</p>
+      </div>
+    </div>
+    <div class="cards2" style="margin-top:24px">
       <div class="isca">
-        <div class="tipo">🎓 Aula aberta · 20 minutos</div>
-        <h3>Emendas impositivas: quem decide onde o dinheiro vai parar</h3>
+        <div class="tipo">📑 Dossiê · STF, MP-SP e TCE-SP</div>
+        <h3>Os atos, ato por ato, e o checklist aplicado nas contas</h3>
         <ul>
-          <li>2015: o ano em que o pedido virou ordem (EC 86 → EC 126)</li>
-          <li>O filtro que sumiu — e o rastro que se rompe</li>
-          <li>As 2 exigências que o controle passou a fazer</li>
-          <li>O que olhar no portal da sua cidade</li>
+          <li>ADI 7697 e ADPF 854: o que passou a ser exigível</li>
+          <li>A linha do tempo dos 6 atos do TCE-SP, com número e data</li>
+          <li>O checklist item a item, como aparece no relatório</li>
+          <li>Planejamento e acompanhamento: o que cabe à Câmara e o que cabe à Prefeitura</li>
         </ul>
-        <a class="btn primary" href="/impositivas-sp/aula/" data-material="aula">Assistir à aula agora</a>
+        <a class="btn primary" href="/impositivas-sp/apresentacao/" data-material="apresentacao">Abrir o dossiê</a>
       </div>
       <div class="isca">
-        <div class="tipo">📑 Apresentação técnica</div>
-        <h3>Emendas Parlamentares Impositivas: STF, MP-SP e TCE-SP</h3>
+        <div class="tipo">🗂 Panorama normativo · 20 minutos</div>
+        <h3>Da EC 86 à EC 126: como a régua chegou até aqui</h3>
         <ul>
-          <li>As 2 decisões do STF que reescreveram as regras</li>
-          <li>A linha do tempo completa dos atos do TCE-SP</li>
-          <li>O checklist aplicado nas contas das Câmaras</li>
-          <li>As 2 fases: planejamento e acompanhamento</li>
+          <li>As quatro emendas constitucionais em sete anos</li>
+          <li>Impedimento técnico: a única saída legítima, e onde estão as disputas</li>
+          <li>Por que a obrigatoriedade sem exame prévio virou risco da Câmara</li>
+          <li>O teste que qualquer cidadão faz no portal da cidade</li>
         </ul>
-        <a class="btn ghost" href="/impositivas-sp/apresentacao/" data-material="apresentacao">Abrir a apresentação</a>
+        <a class="btn ghost" href="/impositivas-sp/aula/" data-material="aula">Ver o panorama</a>
       </div>
     </div>
   </div>
@@ -193,7 +216,7 @@
   <div class="container">
     <div class="kicker">A solução</div>
     <h2>Um sistema para a Câmara sair do “não · impropriedade” para o “sim ✓”</h2>
-    <p class="lead">O Instituto i10 desenvolveu uma plataforma que organiza o ciclo completo das emendas impositivas — do planejamento à prestação de contas — no formato que o controle externo passou a exigir.</p>
+    <p class="lead">O trabalho de adequação é conhecido; o que consome tempo é sustentá-lo emenda a emenda, ano a ano, em formato auditável. É isso que a plataforma do Instituto i10 organiza.</p>
     <div class="feat">
       <div class="f"><div class="ic">📋</div><h4>Planejamento e admissibilidade</h4><p>Plano de trabalho com metas e objeto delimitado, aderência a PPA/LDO/LOA e parecer de admissibilidade — antes de a emenda virar despesa.</p></div>
       <div class="f"><div class="ic">🏦</div><h4>Execução controlada</h4><p>Conta específica por emenda, contabilidade segregada padrão Audesp e trilha de impedimento técnico com justificativa e prazos.</p></div>
