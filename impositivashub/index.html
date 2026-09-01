@@ -85,6 +85,16 @@
   .st-draft{color:var(--muted)} .st-scheduled{color:var(--azul-esc);font-weight:700}
   .st-sending{color:#a06508;font-weight:700} .st-sent{color:var(--verde-esc);font-weight:700}
   #loading{padding:60px 0;text-align:center;color:var(--muted)}
+  .wa-sub{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:8px}
+  .urg{background:#fff4f4;border:1px solid #f5c9c9;border-radius:10px;padding:10px 13px;margin-bottom:8px}
+  .urg .m{font-weight:800;font-size:13.5px}
+  .urg .t{font-size:12.5px;color:#5a3030;margin-top:2px}
+  .urg .h{font-size:11.5px;color:var(--verm);font-weight:700;margin-top:3px}
+  .vazio{font-size:13px;color:var(--verde-esc);background:#f2fcf7;border:1px solid #b9e8d0;border-radius:10px;padding:12px 14px}
+  .c-wnos{background:#fde4e4;color:var(--verm)}
+  .c-weles{background:#fdf1dc;color:#a06508}
+  .c-wsem{background:#e9eef4;color:var(--muted)}
+  .c-wnunca{background:#f3e8ff;color:#7b3fb8}
   footer{text-align:center;color:var(--muted);font-size:12px;padding:26px 0 40px}
 </style>
 </head>
@@ -114,6 +124,7 @@
         <option value="A">A · Engajados</option>
         <option value="B">B · Frios</option>
         <option value="observacao">Em observação</option>
+        <option value="nao_iniciado">Não iniciados</option>
         <option value="opt-out">Descadastrados</option>
       </select>
       <select id="fEtapa">
@@ -153,6 +164,32 @@
       <div class="panel">
         <h3>Calendário de disparos</h3>
         <div style="overflow-x:auto"><table class="camp" id="campanhas"></table></div>
+      </div>
+
+      <div class="panel" id="waPanel">
+        <h3>WhatsApp da campanha <small>· só as câmaras desta campanha, desde o primeiro disparo</small></h3>
+        <div class="kpis" id="waKpis" style="margin-bottom:14px"></div>
+        <div class="cols2">
+          <div>
+            <div class="wa-sub">Há quanto tempo estão paradas</div>
+            <div class="fun" id="waFaixas"></div>
+          </div>
+          <div>
+            <div class="wa-sub">Precisam de resposta agora</div>
+            <div id="waUrgente"></div>
+          </div>
+        </div>
+        <div class="wa-sub" style="margin-top:16px">Conversas <small id="waCount" style="font-weight:600;color:var(--muted)"></small>
+          <select id="waFiltro" style="margin-left:10px;border:1.5px solid var(--line);border-radius:8px;padding:4px 10px;font-size:12.5px;font-family:inherit">
+            <option value="ativas">Com troca de mensagem</option>
+            <option value="aguardando_nos">Aguardando nossa resposta</option>
+            <option value="aguardando_eles">Aguardando retorno deles</option>
+            <option value="sem_resposta">Recebeu e nunca respondeu</option>
+            <option value="nunca_enviado">Nunca enviamos</option>
+            <option value="todas">Todas</option>
+          </select>
+        </div>
+        <div style="overflow-x:auto"><table id="waTabela"></table></div>
       </div>
 
       <div class="panel">
@@ -257,7 +294,10 @@
       '<div class="s b"><span class="num">' + t.B + '</span> <span class="sl">· Trilha B — Frios ❄️</span>' +
         '<div class="desc">Sem clique. Recebem a cadência de reativação B1–B4.</div></div>' +
       '<div class="s n"><span class="num">' + t.observacao + '</span> <span class="sl">· Em observação</span>' +
-        '<div class="desc">Abriu mas não clicou — seguem na sequência base até o corte.</div></div>';
+        '<div class="desc">Abriu mas não clicou — seguem na sequência base até o corte.</div></div>' +
+      (t.nao_iniciado ? '<div class="s n"><span class="num">' + t.nao_iniciado +
+        '</span> <span class="sl">· Ainda não receberam</span>' +
+        '<div class="desc">Campanha ainda não disparou para estas câmaras.</div></div>' : '');
     $('saude').innerHTML = 'Descadastros: <b style="color:var(--verm)">' + t.optout + '</b> · Bounces: <b>' +
       k.bounce + '</b> (contatos com 2º e-mail na planilha entram como alternativa)';
 
@@ -270,7 +310,85 @@
           (c.click_count || 0) + '</td></tr>';
       }).join('');
 
+    renderWhatsApp();
     renderTable();
+  }
+
+  // ── WhatsApp da campanha ─────────────────────────────────────────────────
+  var ROTULO_FAIXA = { ate_24h: 'menos de 24h', de_1_a_3_dias: '1 a 3 dias',
+                       de_3_a_7_dias: '3 a 7 dias', mais_7_dias: 'mais de 7 dias' };
+  var ROTULO_SIT = { aguardando_nos: 'aguardando nós', aguardando_eles: 'aguardando eles',
+                     sem_resposta: 'sem resposta', nunca_enviado: 'nunca enviamos' };
+  var CHIP_SIT = { aguardando_nos: 'c-wnos', aguardando_eles: 'c-weles',
+                   sem_resposta: 'c-wsem', nunca_enviado: 'c-wnunca' };
+
+  function tempo(h) {
+    if (h == null) return '—';
+    if (h < 1) return 'agora há pouco';
+    if (h < 24) return h + 'h';
+    var d = Math.floor(h / 24);
+    return d + (d === 1 ? ' dia' : ' dias');
+  }
+
+  function renderWhatsApp() {
+    var w = data.whatsapp;
+    if (!w) { document.getElementById('waPanel').style.display = 'none'; return; }
+
+    $('waKpis').innerHTML = [
+      ['com_numero', 'Câmaras com número', ''],
+      ['conversando', 'Em conversa', 'trocaram mensagem'],
+      ['responderam', 'Responderam', 'pelo menos uma vez'],
+      ['aguardando_nos', 'Aguardando nós', 'escreveram e não respondemos'],
+      ['aguardando_eles', 'Aguardando eles', 'respondemos por último'],
+      ['sem_resposta', 'Sem resposta', 'receberam e não voltaram'],
+      ['nunca_enviado', 'Nunca enviamos', 'número não recebeu']
+    ].map(function (r) {
+      var destaque = r[0] === 'aguardando_nos' && w[r[0]] > 0;
+      return '<div class="kpi"' + (destaque ? ' style="border-color:var(--verm)"' : '') + '>' +
+        '<div class="v"' + (destaque ? ' style="color:var(--verm)"' : '') + '>' + (w[r[0]] || 0) + '</div>' +
+        '<div class="l">' + r[1] + '</div><div class="d">' + r[2] + '</div></div>';
+    }).join('');
+
+    var maxF = Math.max.apply(null, w.paradas_por_faixa.map(function (f) { return f.n; }).concat([1]));
+    var ramp = ['#dbe7fb', '#7fa8ea', '#2e5fc7', '#1d448f'];
+    $('waFaixas').innerHTML = w.paradas_por_faixa.map(function (f, i) {
+      return '<div class="frow"><span class="fl">' + ROTULO_FAIXA[f.faixa] + '</span>' +
+        '<span class="track"><span class="bar" style="width:' + Math.max((f.n / maxF) * 100, 0.5) + '%;background:' + ramp[i] + '"></span></span>' +
+        '<span class="fv">' + f.n + '</span></div>';
+    }).join('');
+
+    var urg = w.linhas.filter(function (l) { return l.situacao === 'aguardando_nos'; });
+    $('waUrgente').innerHTML = urg.length
+      ? urg.map(function (l) {
+          return '<div class="urg"><div class="m">' + esc(l.municipio) + '</div>' +
+            '<div class="t">“' + esc(l.ultimo_texto || '(sem texto)') + '”</div>' +
+            '<div class="h">sem resposta há ' + tempo(l.horas_parada) + '</div></div>';
+        }).join('')
+      : '<div class="vazio">Nenhuma câmara esperando resposta. Tudo respondido.</div>';
+
+    renderWaTabela();
+  }
+
+  function renderWaTabela() {
+    var w = data.whatsapp, f = $('waFiltro').value;
+    var linhas = w.linhas.filter(function (l) {
+      if (f === 'todas') return true;
+      if (f === 'ativas') return l.recebidas > 0 || l.enviadas > 0;
+      return l.situacao === f;
+    });
+    $('waCount').textContent = '· ' + linhas.length;
+    $('waTabela').innerHTML =
+      '<tr><th>Câmara</th><th>Situação</th><th>Trocadas</th><th>Parada há</th><th>Última mensagem</th></tr>' +
+      (linhas.length
+        ? linhas.slice(0, 400).map(function (l) {
+            return '<tr><td><div class="muni">' + esc(l.municipio) + '</div>' +
+              '<div class="pres">' + esc(l.presidente || '—') + '</div></td>' +
+              '<td><span class="chip ' + CHIP_SIT[l.situacao] + '">' + ROTULO_SIT[l.situacao] + '</span></td>' +
+              '<td class="lastev">' + l.recebidas + ' rec · ' + l.enviadas + ' env</td>' +
+              '<td class="lastev">' + tempo(l.horas_parada) + '</td>' +
+              '<td class="lastev" style="max-width:340px;white-space:normal">' + esc(l.ultimo_texto || '—') + '</td></tr>';
+          }).join('')
+        : '<tr><td colspan="5" style="color:var(--muted);padding:16px">Nenhuma câmara nesta situação.</td></tr>');
   }
 
   function filtered() {
@@ -291,8 +409,9 @@
   function renderTable() {
     var rows = filtered();
     $('tblCount').textContent = '· ' + rows.length + ' de ' + data.municipios.length;
-    var chip = { A: 'c-a', B: 'c-b', observacao: 'c-n', 'opt-out': 'c-opt' };
-    var rotulo = { A: 'A · engajado', B: 'B · frio', observacao: 'observação', 'opt-out': 'descadastrado' };
+    var chip = { A: 'c-a', B: 'c-b', observacao: 'c-n', 'opt-out': 'c-opt', nao_iniciado: 'c-n' };
+    var rotulo = { A: 'A · engajado', B: 'B · frio', observacao: 'observação',
+                   'opt-out': 'descadastrado', nao_iniciado: 'não iniciado' };
     var cols = [['municipio', 'Município / presidente'], ['trilha', 'Trilha'], ['', 'Jornada'],
                 ['ultimo_evento_em', 'Último evento'], ['oportunidade', 'Pipeline']];
     var head = '<tr>' + cols.map(function (c) {
@@ -323,6 +442,7 @@
     });
   }
 
+  $('waFiltro').addEventListener('change', function () { if (data) renderWaTabela(); });
   ['q', 'fTrilha', 'fEtapa'].forEach(function (id) {
     $(id).addEventListener('input', function () { if (data) renderTable(); });
   });
