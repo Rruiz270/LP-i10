@@ -95,6 +95,9 @@
   .c-weles{background:#fdf1dc;color:#a06508}
   .c-wsem{background:#e9eef4;color:var(--muted)}
   .c-wnunca{background:#f3e8ff;color:#7b3fb8}
+  .c-wauto{background:#e3edff;color:var(--azul-esc)}
+  .abrir-conv{color:var(--azul);font-weight:700;text-decoration:none;white-space:nowrap}
+  .abrir-conv:hover{text-decoration:underline}
   footer{text-align:center;color:var(--muted);font-size:12px;padding:26px 0 40px}
 </style>
 </head>
@@ -183,6 +186,7 @@
           <select id="waFiltro" style="margin-left:10px;border:1.5px solid var(--line);border-radius:8px;padding:4px 10px;font-size:12.5px;font-family:inherit">
             <option value="ativas">Com troca de mensagem</option>
             <option value="aguardando_nos">Aguardando nossa resposta</option>
+        <option value="atrasadas">Atrasadas (só a automática)</option>
             <option value="aguardando_eles">Aguardando retorno deles</option>
             <option value="sem_resposta">Recebeu e nunca respondeu</option>
             <option value="nunca_enviado">Nunca enviamos</option>
@@ -317,10 +321,17 @@
   // ── WhatsApp da campanha ─────────────────────────────────────────────────
   var ROTULO_FAIXA = { ate_24h: 'menos de 24h', de_1_a_3_dias: '1 a 3 dias',
                        de_3_a_7_dias: '3 a 7 dias', mais_7_dias: 'mais de 7 dias' };
-  var ROTULO_SIT = { aguardando_nos: 'aguardando nós', aguardando_eles: 'aguardando eles',
-                     sem_resposta: 'sem resposta', nunca_enviado: 'nunca enviamos' };
-  var CHIP_SIT = { aguardando_nos: 'c-wnos', aguardando_eles: 'c-weles',
+  var ROTULO_SIT = { aguardando_nos: 'aguardando nós', so_automatica: 'só a automática',
+                     aguardando_eles: 'aguardando eles', sem_resposta: 'sem resposta',
+                     nunca_enviado: 'nunca enviamos' };
+  var CHIP_SIT = { aguardando_nos: 'c-wnos', so_automatica: 'c-wauto', aguardando_eles: 'c-weles',
                    sem_resposta: 'c-wsem', nunca_enviado: 'c-wnunca' };
+  var CRM = 'https://i10-audit-crm.vercel.app';
+  function linkConversa(l, texto) {
+    return l.conv_id
+      ? '<a class="abrir-conv" target="_blank" rel="noopener" href="' + CRM + '/atende/c/' + l.conv_id + '">' + texto + '</a>'
+      : texto;
+  }
 
   function tempo(h) {
     if (h == null) return '—';
@@ -339,11 +350,12 @@
       ['conversando', 'Em conversa', 'trocaram mensagem'],
       ['responderam', 'Responderam', 'pelo menos uma vez'],
       ['aguardando_nos', 'Aguardando nós', 'escreveram e não respondemos'],
-      ['aguardando_eles', 'Aguardando eles', 'respondemos por último'],
+      ['atrasadas', 'Atrasadas', 'só a automática há mais de 1h'],
+      ['aguardando_eles', 'Aguardando eles', 'humano respondeu'],
       ['sem_resposta', 'Sem resposta', 'receberam e não voltaram'],
       ['nunca_enviado', 'Nunca enviamos', 'número não recebeu']
     ].map(function (r) {
-      var destaque = r[0] === 'aguardando_nos' && w[r[0]] > 0;
+      var destaque = (r[0] === 'aguardando_nos' || r[0] === 'atrasadas') && w[r[0]] > 0;
       return '<div class="kpi"' + (destaque ? ' style="border-color:var(--verm)"' : '') + '>' +
         '<div class="v"' + (destaque ? ' style="color:var(--verm)"' : '') + '>' + (w[r[0]] || 0) + '</div>' +
         '<div class="l">' + r[1] + '</div><div class="d">' + r[2] + '</div></div>';
@@ -357,14 +369,18 @@
         '<span class="fv">' + f.n + '</span></div>';
     }).join('');
 
-    var urg = w.linhas.filter(function (l) { return l.situacao === 'aguardando_nos'; });
+    var urg = w.linhas.filter(function (l) { return l.situacao === 'aguardando_nos' || l.atrasada; });
     $('waUrgente').innerHTML = urg.length
-      ? urg.map(function (l) {
-          return '<div class="urg"><div class="m">' + esc(l.municipio) + '</div>' +
+      ? urg.slice(0, 40).map(function (l) {
+          var motivo = l.situacao === 'aguardando_nos'
+            ? 'escreveu e não respondemos há ' + tempo(l.horas_parada)
+            : 'só recebeu a automática há ' + (l.horas_desde_auto != null ? l.horas_desde_auto + 'h' : '—') +
+              ' · SLA de ' + w.sla_horas + 'h estourado';
+          return '<div class="urg"><div class="m">' + linkConversa(l, esc(l.municipio)) + '</div>' +
             '<div class="t">“' + esc(l.ultimo_texto || '(sem texto)') + '”</div>' +
-            '<div class="h">sem resposta há ' + tempo(l.horas_parada) + '</div></div>';
+            '<div class="h">' + motivo + '</div></div>';
         }).join('')
-      : '<div class="vazio">Nenhuma câmara esperando resposta. Tudo respondido.</div>';
+      : '<div class="vazio">Nada atrasado. Todas as conversas já tiveram atendimento humano.</div>';
 
     renderWaTabela();
   }
@@ -374,19 +390,22 @@
     var linhas = w.linhas.filter(function (l) {
       if (f === 'todas') return true;
       if (f === 'ativas') return l.recebidas > 0 || l.enviadas > 0;
+      if (f === 'atrasadas') return l.atrasada;
       return l.situacao === f;
     });
     $('waCount').textContent = '· ' + linhas.length;
     $('waTabela').innerHTML =
-      '<tr><th>Câmara</th><th>Situação</th><th>Trocadas</th><th>Parada há</th><th>Última mensagem</th></tr>' +
+      '<tr><th>Câmara</th><th>Situação</th><th>Trocadas</th><th>Parada há</th><th>Última mensagem</th><th></th></tr>' +
       (linhas.length
         ? linhas.slice(0, 400).map(function (l) {
             return '<tr><td><div class="muni">' + esc(l.municipio) + '</div>' +
               '<div class="pres">' + esc(l.presidente || '—') + '</div></td>' +
-              '<td><span class="chip ' + CHIP_SIT[l.situacao] + '">' + ROTULO_SIT[l.situacao] + '</span></td>' +
+              '<td><span class="chip ' + CHIP_SIT[l.situacao] + '">' + ROTULO_SIT[l.situacao] + '</span>' +
+              (l.atrasada ? ' <span class="chip c-wnos">atrasada</span>' : '') + '</td>' +
               '<td class="lastev">' + l.recebidas + ' rec · ' + l.enviadas + ' env</td>' +
               '<td class="lastev">' + tempo(l.horas_parada) + '</td>' +
-              '<td class="lastev" style="max-width:340px;white-space:normal">' + esc(l.ultimo_texto || '—') + '</td></tr>';
+              '<td class="lastev" style="max-width:320px;white-space:normal">' + esc(l.ultimo_texto || '—') + '</td>' +
+              '<td>' + (l.conv_id ? linkConversa(l, 'abrir no CRM →') : '') + '</td></tr>';
           }).join('')
         : '<tr><td colspan="5" style="color:var(--muted);padding:16px">Nenhuma câmara nesta situação.</td></tr>');
   }
