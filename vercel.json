@@ -77,6 +77,14 @@
       "destination": "https://better-control.vercel.app/better-control/:path*"
     },
     {
+      "source": "/licita360controle",
+      "destination": "https://i10-licitacoes-360.vercel.app/licita360/controle"
+    },
+    {
+      "source": "/licita360controle/",
+      "destination": "https://i10-licitacoes-360.vercel.app/licita360/controle"
+    },
+    {
       "source": "/licita360",
       "destination": "https://i10-licitacoes-360.vercel.app/licita360"
     },
