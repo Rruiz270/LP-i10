@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/formacaopei",
-      "destination": "https://apm-inclusao-360.vercel.app/"
-    },
-    {
       "source": "/formacaopei/",
       "destination": "https://apm-inclusao-360.vercel.app/"
     },
@@ -454,6 +450,11 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/formacaopei",
+      "destination": "/formacaopei/",
+      "permanent": false
+    },
     {
       "source": "/eleicoes2026",
       "destination": "/eleicoes2026/",
