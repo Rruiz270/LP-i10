@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/formacaopei",
+      "destination": "https://apm-inclusao-360.vercel.app/"
+    },
+    {
+      "source": "/formacaopei/",
+      "destination": "https://apm-inclusao-360.vercel.app/"
+    },
+    {
+      "source": "/formacaopei/:path*",
+      "destination": "https://apm-inclusao-360.vercel.app/:path*"
+    },
+    {
       "source": "/rede",
       "destination": "https://rede-360.vercel.app/rede"
     },
