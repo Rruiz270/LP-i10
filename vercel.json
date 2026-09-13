@@ -9,6 +9,10 @@
       "destination": "https://apm-inclusao-360.vercel.app/"
     },
     {
+      "source": "/formacaopei/:path*/",
+      "destination": "https://apm-inclusao-360.vercel.app/:path*/"
+    },
+    {
       "source": "/formacaopei/:path*",
       "destination": "https://apm-inclusao-360.vercel.app/:path*"
     },
