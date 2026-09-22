@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Webinar gratuito · Gestão das emendas impositivas na Câmara — 29/09, 9h</title>
+<meta name="description" content="Webinar gratuito para Câmaras Municipais: o caminho da emenda impositiva em 5 etapas, as conferências da comissão e o que o Tribunal de Contas pergunta. Terça, 29/09, 9h às 10h. Gravação para os inscritos.">
+<link rel="canonical" href="https://www.institutoi10.com.br/webinar-impositivas">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Webinar gratuito para Câmaras: emendas impositivas sob controle">
+<meta property="og:description" content="Terça, 29/09, das 9h às 10h. O caminho da emenda em 5 etapas, as conferências da comissão e o que o TCE pergunta. Gravação para os inscritos.">
+<meta property="og:url" content="https://www.institutoi10.com.br/webinar-impositivas">
+<meta property="og:image" content="https://www.institutoi10.com.br/webinar-impositivas/card.png">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{
+  --navy:#0A2463;--deep:#061740;--ink:#0E1B3A;--verde:#00E5A0;--verde-btn:#00C48A;
+  --ciano:#00B4D8;--laranja:#F5A623;--ground:#F5F7FB;--card:#fff;--line:#DCE3F0;
+  --muted:#5B6A85;--soft:#EEF2F9;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:1080px;margin:0 auto;padding-inline:20px}
+a{color:var(--navy)}
+
+/* marca */
+.bars{display:inline-flex;align-items:flex-end;gap:3px;vertical-align:middle}
+.bars i{display:block;width:6px;border-radius:2px}
+.bars i:nth-child(1){height:10px;background:var(--ciano)}
+.bars i:nth-child(2){height:16px;background:#2ad0c0}
+.bars i:nth-child(3){height:22px;background:var(--verde)}
+
+/* topo */
+header{background:var(--deep);color:#fff}
+.nav{display:flex;align-items:center;justify-content:space-between;padding-block:16px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px}
+.nav .quando{font-size:13px;color:#9FB0D6}
+.hero{padding-block:34px 44px;display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:start}
+.eye{display:inline-block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--deep);background:var(--verde);padding:4px 10px;border-radius:999px}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:38px;line-height:1.15;margin:14px 0 12px}
+.hero p.sub{margin:0 0 18px;color:#C9D3EA;font-size:17px;max-width:34em}
+.ficha{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.ficha span{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.17);border-radius:8px;padding:7px 12px;font-size:13.5px;color:#EAF0FF}
+.hero ul{margin:0;padding-left:20px;color:#C9D3EA;font-size:15px}
+.hero ul li{margin:6px 0}
+.hero ul b{color:#fff}
+
+/* formulário */
+.formcard{background:var(--card);border-radius:14px;padding:22px 22px 18px;box-shadow:0 12px 34px rgba(6,23,64,.24);color:var(--ink)}
+.formcard h3{margin:0 0 3px;font-size:19px;font-family:var(--serif);font-weight:600}
+.formcard .sub{color:var(--muted);font-size:13.5px;margin-bottom:14px}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--navy);margin:11px 0 4px}
+input,select,textarea{width:100%;font:inherit;font-size:14.5px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--ciano);outline-offset:-1px;border-color:var(--ciano)}
+.hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0}
+.btn{display:inline-block;text-align:center;font:inherit;font-weight:700;font-size:15px;padding:13px 22px;border-radius:10px;border:0;cursor:pointer;text-decoration:none}
+.btn.primary{background:linear-gradient(120deg,var(--ciano),var(--verde-btn));color:var(--deep);width:100%;margin-top:16px}
+.btn.primary:disabled{opacity:.6;cursor:default}
+.btn.wa{background:#25D366;color:#06301b}
+.msg{font-size:13.5px;margin-top:10px;min-height:1px}
+.msg.err{color:#B3261E}
+.lgpd{font-size:11.5px;color:var(--muted);margin:12px 0 0;line-height:1.5}
+
+/* confirmação */
+.obrigado{display:none}
+.obrigado.show{display:block}
+.obrigado .big{font-size:38px;line-height:1;margin-bottom:8px}
+.salabox{background:#F3FEFA;border:1px solid #9FE6CB;border-radius:11px;padding:14px 16px;margin:14px 0}
+.salabox .rot{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#0A5C42;font-weight:700}
+.salabox a.link{font-family:ui-monospace,Consolas,monospace;font-size:15px;font-weight:700;word-break:break-all}
+.agenda{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.agenda a{flex:1 1 140px;text-align:center;font-size:13px;font-weight:600;padding:9px 10px;border-radius:9px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--navy)}
+
+/* corpo */
+main{padding-block:44px 10px}
+h2{font-family:var(--serif);font-weight:600;font-size:28px;margin:0 0 8px;line-height:1.2}
+.lead{color:var(--muted);margin:0 0 22px;max-width:62em}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.box h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
+.box p{margin:0;font-size:14.5px;color:var(--muted)}
+.etapas{counter-reset:e;margin:22px 0;padding:0;list-style:none}
+.etapas li{counter-increment:e;position:relative;padding:14px 16px 14px 56px;background:var(--card);border:1px solid var(--line);border-radius:11px;margin-bottom:9px}
+.etapas li::before{content:counter(e);position:absolute;left:16px;top:14px;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:13.5px;display:grid;place-items:center}
+.etapas b{display:block;font-size:15.5px}
+.etapas span{font-size:14px;color:var(--muted)}
+.quem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:22px 0}
+.quem ul{columns:2;column-gap:28px;margin:8px 0 0;padding-left:20px;font-size:14.5px}
+.cta-faixa{background:var(--navy);color:#fff;border-radius:14px;padding:26px;margin:32px 0;text-align:center}
+.cta-faixa h2{color:#fff;margin-bottom:6px}
+.cta-faixa p{color:#C9D3EA;margin:0 0 16px}
+.cta-faixa a{background:linear-gradient(120deg,var(--ciano),var(--verde-btn));color:var(--deep)}
+footer{background:var(--deep);color:#9FB0D6;font-size:12.5px;padding-block:22px;margin-top:30px}
+footer .cols{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:#C9D3EA}
+.wa-float{position:fixed;right:16px;bottom:16px;background:#25D366;color:#06301b;font-weight:700;font-size:14px;padding:11px 16px;border-radius:999px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.22);z-index:9}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:26px;padding-block:26px 32px}
+  .hero h1{font-size:29px}
+  .grid3{grid-template-columns:1fr}
+  .quem ul{columns:1}
+  .nav .quando{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="nav">
+      <div class="brand"><span class="bars"><i></i><i></i><i></i></span> Instituto i10</div>
+      <div class="quando">Terça, 29 de setembro · 9h às 10h (Brasília)</div>
+    </div>
+
+    <div class="hero">
+      <div>
+        <span class="eye">Webinar gratuito · on-line</span>
+        <h1>As emendas impositivas da Câmara, da indicação do gabinete ao pagamento</h1>
+        <p class="sub">Uma hora para Câmaras Municipais: o caminho da emenda em cinco etapas, as conferências que a comissão faz à mão e o que o Tribunal de Contas costuma perguntar.</p>
+        <div class="ficha">
+          <span>🗓 Terça, 29 de setembro</span>
+          <span>🕘 9h às 10h (Brasília)</span>
+          <span>💻 On-line, pelo navegador</span>
+          <span>🎥 Gravação para os inscritos</span>
+        </div>
+        <ul>
+          <li><b>O regime e o calendário da LOA 2027</b> — o que é decisão da Lei Orgânica do município, e não da norma federal.</li>
+          <li><b>As cinco conferências da comissão</b> — cota do vereador, reserva da saúde, dotação disponível, habilitação da entidade, viabilidade do objeto.</li>
+          <li><b>O que o TCE pergunta</b> — e o que já virou impropriedade em relatório de fiscalização.</li>
+          <li><b>Demonstração</b> sobre um PL da LOA 2027 real.</li>
+        </ul>
+      </div>
+
+      <div class="formcard">
+        <div id="formWrap">
+          <h3>Inscrição gratuita</h3>
+          <div class="sub">Leva um minuto. Pode inscrever mais de uma pessoa da mesma Câmara.</div>
+          <form id="lead" novalidate>
+            <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <label for="f-nome">Nome completo *</label>
+            <input id="f-nome" name="name" placeholder="Seu nome" required autocomplete="name">
+
+            <label for="f-email">E-mail *</label>
+            <input id="f-email" name="email" type="email" placeholder="nome@camara.sp.gov.br" required autocomplete="email">
+
+            <label for="f-fone">WhatsApp</label>
+            <input id="f-fone" name="phone" placeholder="(11) 9 9999-9999" inputmode="tel" autocomplete="tel">
+
+            <label for="f-funcao">Função *</label>
+            <select id="f-funcao" name="funcao" required>
+              <option value="">Selecione…</option>
+              <option>Presidente da Câmara</option>
+              <option>Vereador(a)</option>
+              <option>Mesa Diretora</option>
+              <option>Diretoria-geral</option>
+              <option>Comissão de Orçamento</option>
+              <option>Assessoria de gabinete</option>
+              <option>Procuradoria jurídica</option>
+              <option>Controle interno</option>
+              <option>Contabilidade / Finanças</option>
+              <option>Outro</option>
+            </select>
+
+            <label for="f-orgao">Órgão *</label>
+            <select id="f-orgao" name="orgao" required>
+              <option>Câmara Municipal</option>
+              <option>Prefeitura</option>
+              <option>Consórcio / Associação</option>
+              <option>Outro</option>
+            </select>
+
+            <label for="f-muni">Município *</label>
+            <input id="f-muni" name="municipio" placeholder="Seu município" required>
+
+            <label for="f-tramita">Como a Câmara tramita as emendas hoje?</label>
+            <select id="f-tramita" name="tramita">
+              <option value="">Prefiro não responder</option>
+              <option>Ofício em papel</option>
+              <option>Planilha</option>
+              <option>Sistema próprio</option>
+              <option>Sistema contratado</option>
+              <option>Não sei dizer</option>
+            </select>
+
+            <label for="f-pergunta">Uma pergunta para o webinar</label>
+            <textarea id="f-pergunta" name="pergunta" placeholder="As perguntas enviadas na inscrição são respondidas primeiro."></textarea>
+
+            <button class="btn primary" type="submit" id="submitBtn">Confirmar inscrição →</button>
+          </form>
+          <div class="msg" id="msg"></div>
+          <p class="lgpd">Ao enviar, você autoriza o Instituto i10 a entrar em contato sobre este webinar e temas relacionados. Dados tratados conforme a LGPD; você pode pedir a exclusão a qualquer momento por <a href="mailto:i10@i10.org.br">i10@i10.org.br</a>.</p>
+        </div>
+
+        <div class="obrigado" id="obrigado">
+          <div class="big">✅</div>
+          <h3>Inscrição confirmada</h3>
+          <p style="font-size:14.5px;color:var(--muted);margin:2px 0 0">Enviamos também por e-mail. Guarde o link da sala:</p>
+          <div class="salabox">
+            <div class="rot">Link da sala · 29/09, 9h</div>
+            <a class="link" id="salaLink" href="https://meet.google.com/guw-wkpy-nrt" target="_blank" rel="noopener">meet.google.com/guw-wkpy-nrt</a>
+            <div class="agenda">
+              <a id="gcal" href="#" target="_blank" rel="noopener">＋ Google Agenda</a>
+              <a id="icsLink" href="#" download="webinar-emendas-impositivas.ics">⤓ Outro calendário (.ics)</a>
+            </div>
+          </div>
+          <p style="font-size:14px;color:var(--muted)">A sala abre às 8h45. Entra pelo navegador, sem instalar nada.</p>
+          <a class="btn wa" style="width:100%;margin-top:6px" href="#" data-wa>💬 Falar com a equipe no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <h2>O problema que o webinar trata</h2>
+  <p class="lead">Quando um vereador pergunta quanto ainda tem de cota e em que etapa está cada emenda dele, quem responde — e de onde vem o número? Na maioria das Câmaras a resposta passa por uma planilha que uma pessoa mantém e por um telefonema para a Prefeitura. Funciona, até o ano em que a planilha e o sistema contábil divergem.</p>
+
+  <div class="grid3">
+    <div class="box">
+      <h3>O regime é opcional</h3>
+      <p>Nenhum município é obrigado a adotar o regime impositivo, e não existe percentual nacional. A primeira pergunta do auditor é sobre a Lei Orgânica do município — percentual, reserva da saúde, prazos de impedimento e rito.</p>
+    </div>
+    <div class="box">
+      <h3>A emenda genérica não se cobra</h3>
+      <p>“Melhorias na área da saúde” nunca é rejeitada por inviabilidade — e, pelo mesmo motivo, nunca pode ser exigida. Sem objeto definido, ninguém consegue afirmar que não foi entregue.</p>
+    </div>
+    <div class="box">
+      <h3>O rastro se rompe na execução</h3>
+      <p>A partir do empenho, os registros costumam deixar de dizer de qual emenda aquele gasto veio. O dinheiro chega ao fim; a informação, não — e é esse ponto que vira impropriedade.</p>
+    </div>
+  </div>
+
+  <h2>O caminho da emenda em cinco etapas</h2>
+  <p class="lead">É a espinha do webinar: cada etapa com o que precisa estar certo antes de seguir, e onde a emenda costuma voltar.</p>
+  <ol class="etapas">
+    <li><b>Indicação pelo gabinete</b><span>O objeto é específico o bastante para ser executado — e cobrado depois pelo próprio autor?</span></li>
+    <li><b>Conferência da comissão</b><span>Cota do vereador, reserva da saúde, dotação compatível no PL da LOA, habilitação da entidade beneficiária.</span></li>
+    <li><b>Inclusão na LOA</b><span>Comparação PL × Lei aprovada: o que entrou, o que foi alterado, o que caiu.</span></li>
+    <li><b>Execução pelo Executivo</b><span>Empenho, liquidação e pagamento — mantendo o vínculo com a emenda de origem.</span></li>
+    <li><b>Prestação de contas</b><span>O que o Tribunal pergunta, e que rastro precisa existir para a resposta ser verificável.</span></li>
+  </ol>
+
+  <div class="quem">
+    <h3 style="margin:0;font-size:16px;color:var(--navy)">Para quem é</h3>
+    <ul>
+      <li>Mesa Diretora</li>
+      <li>Diretoria-geral</li>
+      <li>Comissão de Orçamento</li>
+      <li>Assessoria de gabinete</li>
+      <li>Procuradoria jurídica</li>
+      <li>Controle interno</li>
+      <li>Contabilidade e Finanças</li>
+      <li>Setor de convênios</li>
+    </ul>
+    <p style="margin:12px 0 0;font-size:14px;color:var(--muted)">A inscrição aceita mais de uma pessoa da mesma Câmara — basta cada uma preencher o formulário.</p>
+  </div>
+
+  <div class="cta-faixa">
+    <h2>Terça, 29 de setembro, às 9h</h2>
+    <p>Uma hora, on-line, gratuito. A gravação e o roteiro das cinco etapas ficam para quem se inscrever.</p>
+    <a class="btn" href="#topo" onclick="document.getElementById('f-nome').focus();return false;">Inscrever a minha Câmara →</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="container cols">
+    <div><b style="color:#fff">Instituto i10</b> · ICT do Sapiens Park, Florianópolis/SC<br>i10@i10.org.br · institutoi10.com.br</div>
+    <div style="text-align:right">Você recebeu nosso contato por ser membro de Câmara Municipal do estado de SP.<br><a href="mailto:i10@i10.org.br?subject=Descadastro%20Webinar%20Impositivas">Não quero mais receber comunicações</a></div>
+  </div>
+</footer>
+
+<a class="wa-float" href="#" data-wa>💬 WhatsApp</a>
+
+<script>
+(function () {
+  var CRM  = 'https://i10-audit-crm.vercel.app';
+  var SLUG = 'webinar-impositivas';
+  var WA   = '5511947223906';
+  var SALA = 'https://meet.google.com/guw-wkpy-nrt';
+
+  // Evento: terça 29/09/2026, 9h–10h BRT (UTC-3) → 12:00–13:00 UTC.
+  var INI_UTC = '20260929T120000Z', FIM_UTC = '20260929T130000Z';
+  var TITULO  = 'Webinar · Gestão das emendas impositivas na Câmara';
+
+  var qs = new URLSearchParams(location.search);
+  // `t` é o tracking token do e-mail que trouxe a pessoa — é ele que liga a
+  // visita e a inscrição ao contato certo no CRM. `o` é a origem do kit
+  // (wa, email, parceiro…), que continua valendo e conviverá com o token.
+  var token  = qs.get('t');
+  var origem = qs.get('o');
+  var ibge   = qs.get('ibge');
+  function lembrar(chave, valor) {
+    try { if (valor) sessionStorage.setItem(chave, valor); return valor || sessionStorage.getItem(chave); }
+    catch (e) { return valor; }
+  }
+  token  = lembrar('web_t', token);
+  origem = lembrar('web_o', origem);
+  ibge   = lembrar('web_ibge', ibge);
+
+  function track(type, extra) {
+    var payload = Object.assign(
+      { slug: SLUG, type: type, t: token, ibge: ibge, origem: origem, path: location.pathname },
+      extra || {}
+    );
+    var body = JSON.stringify(payload);
+    try {
+      // sendBeacon sobrevive à navegação — importante nos cliques de saída.
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(CRM + '/api/marketing/public/lp-event', new Blob([body], { type: 'application/json' }));
+        return;
+      }
+    } catch (e) {}
+    fetch(CRM + '/api/marketing/public/lp-event', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true
+    }).catch(function () {});
+  }
+
+  track('visit');
+
+  var muniInput = document.getElementById('f-muni');
+  function waHref() {
+    var muni = (muniInput && muniInput.value.trim()) || '';
+    var txt = 'Olá! Sou da Câmara Municipal' + (muni ? ' de ' + muni : '') +
+      ' e tenho uma dúvida sobre o webinar de emendas impositivas do dia 29/09.';
+    return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(txt);
+  }
+  document.querySelectorAll('[data-wa]').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      track('wa_click', { municipio: muniInput ? muniInput.value.trim() : null });
+      window.open(waHref(), '_blank', 'noopener');
+    });
+  });
+
+  // ─── Agenda ──────────────────────────────────────────────────────────────
+  var detalhe = 'Sala: ' + SALA + '\\n\\nWebinar gratuito para Câmaras Municipais sobre a gestão das emendas parlamentares impositivas. A sala abre às 8h45.';
+  document.getElementById('gcal').href =
+    'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+    '&text=' + encodeURIComponent(TITULO) +
+    '&dates=' + INI_UTC + '/' + FIM_UTC +
+    '&details=' + encodeURIComponent(detalhe) +
+    '&location=' + encodeURIComponent(SALA);
+
+  var ics = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Instituto i10//Webinar Impositivas//PT-BR',
+    'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:webinar-impositivas-20260929@institutoi10.com.br',
+    'DTSTAMP:' + INI_UTC,
+    'DTSTART:' + INI_UTC,
+    'DTEND:' + FIM_UTC,
+    'SUMMARY:' + TITULO,
+    'DESCRIPTION:Sala: ' + SALA + '\\\\n\\\\nA sala abre às 8h45.',
+    'LOCATION:' + SALA,
+    'BEGIN:VALARM', 'TRIGGER:-PT30M', 'ACTION:DISPLAY',
+    'DESCRIPTION:Webinar de emendas impositivas em 30 minutos', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR'
+  ].join('\\r\\n');
+  document.getElementById('icsLink').href =
+    'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+
+  // ─── Formulário → webhook do CRM ─────────────────────────────────────────
+  // Cria (ou atualiza) o contato, grava a tag webinar:inscrito, o consentimento
+  // e a oportunidade. É a tag que tira a pessoa da trilha fria na rodada
+  // seguinte — o corte automático entre quem se inscreveu e quem não.
+  var form = document.getElementById('lead');
+  var msg  = document.getElementById('msg');
+  var btn  = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (form.website.value) return; // honeypot
+
+    var name      = form.name.value.trim();
+    var email     = form.email.value.trim();
+    var municipio = form.municipio.value.trim();
+    var funcao    = form.funcao.value;
+    if (!name || !email || !municipio || !funcao || email.indexOf('@') < 1) {
+      msg.className = 'msg err';
+      msg.textContent = 'Preencha nome, e-mail válido, função e município.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    msg.className = 'msg';
+    msg.textContent = '';
+
+    fetch(CRM + '/api/marketing/webhooks/form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        projectSlug: SLUG,
+        name: name,
+        email: email,
+        phone: form.phone.value.trim() || null,
+        municipio: municipio,
+        uf: 'SP',
+        ibge: ibge || null,
+        source: 'lp:webinar-impositivas',
+        attributes: {
+          presidente: name,
+          primeiro_nome: name.split(' ')[0],
+          camara: 'Câmara Municipal de ' + municipio,
+          funcao: funcao,
+          orgao: form.orgao.value,
+          tramita_hoje: form.tramita.value || null,
+          pergunta: form.pergunta.value.trim() || null,
+          origem_lp: origem || null,
+          webinar_data: '2026-09-29'
+        }
+      })
+    })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function () {
+        track('signup', { municipio: municipio, funcao: funcao });
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('obrigado').classList.add('show');
+        document.querySelector('.formcard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Confirmar inscrição →';
+        msg.className = 'msg err';
+        msg.innerHTML = 'Não conseguimos enviar agora. Tente novamente ou fale conosco no <a href="#" data-wa>WhatsApp</a>.';
+      });
+  });
+})();
+</script>
+</body>
+</html>
