@@ -459,6 +459,11 @@
   ],
   "redirects": [
     {
+      "source": "/folha360/",
+      "destination": "/folha360",
+      "permanent": false
+    },
+    {
       "source": "/formacaopei",
       "destination": "/formacaopei/",
       "permanent": false
