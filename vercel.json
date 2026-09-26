@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/licitabettertech",
+      "destination": "/licitabettertech/index.html"
+    },
+    {
+      "source": "/licitabettertech/",
+      "destination": "/licitabettertech/index.html"
+    },
+    {
       "source": "/formacaopei/",
       "destination": "https://apm-inclusao-360.vercel.app/"
     },
