@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/licitabettertech",
-      "destination": "/licitabettertech/index.html"
+      "destination": "https://i10-licitacoes-360.vercel.app/licita360/bt"
     },
     {
       "source": "/licitabettertech/",
-      "destination": "/licitabettertech/index.html"
+      "destination": "https://i10-licitacoes-360.vercel.app/licita360/bt"
     },
     {
       "source": "/formacaopei/",
